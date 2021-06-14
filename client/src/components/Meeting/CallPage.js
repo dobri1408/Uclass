@@ -121,11 +121,12 @@ const CallPage = () => {
   };
 
 
+  initWebRTC();
+  //was in use effect modify if it does not work
   useEffect((initWebRTC, isAdmin) => {
     if (isAdmin) {
       setMeetInfoPopup(true);
     }
-    initWebRTC();
     socket.on("code", (data) => {
       peer.signal(data);
     });

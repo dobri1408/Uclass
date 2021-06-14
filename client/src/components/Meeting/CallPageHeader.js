@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserFriends,
@@ -15,13 +15,14 @@ const CallPageHeader = ({
   messageAlert,
   setMessageAlert,
 }) => {
-  let interval = null;
+  // let interval = null;
+  const interval = useRef(null);
   const [currentTime, setCurrentTime] = useState(() => {
     return formatDate();
   });
 
   useEffect(() => {
-    interval = setInterval(() => setCurrentTime(formatDate()), 1000);
+    interval.current = setInterval(() => setCurrentTime(formatDate()), 1000);
     return () => {
       clearInterval(interval);
     };

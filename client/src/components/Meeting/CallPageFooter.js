@@ -1,13 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faVideo,
-  faMicrophone,
-  faPhone,
-  faAngleUp,
-  faClosedCaptioning,
-  faDesktop,
-  faMicrophoneSlash,
-} from "@fortawesome/free-solid-svg-icons";
 import "./CallPageFooter.scss";
 //import { FaVideoSlash } from "react-icons/fa";
 //import "../../components/CALL.scss"
