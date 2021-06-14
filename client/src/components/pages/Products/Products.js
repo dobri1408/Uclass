@@ -1,14 +1,11 @@
-import React from 'react';
-import HeroSection from '../../HeroSection';
-import { homeObjOne, homeObjTwo } from './Data';
+import React from 'react'
+import NavbarProf from '../../NavbarProf'
 
-function Products() {
-  return (
-    <>
-      <HeroSection {...homeObjOne} />
-      <HeroSection {...homeObjTwo} />
-    </>
-  );
+export default function Products() {
+  return(
+    <div>
+      <NavbarProf/>
+      <h4 style={{color: 'white'}}>lectii PAGE</h4>
+    </div>
+  )
 }
-
-export default Products;

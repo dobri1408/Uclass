@@ -21,8 +21,13 @@ function NavbarProf() {
     }
   };
 
-  useEffect((showButton) => {
-    showButton();
+  useEffect((button) => {
+    if (window.innerWidth <= 960) {
+      setButton(false);
+    } else {
+      setButton(true);
+      console.log(button);
+    }
 },[]);
 window.addEventListener('resize',showButton);
   return (
@@ -68,16 +73,6 @@ window.addEventListener('resize',showButton);
                   onClick={closeMobileMenu}
                 >
                    Lectii
-                </Link>
-              </li>
-              
-              <li className='nav-item'>
-                <Link
-                  to='/products'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                    Teme
                 </Link>
               </li>
               <li className='nav-item'>
