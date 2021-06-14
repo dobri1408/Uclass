@@ -41,7 +41,7 @@ const  FileUpload =() =>{
     <div>
       <input type="file" onChange={handleImageAsFile}/>
    <button onClick={handleFireBaseUpload}>Save</button>
-   <img src={imageAsUrl.imgUrl} alt="image tag" />
+   <img src={imageAsUrl.imgUrl} alt="" />
     </div>
   )
 }

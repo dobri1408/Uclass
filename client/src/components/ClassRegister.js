@@ -1,28 +1,21 @@
 import React from 'react';
 //import './classreg.scss';
-import {Form,Button,Card,Alert} from 'react-bootstrap';
+import {Form,Button,Card} from 'react-bootstrap';
 import {Container} from 'react-bootstrap';
-import {Link,useHistory } from "react-router-dom";
 import {useRef,useState} from 'react';
 import {useAuth} from '../components/contexts/AuthContext';
 import db from './firebase/firebase'
 function ClassRegister() {
-  const emailRef = useRef();
   const nameRef = useRef();
   const materiaRef = useRef();  
-  const passwordRef = useRef();
-  const passwordConfirmRef=useRef();
   const {signup,currentUser} = useAuth();
-  const [error,setError] = useState('');
   const [loading,setLoading]=useState(false);
-  const [numarclase] = useState(0);
-  const history = useHistory();
   var docRef = db.collection("utilizatori").doc(currentUser.uid);
 
 docRef.get().then((doc) => {
     if (doc.exists) {
         console.log("Document data:", doc.data());
-      numarclase = doc.data().numarclase;
+        console.log(signup, setLoading);
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");

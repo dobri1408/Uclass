@@ -2,15 +2,13 @@ import React from 'react'
 import "quill/dist/quill.snow.css";
 import Quill from 'quill'
 import {useEffect} from 'react';
-import {useRef, useCallback} from 'react';
+import {useCallback} from 'react';
 import './texteditor.css';
 import {io} from 'socket.io-client';
 import {useState} from 'react';
 import { useParams } from "react-router-dom";
-import {db} from '../components/firebase/firebase';
 import AutoLinks from 'quill-auto-links';
 import 'highlight.js/styles/darcula.css';
-import QuillCursors from 'quill-cursors';
 import hljs from 'highlight.js'
 const SAVE_INTERVAL_MS = 2000;
 
@@ -40,7 +38,6 @@ export default function TextEditor() {
 const [socket, setSocket]=useState();
 const [quill, setQuill] = useState();
 const { id: documentId } = useParams()
-const [time,settime] = useState(0);
 
 hljs.configure({
   languages: ['javascript', 'ruby', 'python', 'rust','cpp'],

@@ -1,26 +1,26 @@
 import React from 'react'
 import NavbarProf from './NavbarProf';
-import NavbarMic from './NavbarMic';
-import Popout from 'react-popout';
+// import NavbarMic from './NavbarMic';
+// import Popout from 'react-popout';
 import '../clases.scss';
-import {Button} from 'react-bootstrap';
-import {useAuth} from './contexts/AuthContext';
-import { Link } from 'react-router-dom';
-import ClassRegister from './ClassRegister';
+// import {Button} from 'react-bootstrap';
+// import {useAuth} from './contexts/AuthContext';
+// import { Link } from 'react-router-dom';
+// import ClassRegister from './ClassRegister';
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
-import { Form, Card, Alert,Container } from 'react-bootstrap';
-import {useRef,useInput} from 'react';
+// import { Form, Card, Alert,Container } from 'react-bootstrap';
+// import {useRef,useInput} from 'react';
 //import "./classreg.scss";
-var data  = {
-"title" : "11G",
-"category" :"Limba Romana",
-"profesor" : "Eliza Iordache"
-};
+// var data  = {
+// "title" : "11G",
+// "category" :"Limba Romana",
+// "profesor" : "Eliza Iordache"
+// };
 
 function Class() {
-       const {currentUser,logout}=useAuth(); 
-   const [pop, setpop] = useState(0);
+    //    const {currentUser,logout}=useAuth(); 
+//    const [pop, setpop] = useState(0);
   const [valueRef,setvalueRef]  = useState("");
   let history=useHistory();
   const handleSubmit = (env) =>{

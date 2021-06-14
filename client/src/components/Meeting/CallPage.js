@@ -20,7 +20,7 @@ const initialState = [];
 const CallPage = () => {
   const history = useHistory();
   let { id } = useParams();
-  const isAdmin = window.location.hash == "#init" ? true : false;
+  const isAdmin = window.location.hash === "#init" ? true : false;
   const url = `${window.location.origin}${window.location.pathname}`;
   let alertTimeout = null;
 
@@ -37,23 +37,7 @@ const CallPage = () => {
   const [messageAlert, setMessageAlert] = useState({});
   const [isAudio, setIsAudio] = useState(true);
   const [isCam, setIsCam] = useState(true);
-  useEffect(() => {
-    if (isAdmin) {
-      setMeetInfoPopup(true);
-    }
-    initWebRTC();
-    socket.on("code", (data) => {
-      peer.signal(data);
-    });
-  }, []);
-
-  const getRecieverCode = async () => {
-    const response = await getRequest(`${BASE_URL}${GET_CALL_ID}/${id}`);
-    if (response.code) {
-      peer.signal(response.code);
-    }
-  };
-
+  
   const initWebRTC = () => {
     navigator.mediaDevices
       .getUserMedia({
@@ -135,6 +119,25 @@ const CallPage = () => {
       })
       .catch(() => {});
   };
+
+
+  useEffect((initWebRTC, isAdmin) => {
+    if (isAdmin) {
+      setMeetInfoPopup(true);
+    }
+    initWebRTC();
+    socket.on("code", (data) => {
+      peer.signal(data);
+    });
+  }, []);
+
+  const getRecieverCode = async () => {
+    const response = await getRequest(`${BASE_URL}${GET_CALL_ID}/${id}`);
+    if (response.code) {
+      peer.signal(response.code);
+    }
+  };
+
 
   const sendMsg = (msg) => {
     peer.send(msg);

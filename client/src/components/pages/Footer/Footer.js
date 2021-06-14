@@ -1,14 +1,11 @@
 import React from 'react';
 import './Footer.css';
-import { Button } from '../../Button';
 import { Link } from 'react-router-dom';
 import Pdf from '../../Azur.pdf'
 import {
   FaFacebook,
   FaInstagram,
   FaYoutube,
-  FaTwitter,
-  FaLinkedin
 } from 'react-icons/fa';
 import { MdFingerprint } from 'react-icons/md';
 
@@ -20,7 +17,7 @@ function Footer() {
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
             <h2>Despre Noi</h2>
-            <a href = {Pdf} target = "_blank">Termeni si conditii</a>
+            <a href = {Pdf} target = "_blank" rel="noreferrer">Termeni si conditii</a>
         
             <Link to='/'>Careers</Link>
           </div>

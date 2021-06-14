@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react"
 import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "./contexts/AuthContext"
-import { Link, useHistory, useParams } from "react-router-dom";
-import {storage} from './firebase/firebase';
+import { Link, useHistory } from "react-router-dom";
+// import {storage} from './firebase/firebase';
 
 export default function UpdateProfile() {
  var name = localStorage.getItem('name');
  var school = localStorage.getItem('scoala');
  var citat = localStorage.getItem('citat');
- var telefon = localStorage.getItem('telefon');
+//  var telefon = localStorage.getItem('telefon');
 
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -19,7 +19,7 @@ export default function UpdateProfile() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const allImputs = {imgUrl: ''}
+  // const allImputs = {imgUrl: ''}
  
   function handleSubmit(e) {
     e.preventDefault()

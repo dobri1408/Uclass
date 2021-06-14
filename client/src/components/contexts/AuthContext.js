@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { auth,db } from "../firebase/firebase"
+import { auth } from "../firebase/firebase"
 const AuthContext = React.createContext()
 
 export function useAuth() {
@@ -29,11 +29,11 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password)
     
   }
-  function creeazaclasa(nume,materia) {
- //   uid = currentUser.uid;
+//   function creeazaclasa(nume,materia) {
+//  //   uid = currentUser.uid;
  
-//    db.collection('clase').doc.(currentUser.uid)
-  }
+// //    db.collection('clase').doc.(currentUser.uid)
+//   }
 
   function logout() {
     return auth.signOut()

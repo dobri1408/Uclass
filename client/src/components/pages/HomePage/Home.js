@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroSection from '../../HeroSection';
-import { homeObjOne, homeObjTwo, homeObjThree, homeObjFour } from './Data';
+import { homeObjOne } from './Data';
 import Navbar from '../../navbar'
 import Footer from '../Footer/Footer';
 import './Home.scss'

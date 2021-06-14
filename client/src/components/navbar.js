@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './navbar.css';
-import { MdFingerprint } from 'react-icons/md';
+// import { MdFingerprint } from 'react-icons/md';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { IconContext } from 'react-icons/lib';
+// import { IconContext } from 'react-icons/lib';
 import  { useRef} from "react"
 import {useHistory } from "react-router-dom"
 import {useAuth} from './contexts/AuthContext';
@@ -36,13 +36,14 @@ function Navbar() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [toggle,settoggle] = useState(0);
-  const [open, setopen] = useState(0)
+  // const [toggle,settoggle] = useState(0);
+  // const [open, setopen] = useState(0)
   const { login } = useAuth()
-  var subtitle;
+  // var subtitle;
   const [modalIsOpen,setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);
+    console.log(error, loading)
   }
 
   function afterOpenModal() {
@@ -86,7 +87,7 @@ window.addEventListener('resize',showButton);
         <nav className='navbar'>
           <div className='navbar-container container'>
               <ul className='nav-item'>
-             <img src={Image5} className='pula' />
+             <img src={Image5} className='pula' alt=""/>
               </ul>
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}

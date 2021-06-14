@@ -57,7 +57,7 @@ export default function SignUpElev() {
           label="Sunt de acord cu termenii si conditiile" 
           feedback="Trebuie sa fii de acord pentru a realiza contul."
         />  
-         <a href = {Pdf} target = "_blank">Vezii termenii si condtiile</a>
+         <a href = {Pdf} target = "_blank" rel="noreferrer">Vezii termenii si condtiile</a>
     
                     <Button className="w-100" type = "submit">Inregistreaza</Button>
                 </Form>

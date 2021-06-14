@@ -7,8 +7,6 @@ import Image1 from "./img1.png";
 import Image3 from './gagica.jpg';
 import Image4 from './comunitate.jpg';
 import {Button} from 'react-bootstrap';
-import Navbar from './navbar';
-import Footer from './pages/Footer/Footer'
 function HeroSection({
   lightBg,
   topLine,
@@ -24,15 +22,15 @@ function HeroSection({
 function  afiseazaimagine (){
     if(img === 1)
 return (<img src={Image1} alt={alt} className='home__hero-img' />)
-               else if(img == 2){
+               else if(img === 2){
                 return (<img src={Image2} alt={alt} className='home__hero-img' />)
 
                }
-              else if(img == 3) {
+              else if(img === 3) {
                 return (<img src={Image3} alt={alt} className='home__hero-img' />)
 
               }
-              else if(img == 4) {
+              else if(img === 4) {
                 return (<img src={Image4} alt={alt} className='home__hero-img' />)
 
               }

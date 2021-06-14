@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
-import {Card,Button,Alert} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import {useAuth} from '../components/contexts/AuthContext';
 import {Link,useHistory} from 'react-router-dom';
 import {db} from './firebase/firebase';
-import {storage} from './firebase/firebase';
+// import {storage} from './firebase/firebase';
 import NavbarProf from './NavbarProf';
 import './profile.scss';
 function Profile() {
@@ -59,6 +59,7 @@ setError('');
 try {
 await logout();
 history.pushState('/signprofesor')
+console.log(error)
 }
 catch{
     setError('Nu te-am putut deconecta')
@@ -88,7 +89,7 @@ catch{
                                        {nume}
                                     </h5>
                                     <h6>
-                                        {tip == "prof" ? "Profesor" : "Elev"}
+                                        {tip === "prof" ? "Profesor" : "Elev"}
                                     </h6>
                                     <p class="proile-rating">Feedback Elevi: <span>{(feb>0) ? feb : "nedefinit"}/10</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">

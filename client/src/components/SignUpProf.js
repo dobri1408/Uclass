@@ -5,11 +5,11 @@ import { Container } from 'react-bootstrap';
 import Pdf from '../../src/components/Azur.pdf';
 import { useAuth } from '../components/contexts/AuthContext';
 import { Link, useHistory } from "react-router-dom";
-import { db } from './firebase/firebase';
+// import { db } from './firebase/firebase';
 import { auth } from './firebase/firebase';
-import { CheckBox } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
-import {storage} from '../components/firebase/firebase'
+// import { CheckBox } from 'react-bootstrap';
+// import Image from 'react-bootstrap/Image';
+// import {storage} from '../components/firebase/firebase'
 export default function SignupProf() {
     const emailRef = useRef();
     const nameRef = useRef();
@@ -18,7 +18,7 @@ export default function SignupProf() {
     const citatRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup, currentUser } = useAuth();
+    const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
@@ -109,7 +109,7 @@ export default function SignupProf() {
                                 label="Sunt de acord cu termenii si conditiile"
                                 feedback="Trebuie sa fii de acord pentru a realiza contul."
                             />
-                            <a href={Pdf} target="_blank">Vezii termenii si conditiile</a>
+                            <a href={Pdf} target="_blank" rel="noreferrer">Vezii termenii si conditiile</a>
 
                             <Button disabled={loading} className="w-100" type="submit">Inregistreaza</Button>
                         </Form>
