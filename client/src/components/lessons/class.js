@@ -68,6 +68,8 @@ export default function Class ()  {
           data.length !== 0 ? 
           data.filter(element => meetingsData.meetings.includes(element.id)).map(element => {
             return(<ClassCard className={element.data().className} subject={element.data().subject} students={element.data().students}/>)
+          
+           console.log("idk what is here")
           }) : <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
 
           //chained filter and map. please do not modify unless you know what you are doing!

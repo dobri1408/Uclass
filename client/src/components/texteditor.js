@@ -46,7 +46,7 @@ hljs.configure({
 console.log(documentId);
 
 useEffect(() => {
-    const s = io("http://188.166.119.126:3001");
+    const s = io("http://localhost:3001");
     setSocket(s)
 
     return () => {
