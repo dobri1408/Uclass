@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {  } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -6,44 +6,45 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 // import PostAddIcon from '@material-ui/icons/PostAdd';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+// import Container from '@material-ui/core/Container';
+import TimePickers from './TimePickers';
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%',
-//     maxWidth: 200,
-//     // backgroundColor: theme.palette.background.paper,
-//   },
-//   nested: {
-//     paddingLeft: theme.spacing(4),
-//   },
-// }));
 
 export default function NewPostList() {
-  // const classes = useStyles();
+    const [hidden, setHidden] = useState(false);
+
+    return (
+            <div>
+                {/* <Container> */}
+                <List
+                // component="nav"
+                aria-labelledby="nested-list-subheader"
+                // className={classes.root}
+                style={{width: '100%', maxWidth: 200}}
+                >
+                <ListItem button onClick={()=>console.log('add a new doc!')}>
+                    <ListItemIcon>
+                        {/* <PostAddIcon color="secondary"/> */}
+                        <ScheduleIcon color="secondary"/>
+                    </ListItemIcon>
+                    <ListItemText primary="Add a new document" style={{color:"white"}}/>
+                </ListItem>
+                <ListItem button onClick={()=>setHidden(!hidden)}>
+                    <ListItemIcon>
+                        <ScheduleIcon color="secondary"/>
+                    </ListItemIcon>
+                    <ListItemText primary="Schedule a new meeting" style={{color:"white"}}/>
+                </ListItem>
+                {
+                    hidden && 
+                    <ListItem>
+                        <TimePickers/>
+                    </ListItem>
+                }
+                </List>
+                {/* </Container> */}
+            </div>
 
 
-  return (
-        <div>
-            <List
-            // component="nav"
-            aria-labelledby="nested-list-subheader"
-            // className={classes.root}
-            >
-            <ListItem button onClick={()=>console.log('salut metge!')}>
-                <ListItemIcon>
-                    <h1>ceva</h1>
-                </ListItemIcon>
-                <ListItemText primary="Add a new document" style={{color:"white"}}/>
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ScheduleIcon color="secondary"/>
-                </ListItemIcon>
-                <ListItemText primary="Schedule a new meeting" style={{color:"white"}}/>
-            </ListItem>
-            </List>
-        </div>
-
-
-  );
+    );
 }

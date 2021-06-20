@@ -8,7 +8,6 @@ import { db, auth } from '../firebase/firebase';
 import ClassCard from './ClassCard';
 import './icons.css';
 import NewClass from './NewClass';
-import Container from '@material-ui/core/Container';
 
 export default function Class ()  {
   const [data, setData] = useState([]);
@@ -56,12 +55,12 @@ export default function Class ()  {
         <h3 style={{color:"white"}}>Click the plus button to add a new class</h3>
         <NewClass/>
         <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
-          refresh
+          refresh (not auto yet!)
         </Button>
-        <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
+        {/* <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
           refresh
-        </Button>
-        <Container style={{marginTop: "auto"}}>
+        </Button> */}
+        {/* <Container style={{marginTop: "auto"}}> */}
         <Grid container spacing={3}>
         {
 
@@ -76,7 +75,7 @@ export default function Class ()  {
           
         }
         </Grid>
-        </Container>
+        {/* </Container> */}
         
      </div>
    )

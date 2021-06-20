@@ -12,10 +12,10 @@ export default function Classroom () {
         <div>
             <NavbarProf/>
             <div style={{backgroundColor: "pink"}}>
-                <form action="/upload" method="POST" enctype="multipart/form-data">
+                {/* <form action="/upload" method="POST" enctype="multipart/form-data">
                     <input type="file" name="file" id="file"/>
                     <input type="submit" value="Submit"/>
-                </form>
+                </form> */}
             </div>
             <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
             <NewPost/>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+// import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    // transition: theme.transitions.create('transform', {
+    //   duration: theme.transitions.duration.shortest,
+    // }),
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -54,7 +54,8 @@ export default function RecipeReviewCard() {
         </div>  
     {/* <Container> */}
     <Grid container direction="row" alignItems="center">
-    <Grid item>
+    <Grid item xs={2}></Grid>
+    <Grid item >
         <IconButton
         className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -66,7 +67,7 @@ export default function RecipeReviewCard() {
         <ExpandMoreIcon color="secondary"/>
         </IconButton>
     </Grid>
-    <Grid item>
+    <Grid item >
         <h5 style={{color:"white"}}>Click the arrow to add a new post to your feed</h5>
     </Grid>
     </Grid>
