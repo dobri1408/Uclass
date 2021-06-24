@@ -37,6 +37,7 @@ Quill.register('modules/autoLinks', AutoLinks);
 export default function TextEditor() {
 const [socket, setSocket]=useState();
 const [quill, setQuill] = useState();
+
 const { id: documentId } = useParams()
 
 hljs.configure({

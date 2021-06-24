@@ -18,7 +18,7 @@ var io = require('socket.io')(http,{
 });
 io.on('connection',(socket) => {  
     console.log('connected');
-    socket.on('get-board',async BoardId =>{ 
+    socket.on('get-board',async (BoardId) =>{ 
         const board = await findOrCreateBoard(BoardId);
 
         socket.join(BoardId)
@@ -49,5 +49,5 @@ async function findOrCreateBoard(id){
     if(id == null) return;
     const board = await Board.findById(id);
     if(board) return board;
-    return await Board.create({_id:id,data:Object,})
+    return await Board.create({_id:id,data:Object})
 }

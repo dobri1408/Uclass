@@ -4,7 +4,7 @@ import './navbar.css';
 import { MdFingerprint } from 'react-icons/md';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
-
+import Image5 from "./LOGO UCLASS ALB full.png";
 function NavbarProf() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
@@ -32,13 +32,12 @@ function NavbarProf() {
 window.addEventListener('resize',showButton);
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
+     
         <nav className='navbar'>
           <div className='navbar-container container'>
-            <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-              <MdFingerprint className='navbar-icon' />
-              Azur
-            </Link>
+          <ul className='nav-item'>
+             <img src={Image5} className='pula' alt=""/>
+              </ul>
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
@@ -96,7 +95,7 @@ window.addEventListener('resize',showButton);
              </ul>
           </div>
         </nav>
-      </IconContext.Provider>
+    
     </>
   );
 }

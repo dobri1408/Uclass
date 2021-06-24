@@ -3,12 +3,33 @@ import io from 'socket.io-client';
 import './board.css';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect,useRef,useCallback} from 'react';
-import {Toolbar} from './Toolbar'
-export default function Board() {
+import {Toolbar} from './Toolbar';
+
+export const Board =()=>{
 const [socket,setSocket] = useState()
 const[currentColor,setCurrentColor] = useState();
+const[render,setRender] = useState(0);
 const CTX = useRef();
-const {id:boardId} = useParams();
+var {id:boardId} = useParams();
+
+/*
+Get the page that I am from link and realboardId
+*/
+var get_page = new String(boardId)
+var realBoardId = new String();
+let i;
+for( i = 0; i < get_page.length; ++i) {
+    realBoardId+= new String(get_page.charAt(i))
+    if(get_page.charAt(i) ==='$'){
+        break;
+    }
+}
+++i;
+realBoardId = realBoardId.substring(0,realBoardId.length-1)
+var page = new String();
+for(; i <= get_page.length; ++i) {
+    page+=new String(get_page.charAt(i));
+}
 const selectedColor = useRef("#000000");
 var ctx;
 
@@ -36,7 +57,7 @@ const handleRegularMode=(e) => {
     if(CTX != null) {CTX.current.globalCompositeOperation = "source-over"
     }
 }
-console.log(boardId);
+
 useEffect(() =>{
     if(socket == null) return;
     const interval =setInterval(() =>
@@ -58,17 +79,21 @@ useEffect(() => {
     }
   }, [])
   useEffect(() => {
-      
+   
+
+  
         if(socket == null) return;
         socket.once("load-board",data => {
             var image = new Image();
             var canvas = document.querySelector("#board");
             var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             image.onload = function () {
                 ctx.drawImage(image,0,0);
             }
             image.src=data;
         });
+       
     socket.emit("get-board",boardId);
     drawonCanvas();
         
@@ -148,11 +173,14 @@ useEffect(() =>{
           
         };
     },[ctx,currentColor],)
-   
+  
         return (
             <>
-            <Toolbar handleWidth={handleWidth}
-            handleColor={handleColor} handleEraserMode={handleEraserMode} handleRegularMode={handleRegularMode}/>
+    
+            <Toolbar handleWidth={handleWidth} 
+            handleColor={handleColor} handleEraserMode={handleEraserMode} handleRegularMode={handleRegularMode}
+            page = {page} realBoardId={realBoardId}
+        />
         <div className="sketch" id ="sketch">
            
            <canvas className="board" id ="board"></canvas>
