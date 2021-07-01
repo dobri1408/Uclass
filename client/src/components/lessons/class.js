@@ -8,6 +8,8 @@ import { db, auth } from '../firebase/firebase';
 import ClassCard from './ClassCard';
 import './icons.css';
 import NewClass from './NewClass';
+import Container from '@material-ui/core/Container';
+
 
 export default function Class ()  {
   const [data, setData] = useState([]);
@@ -60,7 +62,7 @@ export default function Class ()  {
         {/* <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
           refresh
         </Button> */}
-        {/* <Container style={{marginTop: "auto"}}> */}
+        <Container style={{marginTop: "auto"}}>
         <Grid container spacing={3}>
         {
 
@@ -68,14 +70,13 @@ export default function Class ()  {
           data.filter(element => meetingsData.meetings.includes(element.id)).map(element => {
             return(<ClassCard className={element.data().className} subject={element.data().subject} students={element.data().students}/>)
           
-           console.log("idk what is here")
           }) : <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
 
           //chained filter and map. please do not modify unless you know what you are doing!
           
         }
         </Grid>
-        {/* </Container> */}
+        </Container>
         
      </div>
    )

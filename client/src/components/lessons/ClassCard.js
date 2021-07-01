@@ -12,10 +12,9 @@ import {
 import Students from './Students';
 import { deepOrange, deepPurple, red } from '@material-ui/core/colors';
 import LaunchIcon from '@material-ui/icons/Launch';
-import {useHistory, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default function ClassCard (props) {
-    const history = useHistory();
     const colors = [deepOrange[500],deepPurple[500],red[500]]
     return (
         <Grid item xs={4}>

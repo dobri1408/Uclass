@@ -106,7 +106,7 @@ useEffect(() =>{
         console.log(currentColor);
         var sketch = document.querySelector('#sketch');
         var sketch_style = getComputedStyle(sketch);
-       var w  = parseInt(sketch_style.getPropertyValue('width'));
+        var w  = parseInt(sketch_style.getPropertyValue('width'));
         var h = parseInt(sketch_style.getPropertyValue('height'));
 
         canvas.width = w;

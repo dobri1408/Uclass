@@ -4,18 +4,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-// import PostAddIcon from '@material-ui/icons/PostAdd';
 import ScheduleIcon from '@material-ui/icons/Schedule';
-// import Container from '@material-ui/core/Container';
+import Container from '@material-ui/core/Container';
 import TimePickers from './TimePickers';
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 export default function NewPostList() {
     const [hidden, setHidden] = useState(false);
 
     return (
             <div>
-                {/* <Container> */}
+                <Container>
                 <List
                 // component="nav"
                 aria-labelledby="nested-list-subheader"
@@ -24,14 +23,13 @@ export default function NewPostList() {
                 >
                 <ListItem button onClick={()=>console.log('add a new doc!')}>
                     <ListItemIcon>
-                        {/* <PostAddIcon color="secondary"/> */}
                         <ScheduleIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary="Add a new document" style={{color:"white"}}/>
                 </ListItem>
                 <ListItem button onClick={()=>setHidden(!hidden)}>
                     <ListItemIcon>
-                        <ScheduleIcon color="secondary"/>
+                        <AddCircleOutlineIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary="Schedule a new meeting" style={{color:"white"}}/>
                 </ListItem>
@@ -42,7 +40,7 @@ export default function NewPostList() {
                     </ListItem>
                 }
                 </List>
-                {/* </Container> */}
+                </Container>
             </div>
 
 

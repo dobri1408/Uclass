@@ -1,7 +1,5 @@
 import {
-    faArrowsAltH,
     faEraser,
-    faMagic,
     faPaintBrush,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
