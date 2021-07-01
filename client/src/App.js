@@ -14,7 +14,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
 import OrarProf from './components/OrarProf';
-import Zoom from './components/Zoom';
+
 // import Class from './components/class';
 import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
@@ -25,7 +25,7 @@ import StartMeeting from '../src/components/Meeting/StartMeeting';
 // import NoMatch from '../src/components/Meeting/NoMatch'
 import CallPagev2 from './components/CallPage2';
 import TimeTable from '../src/components/TimeTable';
-// import Container from './components/tabla/Container';
+import Container from './components/Board/Container';
 import Classroom from '../src/components/lessons/Classroom';
 import Class from '../src/components/lessons/class';
 import TeacherTimetable from './components/Timetables/TeacherTimetable';
@@ -62,8 +62,9 @@ function App() {
         <Route path='/login' component={Login} />  
         <PrivateRoute path='/update-profile' component={UpdateProfile} />  
         <Route path="/forgot-password" component={Forgot}/>
-        <PrivateRoute path='/meet' component={Zoom} />  
-         <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />
+        <PrivateRoute path='/orarprof' component={OrarProf} />  
+         <PrivateRoute path='/classes' component={Class} />
+        <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />
         <Route path='/fileupload' component={FileUpload} />
         <Route path='/texteditor' component={TextEditor} />
         <Route path='/meetingui' component={CallPagev2}/>
@@ -71,15 +72,15 @@ function App() {
           <CallPage />
 
         </Route>
-        {/* <Route exact path='/board/:id'>
+        <Route exact path='/board/:id'>
           <Container/>
-        </Route> */}
+        </Route>
         <Route path = '/startmeeting'>
           <StartMeeting/>
         </Route>
     <Route path ='/timetable' component = {TimeTable}/>   
     <Route path='/classes' component={Class} />
-    {/* <Route path='/board' component={Container}/> */}
+    <Route path='/board' component={Container}/>
        </Switch>
     
     </Router>
