@@ -1,19 +1,22 @@
 import  React from 'react';
-
+import mergeImages from 'merge-images';
 import './container.css';
 import {Toolbar} from './Toolbar';
 
 import {useState} from 'react';
 import NavbarProf from '../NavbarProf';
 import {useParams} from 'react-router-dom';
-import DrawingBoard from 'react-drawing-board'
+import DrawingBoard from 'react-drawing-board';
+import {drawImage} from 'react-drawing-board'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useEffect,useRef,useCallback} from 'react';
 import io from 'socket.io-client';
 function Container(){
   var {id:boardId} = useParams();
+  const [previousImage, setPreviousImage] = useState();
 const [socket,setSocket] = useState();
+const[datas,setDatas] = useState();
 useEffect(() => {
   const s = io("http://localhost:3002");
   setSocket(s)
@@ -33,8 +36,20 @@ useEffect(() =>{
   { 
       console.log("salvez")
       var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
-         var base64ImageData=canvas.toDataURL("image/png");
+         var ctx = canvas.getContext("2d");
+      var imagebg = new Image();
+ 
+      imagebg.onload = function () {
+        console.log("ENTER");
+        ctx.drawImage(imagebg,0,0);
+    }
+    imagebg.src=datas;
+          
+         
+           var base64ImageData=canvas.toDataURL("image/png");
+  
           socket.emit("save-board",base64ImageData);
+
   },3000)
   return () =>clearInterval(interval);
 },[socket])
@@ -45,14 +60,19 @@ useEffect(() => {
   if(socket == null) return;
   socket.once("load-board",data => {
       var image = new Image();
+      setDatas(data);
       var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
       var ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+     
       image.onload = function () {
-          ctx.drawImage(image,0,0);
-      }
+      canvas.style.background = 'url(' + this.src+')';
+      setPreviousImage(image);
+    }
       image.src=data;
-  });
+      if(image){
+        console.log("muie");
+      }
+    });
  
 socket.emit("get-board",boardId);
 
@@ -82,6 +102,8 @@ const interval =setInterval(() =>
 },1000)
 return () =>clearInterval(interval);
 },[socket])
+var idk;
+console.log("IDk"+idk);
 return (
         <>
     <NavbarProf/>
