@@ -16,7 +16,6 @@ import UpdateProfile from './components/UpdateProfile';
 import OrarProf from './components/OrarProf';
 
 // import Class from './components/class';
-import Class from './components/lessons/class';
 import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
@@ -26,28 +25,40 @@ import StartMeeting from '../src/components/Meeting/StartMeeting';
 // import NoMatch from '../src/components/Meeting/NoMatch'
 import CallPagev2 from './components/CallPage2';
 import TimeTable from '../src/components/TimeTable';
-import Container from '../src/components/Board/Container';
+import Container from './components/Board/Container';
+import Classroom from '../src/components/lessons/Classroom';
+import Class from '../src/components/lessons/class';
+import TeacherTimetable from './components/Timetables/TeacherTimetable';
+
+
+
 function App() {
 
   return (
-    <React.StrictMode>
-    <AuthProvider>
-  <Router>
+      <React.StrictMode>
+      <AuthProvider>
+      <Router>
     
      <Switch>
-      <div style={{backgroundColor: '#024873'}}>
         <Route path='/' exact component={Home} />
         <Route path='/services' component={Services} />
-        <Route path='/products' component={Products} />
+        <PrivateRoute path='/products' component={Products} />
         <Route path='/signprofesor' component={SignUpProf} />  
         <Route path='/signelev' component={SignUpElev} />  
+        <PrivateRoute path='/teachertimetable' component={TeacherTimetable}/>
+        <Route 
+            exact 
+            path='/classrooms/:id'
+            render={(props) => <Classroom {...props}/>} 
+          />
+        
         <PrivateRoute path='/profile' component={Profile} />  
-        <Route path = "/documents" exact>
+        <Route path = "/" exact>
           <Redirect to ={`/documents/${uuidV4()}`}/>
         </Route>
         <PrivateRoute path= "/documents/:id" >
-        <TextEditor/>
-        </PrivateRoute>
+      <TextEditor/>
+      </PrivateRoute>
         <Route path='/login' component={Login} />  
         <PrivateRoute path='/update-profile' component={UpdateProfile} />  
         <Route path="/forgot-password" component={Forgot}/>
@@ -61,15 +72,15 @@ function App() {
           <CallPage />
 
         </Route>
-        <Route path = '/startmeeting'>
-          <StartMeeting/>
-        </Route>
-        <Route path ='/timetable' component = {TimeTable}/>   
         <Route exact path='/board/:id'>
           <Container/>
         </Route>
-      </div>
-
+        <Route path = '/startmeeting'>
+          <StartMeeting/>
+        </Route>
+    <Route path ='/timetable' component = {TimeTable}/>   
+    <Route path='/classes' component={Class} />
+    <Route path='/board' component={Container}/>
        </Switch>
     
     </Router>

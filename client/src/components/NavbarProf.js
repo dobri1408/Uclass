@@ -17,7 +17,6 @@ function NavbarProf() {
       setButton(false);
     } else {
       setButton(true);
-      console.log(button);
     }
   };
 
@@ -26,7 +25,6 @@ function NavbarProf() {
       setButton(false);
     } else {
       setButton(true);
-      console.log(button);
     }
 },[]);
 window.addEventListener('resize',showButton);
@@ -43,7 +41,7 @@ window.addEventListener('resize',showButton);
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
-                <Link to='/orarprof' className='nav-links' onClick={closeMobileMenu}>
+                <Link to='/teachertimetable' className='nav-links' onClick={closeMobileMenu}>
                   Orar
                 </Link>
               </li>
@@ -74,15 +72,6 @@ window.addEventListener('resize',showButton);
                    Lectii
                 </Link>
               </li>
-              <li className='nav-item'>
-                <Link
-                  to='/profile'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Teste
-                </Link>
-                </li>
               <li className='nav-item'>
                 <Link
                   to='/profile'

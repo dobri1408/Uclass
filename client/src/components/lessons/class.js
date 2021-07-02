@@ -10,6 +10,7 @@ import './icons.css';
 import NewClass from './NewClass';
 import Container from '@material-ui/core/Container';
 
+
 export default function Class ()  {
   const [data, setData] = useState([]);
   const [meetingsData, setMeetingsData] = useState([]);
@@ -56,11 +57,11 @@ export default function Class ()  {
         <h3 style={{color:"white"}}>Click the plus button to add a new class</h3>
         <NewClass/>
         <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
-          refresh
+          refresh (not auto yet!)
         </Button>
-        <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
+        {/* <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
           refresh
-        </Button>
+        </Button> */}
         <Container style={{marginTop: "auto"}}>
         <Grid container spacing={3}>
         {
@@ -69,7 +70,6 @@ export default function Class ()  {
           data.filter(element => meetingsData.meetings.includes(element.id)).map(element => {
             return(<ClassCard className={element.data().className} subject={element.data().subject} students={element.data().students}/>)
           
-           console.log("idk what is here")
           }) : <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
 
           //chained filter and map. please do not modify unless you know what you are doing!
