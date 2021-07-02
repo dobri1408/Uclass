@@ -13,7 +13,7 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
-import OrarProf from './components/OrarProf';
+
 
 // import Class from './components/class';
 import ClassRegister from './components/ClassRegister';
@@ -62,8 +62,7 @@ function App() {
         <Route path='/login' component={Login} />  
         <PrivateRoute path='/update-profile' component={UpdateProfile} />  
         <Route path="/forgot-password" component={Forgot}/>
-        <PrivateRoute path='/orarprof' component={OrarProf} />  
-         <PrivateRoute path='/classes' component={Class} />
+          <PrivateRoute path='/classes' component={Class} />
         <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />
         <Route path='/fileupload' component={FileUpload} />
         <Route path='/texteditor' component={TextEditor} />
