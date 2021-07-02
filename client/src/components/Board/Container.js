@@ -2,7 +2,6 @@ import  React from 'react';
 import mergeImages from 'merge-images';
 import './container.css';
 import {Toolbar} from './Toolbar';
-
 import {useState} from 'react';
 import NavbarProf from '../NavbarProf';
 import {useParams} from 'react-router-dom';
@@ -16,7 +15,7 @@ function Container(){
   var {id:boardId} = useParams();
   const [previousImage, setPreviousImage] = useState();
 const [socket,setSocket] = useState();
-const[datas,setDatas] = useState();
+var datas;
 useEffect(() => {
   const s = io("http://localhost:3002");
   setSocket(s)
@@ -38,17 +37,13 @@ useEffect(() =>{
       var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
          var ctx = canvas.getContext("2d");
       var imagebg = new Image();
+      imagebg.src=datas;
+      console.log(datas);
  
-      imagebg.onload = function () {
-        console.log("ENTER");
-        ctx.drawImage(imagebg,0,0);
-    }
-    imagebg.src=datas;
-          
-         
            var base64ImageData=canvas.toDataURL("image/png");
-  
-          socket.emit("save-board",base64ImageData);
+           mergeImages([imagebg.src,base64ImageData]) 
+           .then( b64=>         socket.emit("save-board",b64))
+
 
   },3000)
   return () =>clearInterval(interval);
@@ -60,7 +55,7 @@ useEffect(() => {
   if(socket == null) return;
   socket.once("load-board",data => {
       var image = new Image();
-      setDatas(data);
+   datas = data;
       var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
       var ctx = canvas.getContext("2d");
      
@@ -69,6 +64,7 @@ useEffect(() => {
       setPreviousImage(image);
     }
       image.src=data;
+   
       if(image){
         console.log("muie");
       }
