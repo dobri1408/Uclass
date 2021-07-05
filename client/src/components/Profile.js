@@ -22,7 +22,6 @@ function Profile() {
 const userRef = db.collection('utilizatori').doc(currentUser.uid)
 userRef.get().then( (docSnapshot) => {
 if(docSnapshot.exists){
-    console.log("Document data:", docSnapshot.data());
     setnumarclase(docSnapshot.data().numarclase);
     setTip(docSnapshot.data().tip);
     setEmail(docSnapshot.data().email);
@@ -59,7 +58,6 @@ setError('');
 try {
 await logout();
 history.pushState('/signprofesor')
-console.log(error)
 }
 catch{
     setError('Nu te-am putut deconecta')

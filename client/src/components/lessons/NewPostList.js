@@ -8,6 +8,7 @@ import ScheduleIcon from '@material-ui/icons/Schedule';
 import Container from '@material-ui/core/Container';
 import TimePickers from './TimePickers';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import MessageIcon from '@material-ui/icons/Message';
 
 export default function NewPostList() {
     const [hidden, setHidden] = useState(false);
@@ -26,6 +27,12 @@ export default function NewPostList() {
                         <ScheduleIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary="Add a new document" style={{color:"white"}}/>
+                </ListItem>
+                <ListItem button onClick={()=>console.log('new announcement added!')}>
+                    <ListItemIcon>
+                        <MessageIcon color="secondary"/>
+                    </ListItemIcon>
+                    <ListItemText primary="Add a new announcement!" style={{color:"white"}}/>
                 </ListItem>
                 <ListItem button onClick={()=>setHidden(!hidden)}>
                     <ListItemIcon>

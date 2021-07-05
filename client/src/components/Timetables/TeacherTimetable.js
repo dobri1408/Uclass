@@ -1,37 +1,98 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import NavbarProf from '../NavbarProf.js';
-import Scheduler, { Resource } from 'devextreme-react/scheduler';
+import Button from '@material-ui/core/Button';
+import { db, auth } from '../firebase/firebase';
 
-import { assignees, data, priorities } from './data.js';
+import Paper from '@material-ui/core/Paper';
+import { ViewState } from '@devexpress/dx-react-scheduler';
+import {
+  Scheduler,
+  WeekView,
+  Toolbar,
+  DateNavigator,
+  Appointments,
+  TodayButton,
+} from '@devexpress/dx-react-scheduler-material-ui';
 
-const currentDate = new Date(2021, 4, 11);
-const views = ['agenda'];
+
 
 const TeacherTimetable = () => {
+    // let d = new Date(0);
+    const [currentDate, setCurrentDate] = useState('2021-07-04');
+    const [firebaseData, setFirebaseData] = useState([]);
+    const [readyData, setReadyData] = useState([]);
+    const aux = useRef([]);
+    // const readyData = useRef([]);
+    // const firebaseData = useRef([]);
+    
+    useEffect(()=>{
+        const getData = async () => {
+            await auth.onAuthStateChanged((user)=>{
+            if(user) {
+                db.collection('users').doc(user.uid).get().then((snap)=>{
+                    if(snap.exists) {
+                    setFirebaseData(prevFirebaseData => snap.data());
+                    console.log(snap.data().dates.length)
+                    snap.data().dates.forEach((element,index)=>{
+    
+                        if(aux.current.length < snap.data().dates.length) {
+                            // setReadyData(prevReadyData => [...readyData, {
+                            //     title: element.className,
+                            //     startDate: new Date(element.start * 1000),
+                            //     endDate: new Date(element.end * 1000),
+                            //     id: index,
+                            //     location: 'Room 1'
+                            // }])
+                            aux.current.push({
+                                    title: element.className,
+                                    startDate: new Date(element.start * 1000),
+                                    endDate: new Date(element.end * 1000),
+                                    id: index,
+                                    location: 'Room 1'
+                                })
+                        }
+                    })
+                    setReadyData(aux.current);
+                    } 
+                });
+                }
+            });
+        }
+        getData();
+    },[])
+
+
     return (
         <div>
             <NavbarProf/>
-            <Scheduler
-                timeZone="America/Los_Angeles"
-                dataSource={data}
-                views={views}
-                currentView="agenda"
-                defaultCurrentDate={currentDate}
-                height={600}
-                startDayHour={9}>
-                <Resource
-                dataSource={assignees}
-                allowMultiple={true}
-                fieldExpr="assigneeId"
-                label="Assignee"
-                useColorAsDefault={true}
-                />
-                <Resource
-                dataSource={priorities}
-                fieldExpr="priorityId"
-                label="Priority"
-                />
-            </Scheduler>
+            <Button onClick={()=>console.log(readyData)}>
+                ceva
+            </Button>
+            {
+                readyData.length !== 0 ?
+                <Paper>
+                    <Scheduler
+                    data={readyData}
+                    height={660}
+                    >
+                    <ViewState
+                        currentDate={currentDate}
+                        onCurrentDateChange={(e)=>setCurrentDate(e)}
+                    />
+                    <WeekView
+                        startDayHour={8}
+                        endDayHour={18}
+                    />
+                    <Toolbar />
+                    <DateNavigator />
+                    <TodayButton />
+                    <Appointments />
+                    </Scheduler>
+                </Paper>:
+                <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading calendar...</h1>
+            }
+
+
         </div>    
     );
 }
