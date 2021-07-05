@@ -4,7 +4,7 @@ import Quill from 'quill'
 import {useEffect} from 'react';
 import {useCallback} from 'react';
 import './texteditor.css';
-import {io} from 'socket.io-client';
+import io from "socket.io-client";
 import {useState} from 'react';
 import { useParams } from "react-router-dom";
 import AutoLinks from 'quill-auto-links';
