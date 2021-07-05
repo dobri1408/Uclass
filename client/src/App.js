@@ -53,12 +53,12 @@ function App() {
         <Route path='/signprofesor' component={SignUpProf} />  
         <Route path='/signelev' component={SignUpElev} />  
         <PrivateRoute path='/teachertimetable' component={TeacherTimetable}/>
-        <Route path='/dashboard'>
+        <PrivateRoute path='/dashboard'>
           <Dashboard />
-        </Route>
-        <Route path='/startmeeting'>
+        </PrivateRoute>
+        <PrivateRoute path='/startmeeting'>
           <LoginPage />
-        </Route>
+        </PrivateRoute>
         <Route 
             exact 
             path='/classrooms/:id'
