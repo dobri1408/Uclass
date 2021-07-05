@@ -51,6 +51,7 @@ export const Toolbar = ({
           <div className="tool-section tool-section--lrg">
             <div className="tool-section">
               Page {page}
+              <br/>
               <small>
                 <strong>Brush color</strong>
               </small>

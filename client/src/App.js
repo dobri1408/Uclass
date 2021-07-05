@@ -13,30 +13,37 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
-
-
+import { Provider } from 'react-redux';
+import DashBoardMeet from './components/meeting/DashBoardMeet'
 // import Class from './components/class';
 import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
 import {v4 as uuidV4} from 'uuid';
-import CallPage from '../src/components/Meeting/CallPage';
-import StartMeeting from '../src/components/Meeting/StartMeeting';
 // import NoMatch from '../src/components/Meeting/NoMatch'
-import CallPagev2 from './components/CallPage2';
 import TimeTable from '../src/components/TimeTable';
 import Container from './components/Board/Container';
 import Classroom from '../src/components/lessons/Classroom';
 import Class from '../src/components/lessons/class';
 import TeacherTimetable from './components/Timetables/TeacherTimetable';
+import { connectWithWebSocket } from './components/utils/wssConnection/wssConnection';
+import Dashboard from './components/Dashboard/Dashboard';
+import store from './components/store/store';
+import LoginPage from './components/LoginPage/LoginPage';
 
-
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    connectWithWebSocket();
+  }, []);
 
   return (
-      <React.StrictMode>
+
+    <Provider store={store}>
+    
       <AuthProvider>
+        
       <Router>
     
      <Switch>
@@ -46,6 +53,12 @@ function App() {
         <Route path='/signprofesor' component={SignUpProf} />  
         <Route path='/signelev' component={SignUpElev} />  
         <PrivateRoute path='/teachertimetable' component={TeacherTimetable}/>
+        <Route path='/dashboard'>
+          <Dashboard />
+        </Route>
+        <Route path='/startmeeting'>
+          <LoginPage />
+        </Route>
         <Route 
             exact 
             path='/classrooms/:id'
@@ -65,18 +78,13 @@ function App() {
           <PrivateRoute path='/classes' component={Class} />
         <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />
         <Route path='/fileupload' component={FileUpload} />
-        <Route path='/texteditor' component={TextEditor} />
-        <Route path='/meetingui' component={CallPagev2}/>
-             <Route exact path='/meeting/:id'>
-          <CallPage />
 
-        </Route>
+        <Route path='/texteditor' component={TextEditor} />
+        <PrivateRoute path="/startmeet" component={DashBoardMeet} />
         <Route exact path='/board/:id'>
           <Container/>
         </Route>
-        <Route path = '/startmeeting'>
-          <StartMeeting/>
-        </Route>
+      
     <Route path ='/timetable' component = {TimeTable}/>   
     <Route path='/classes' component={Class} />
     <Route path='/board' component={Container}/>
@@ -84,7 +92,8 @@ function App() {
     
     </Router>
     </AuthProvider>
-    </React.StrictMode>
+    </Provider>
+    
   );
 }
 

@@ -11,8 +11,9 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useEffect,useRef,useCallback} from 'react';
 import io from 'socket.io-client';
+import {Board} from './Board'
 function Container(){
-  var {id:boardId} = useParams();
+  /*var {id:boardId} = useParams();
   const [previousImage, setPreviousImage] = useState();
 const [socket,setSocket] = useState();
 var datas;
@@ -42,7 +43,7 @@ useEffect(() =>{
  
            var base64ImageData=canvas.toDataURL("image/png");
            mergeImages([imagebg.src,base64ImageData]) 
-           .then( b64=>         socket.emit("save-board",b64))
+           .then( b64=>        { socket.emit("save-board",b64); datas=b64})
 
 
   },3000)
@@ -74,19 +75,22 @@ socket.emit("get-board",boardId);
 
   
 },[socket])
+
 useEffect(() => {
-if(socket == null) return;
-socket.on("canvas-data", function(data){
-    console.log("enter");
-  var image = new Image();
-  var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
-  var ctx = canvas.getContext("2d");
-  image.onload = function () {
-      ctx.drawImage(image,0,0);
-  }
-  image.src=data;
-});
-},[socket])
+  if(socket == null) return;
+  socket.on("canvas-data", function(data){
+      console.log("enter");
+    var image = new Image();
+    var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
+    var ctx = canvas.getContext("2d");
+  var base64ImageData =canvas.toDataURL("image1/png")
+    mergeImages([datas,data,base64ImageData]).then(b64=>image.src =b64)
+    image.onload = function () {
+      canvas.style.background = 'url(' + this.src+')';
+    }
+   
+  });
+  },[socket])
 useEffect(() =>{
 if(socket == null) return;
 const interval =setInterval(() =>
@@ -94,16 +98,17 @@ const interval =setInterval(() =>
   console.log("trimit")
   var canvas = document.querySelector('.drawing-board-sketchpad-canvas');
      var base64ImageData=canvas.toDataURL("image/png");
-      socket.emit("canvas-data",base64ImageData);
+     mergeImages([datas,base64ImageData]).then(b64=> socket.emit("canvas-data",b64))
+    
 },1000)
 return () =>clearInterval(interval);
 },[socket])
 var idk;
-console.log("IDk"+idk);
+console.log("IDk"+idk);*/
 return (
         <>
-    <NavbarProf/>
-    <DrawingBoard/>
+        <NavbarProf/>
+    <Board/>
 
           </>        
          
