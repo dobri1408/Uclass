@@ -14,7 +14,6 @@ import PrivateRoute from './components/PrivateRoute';
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
 import { Provider } from 'react-redux';
-import DashBoardMeet from './components/meeting/DashBoardMeet'
 // import Class from './components/class';
 import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
@@ -26,22 +25,15 @@ import Container from './components/Board/Container';
 import Classroom from '../src/components/lessons/Classroom';
 import Class from '../src/components/lessons/class';
 import TeacherTimetable from './components/Timetables/TeacherTimetable';
-import { connectWithWebSocket } from './components/utils/wssConnection/wssConnection';
-import Dashboard from './components/Dashboard/Dashboard';
-import store from './components/store/store';
-import LoginPage from './components/LoginPage/LoginPage';
+
 
 import { useEffect } from 'react';
 
 function App() {
-  useEffect(() => {
-    connectWithWebSocket();
-  }, []);
+ 
 
   return (
 
-    <Provider store={store}>
-    
       <AuthProvider>
         
       <Router>
@@ -53,12 +45,7 @@ function App() {
         <Route path='/signprofesor' component={SignUpProf} />  
         <Route path='/signelev' component={SignUpElev} />  
         <PrivateRoute path='/teachertimetable' component={TeacherTimetable}/>
-        <PrivateRoute path='/dashboard'>
-          <Dashboard />
-        </PrivateRoute>
-        <PrivateRoute path='/startmeeting'>
-          <LoginPage />
-        </PrivateRoute>
+
         <Route 
             exact 
             path='/classrooms/:id'
@@ -80,7 +67,7 @@ function App() {
         <Route path='/fileupload' component={FileUpload} />
 
         <Route path='/texteditor' component={TextEditor} />
-        <PrivateRoute path="/startmeet" component={DashBoardMeet} />
+       
         <Route exact path='/board/:id'>
           <Container/>
         </Route>
@@ -92,7 +79,7 @@ function App() {
     
     </Router>
     </AuthProvider>
-    </Provider>
+    
     
   );
 }
