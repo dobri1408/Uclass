@@ -19,21 +19,23 @@ import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
 import {v4 as uuidV4} from 'uuid';
+import {store} from './store/store'
 // import NoMatch from '../src/components/Meeting/NoMatch'
 import TimeTable from '../src/components/TimeTable';
 import Container from './components/Board/Container';
 import Classroom from '../src/components/lessons/Classroom';
 import Class from '../src/components/lessons/class';
 import TeacherTimetable from './components/Timetables/TeacherTimetable';
-
-
+import RoomPage from './components/RoomPage/RoomPage'
+import StartMeeting from './components/StartMeeting/StartMeeting';
 import { useEffect } from 'react';
-
+import JoinRoom from './components/JoinRoom/JoinRoom';
 function App() {
  
 
   return (
 
+    <Provider store={store}>
       <AuthProvider>
         
       <Router>
@@ -45,7 +47,15 @@ function App() {
         <Route path='/signprofesor' component={SignUpProf} />  
         <Route path='/signelev' component={SignUpElev} />  
         <PrivateRoute path='/teachertimetable' component={TeacherTimetable}/>
-
+        <PrivateRoute path ='/startmeeting'>
+          <StartMeeting/>
+        </PrivateRoute>
+        <PrivateRoute path ='/room'>
+          <RoomPage/>
+        </PrivateRoute>
+        <PrivateRoute path ='/join-room'>
+          <JoinRoom/>
+        </PrivateRoute>
         <Route 
             exact 
             path='/classrooms/:id'
@@ -79,7 +89,7 @@ function App() {
     
     </Router>
     </AuthProvider>
-    
+    </Provider>
     
   );
 }
