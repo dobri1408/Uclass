@@ -4,16 +4,13 @@ import Message from './Message';
 import File from './File';
 
 
-const GeneralCard = ({info}) => {
+const GeneralCard = ({info,name}) => {
     if ('message' in info) {
-        console.log('got to 1')
         return <Message info={info}/>
     } else if ('start' in info) {
-        console.log('got to 2')
         return <Meeting info={info}/>
     } else {
-        console.log('got to 3')
-        return <File info={info}/>
+        return <File info={info} name={name}/>
     }
 }
 

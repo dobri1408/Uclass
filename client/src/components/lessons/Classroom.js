@@ -41,9 +41,9 @@ export default function Classroom () {
                             }
                           })
                         })
-                        data.current = [...snap.data().dates, ...snap.data().messages];
-                            [...snap.data().dates, ...snap.data().messages].forEach((element)=>{
-                                if(timestamps.current.length < [...snap.data().dates, ...snap.data().messages].length)
+                        data.current = [...snap.data().dates, ...snap.data().messages,...snap.data().files];
+                            [...snap.data().dates, ...snap.data().messages,...snap.data().files].forEach((element)=>{
+                                if(timestamps.current.length < [...snap.data().dates, ...snap.data().messages, ...snap.data().files].length)
                                 timestamps.current = [...timestamps.current, element.timestamp]
                             })
                         let copy = timestamps.current;
@@ -93,13 +93,6 @@ export default function Classroom () {
             <Button variant="contained" color="secondary" onClick={()=>console.log(sortedData2)}>
                 hash
             </Button>
-
-            {/* <div style={{backgroundColor: "pink"}}>
-                <form action="/upload" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file"/>
-                    <input type="submit" value="Submit"/>
-                </form>
-            </div> */}
             <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
             <NewPost name={state.name} data={firebaseData}/>
 
@@ -115,7 +108,7 @@ export default function Classroom () {
             {
                 sortedData2.length !==0 ? 
                 sortedData2.slice(0).reverse().filter((el)=>el.classHash === hash ).map((element)=>{
-                    return(<GeneralCard info={element}/>)
+                    return(<GeneralCard info={element} name={state.name}/>)
                 }) 
                 : 
                 <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>

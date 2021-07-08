@@ -11,7 +11,7 @@ import { green } from '@material-ui/core/colors';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-const Message = () => {
+const File = (props) => {
     return (
         <Grid container style={{paddingTop: 20, paddingBottom: 20}}>
         <Grid item xs={2}>
@@ -25,19 +25,19 @@ const Message = () => {
                         </Avatar>
                     }
                     titleTypographyProps={{variant:'h4' }}
-                    title="Document ${} for meeting ${}"
+                    title={`A new document was uploaded for meeting ${props.name}`}
                 />
                 <CardContent>
                     <Typography>
-                        The teacher uploaded a new pdf/word/... named ...
+                        The teacher uploaded a new file named {props.info.fileName}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <IconButton>
+                    <IconButton onClick={()=>window.open(`${props.info.link}`)}>
                         <GetAppIcon/>
                     </IconButton>
                     <Typography>
-                        Download file ${}
+                        Download file {props.info.fileName}
                     </Typography>
                 </CardActions>
             </Card>
@@ -49,4 +49,4 @@ const Message = () => {
 }
 
 
-export default Message;
+export default File;

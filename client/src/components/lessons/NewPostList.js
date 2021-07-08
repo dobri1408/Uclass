@@ -14,15 +14,16 @@ import { auth, db } from '../firebase/firebase';
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
 import firebase from "firebase/app";
-
+import app from '../firebase/firebase';
 
 export default function NewPostList({name,data}) {
     const [hidden, setHidden] = useState(false);
     const [textFieldStatus, setTextFieldStatus] = useState(false);
+    const [uploadHidden, setUploadHidden] = useState(false);
     const [message, setMessage] = useState('');
     const currentClassHash = useRef('');
     const firebaseData = useRef('');
-
+    const [fileUrl, setFileUrl] = useState(null);
     const handleMessage = () => {
         auth.onAuthStateChanged((user)=>{
             if(user) {
@@ -67,6 +68,33 @@ export default function NewPostList({name,data}) {
             })
     })
 
+    const onFileChange = async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref().child('files')
+        const fileRef = storageRef.child(file.name)
+        await fileRef.put(file);
+        let url = await fileRef.getDownloadURL();
+        setFileUrl(await fileRef.getDownloadURL());
+        auth.onAuthStateChanged((user)=>{
+            if(user) {
+                db.collection('users').doc(user.uid).update({
+                    files: firebase.firestore.FieldValue.arrayUnion({
+                        link: url,
+                        classHash: currentClassHash.current,
+                        timestamp: Date.now() / 1000 | 0,
+                        fileName: file.name
+                    })
+                })
+            }
+        });
+        alert('File was uploaded!');
+        setUploadHidden(false);
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+    }
+
     return (
             <div>
                 <Container>
@@ -76,12 +104,19 @@ export default function NewPostList({name,data}) {
                 // className={classes.root}
                 style={{width: '100%', maxWidth: 200}}
                 >
-                <ListItem button onClick={()=>console.log('add a new doc!')}>
+                <ListItem button onClick={()=>{setUploadHidden(!uploadHidden);getCurrentHash();}}>
                     <ListItemIcon>
                         <ScheduleIcon color="secondary"/>
                     </ListItemIcon>
                     <ListItemText primary="Add a new document" style={{color:"white"}}/>
                 </ListItem>
+                {
+                    uploadHidden &&
+                    <form style={{width: 500}}>
+                        <input type="file" onChange={(e)=>onFileChange(e)} />
+                        <button onClick={(e)=>onSubmit(e)}>Submit</button>
+                    </form>
+                }
 
                 <ListItem button onClick={()=>{setTextFieldStatus(!textFieldStatus); getCurrentHash()}}>
                     <ListItemIcon>
