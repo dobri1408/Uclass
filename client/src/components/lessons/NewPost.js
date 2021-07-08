@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function RecipeReviewCard() {
+export default function NewPost({name,data}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -75,7 +75,7 @@ export default function RecipeReviewCard() {
 
                 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <NewPostList/>
+          <NewPostList name={name} data={data}/>
       </Collapse>
     {/* </Container> */}
 

@@ -12,7 +12,21 @@ import { db, auth } from '../firebase/firebase';
 import firebase from "firebase/app";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+}));
 
 const ITEM_HEIGHT = 48;
 
@@ -20,9 +34,10 @@ const ITEM_HEIGHT = 48;
 
 
 export default function TimePickers() {
+  const classes2 = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [startDate, setStartDate] = useState(new Date('2021-06-20T12:00:00'));
-  const [endDate, setendDate] = useState(new Date('2021-06-20T12:00:00'));
+  const [endDate, setEndDate] = useState(new Date('2021-06-20T12:00:00'));
   const [uid, setUid] = useState('');
   // const [currentClass, setCurrrentClass] = useState(null);
   const currentClass = useRef(null);
@@ -101,11 +116,11 @@ export default function TimePickers() {
   };
 
   const handleStartDate = (date) => {
-    setStartDate(date);
+    setStartDate(new Date(date));
   };
 
   const handleEndDate = (date) => {
-    setendDate(date);
+    setEndDate(new Date(date))
   };
 
 
@@ -118,12 +133,13 @@ export default function TimePickers() {
               start: startDate.getTime() / 1000,
               end: endDate.getTime() / 1000,
               classHash: currentClassHash.current,
-              className: currentClass.current
+              className: currentClass.current,
+              timestamp: Date.now() / 1000 | 0
             })
           })
       currentClass.current = null;
       currentClassHash.current = null;
-      alert('New meeting was added!')
+      alert('New meeting was added!');
     }
   }
 
@@ -132,50 +148,32 @@ export default function TimePickers() {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Grid container justify="space-around">
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Start Date"
-              format="MM/dd/yyyy"
-              value={startDate}
-              onChange={handleStartDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-            <KeyboardTimePicker
-              margin="normal"
-              id="time-picker"
-              label="Start of meeting"
-              value={startDate}
-              onChange={handleStartDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change time',
-              }}
-            />
-
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog2"
-              label="End Date"
-              format="MM/dd/yyyy"
-              value={endDate}
-              onChange={handleEndDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-            <KeyboardTimePicker
-              margin="normal"
-              id="time-picker2"
-              label="End of meeting"
-              value={endDate}
-              onChange={handleEndDate}
-              KeyboardButtonProps={{
-                'aria-label': 'change time',
-              }}
-            />
-
+            <form className={classes2.container} noValidate>
+              <TextField
+                id="datetime-local"
+                label="Next appointment"
+                type="datetime-local"
+                onChange={(e)=>handleStartDate(e.target.value)}
+                defaultValue="2017-05-24T10:30"
+                className={classes2.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </form><br/><br/>
+            <form className={classes2.container} noValidate>
+              <TextField
+                id="datetime-local"
+                label="Next appointment"
+                type="datetime-local"
+                onChange={(e)=>handleEndDate(e.target.value)}
+                defaultValue="2017-05-24T10:30"
+                className={classes2.textField}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </form>
 
             <div>  
               <Button variant="contained" color="secondary" onClick={(e)=>handleClick(e)}>
