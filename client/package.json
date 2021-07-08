@@ -108,6 +108,7 @@
     ]
   },
   "devDependencies": {
-    "netlify-cli": "^3.31.8"
+    "netlify-cli": "^3.31.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13"
   }
 }
