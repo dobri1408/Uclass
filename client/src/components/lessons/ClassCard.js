@@ -13,6 +13,8 @@ import Students from './Students';
 import { deepOrange, deepPurple, red } from '@material-ui/core/colors';
 import LaunchIcon from '@material-ui/icons/Launch';
 import {Link} from 'react-router-dom';
+import Schedule from './Schedule';
+
 
 export default function ClassCard (props) {
     const colors = [deepOrange[500],deepPurple[500],red[500]]
@@ -43,6 +45,7 @@ export default function ClassCard (props) {
                             <LaunchIcon/>
                         </IconButton>
                     </Link>
+                    <Schedule info={props}/>
                     <Students students={props.students}/>
                 </CardActions>
             </Card>
