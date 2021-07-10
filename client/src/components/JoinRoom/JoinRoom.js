@@ -1,12 +1,14 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {connect} from 'react-redux';
 import {setIsRoomHost} from '../../store/actions'
 import {useLocation} from 'react-router-dom';
 import './JoinRoom.css';
 import JoinRoomTitle from './JoinRoomTitle';
 import JoinRoomContent from './JoinRoomContent';
+import LoadingOverlay from './LoadingOverlay';
 const JoinRoom = (props) =>{
-    const { setIsRoomHostAction, isRoomHost } = props;
+  const [showLoadingOverlay, setShowLoadingOverlay] = useState(false);
+  const { setIsRoomHostAction, isRoomHost } = props;
     const search = useLocation().search;
 
   useEffect(() => {
@@ -19,7 +21,10 @@ const JoinRoom = (props) =>{
         <div className="join_room_page_container">
       <div className="join_room_page_panel">
       <JoinRoomTitle isRoomHost={isRoomHost} />
-        <JoinRoomContent />
+        <JoinRoomContent 
+        setShowLoadingOverlay = {setShowLoadingOverlay}
+        setLoading/>
+      {showLoadingOverlay &&  <LoadingOverlay/>}
              </div>
     </div>
     )

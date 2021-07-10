@@ -29,11 +29,7 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password)
     
   }
-//   function creeazaclasa(nume,materia) {
-//  //   uid = currentUser.uid;
- 
-// //    db.collection('clase').doc.(currentUser.uid)
-//   }
+
 
   function logout() {
     return auth.signOut()

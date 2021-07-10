@@ -17,7 +17,7 @@ function Profile() {
   const [tip,setTip] = useState('');
   const [numarclase,setnumarclase] = useState(0);
   const [telefon,settelefon] = useState(0);
-  const[citat,setcitat] = useState("");
+  const [citat,setcitat] = useState("");
 
 const userRef = db.collection('utilizatori').doc(currentUser.uid)
 userRef.get().then( (docSnapshot) => {

@@ -55,21 +55,14 @@
 }
 
 .dark {
-  background:linear-gradient(
-    28deg,
-    #608BA6 20%,
-    #024873 50%
-    
-  );
+  background: #def1f3;
 }
 
 .darkBg {
-  background:linear-gradient(
-    28deg,
-    #608BA6 20%,
-    #024873 50%
+  background:
+    #D7D7D9
     
-  );
+  ;
 }
 
 .home__hero-subtitle {

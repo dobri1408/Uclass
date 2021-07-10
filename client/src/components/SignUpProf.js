@@ -16,12 +16,14 @@ export default function SignupProf() {
     const telefonRef = useRef();
     const scoalaRef = useRef();
     const citatRef = useRef();
-    const passwordRef = useRef();
-    const passwordConfirmRef = useRef();
+    const passwordRef = useRef('');
+    const passwordConfirmRef = useRef('');
     const { signup } = useAuth();
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const history = useHistory();
+
+
     async function handleSubmit(e) {
 
         e.preventDefault()

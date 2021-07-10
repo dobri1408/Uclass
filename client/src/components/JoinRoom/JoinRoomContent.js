@@ -9,7 +9,7 @@ import { checkIfRoomExists } from '../../utils/twilioUtils';
 import {useHistory} from 'react-router-dom';
 import {v4 as uuidv4} from 'uuid';
 const JoinRoomContent = (props) => {
-    const {isRoomHost,setConnectOnlyWithAudioAction,connectOnlyWithAudio,setRoomIdAction,setIdentityAction} = props;
+    const {isRoomHost,setShowLoadingOverlay,setConnectOnlyWithAudioAction,connectOnlyWithAudio,setRoomIdAction,setIdentityAction} = props;
     const history = useHistory();
     const [roomIdValue,setRoomIdValue] = useState('')
     const [nameValue,setNameValue] = useState('')
@@ -18,9 +18,11 @@ const handleJoinToRoom = async () => {
     setIdentityAction(nameValue);
     if(!isRoomHost) { 
         //check if room exists and if yes join
+        setShowLoadingOverlay(true);
 const roomExists = await checkIfRoomExists(roomIdValue);
+setShowLoadingOverlay(false);
 if(roomExists) {
-  setRoomId(roomIdValue);
+  setRoomIdAction(roomIdValue);
   history.push('/room');
 }
 else {
