@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
+import {useHistory} from 'react-router-dom';
+
+import { Button } from 'react-bootstrap';
 import { MdFingerprint } from 'react-icons/md';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import Image5 from "./LOGO UCLASS ALB full.png";
+import {useAuth } from './contexts/AuthContext';
 function NavbarProf() {
   const [click, setClick] = useState(false);
+  const [error,setError] = useState('');
+  const history = useHistory();
   const [button, setButton] = useState(true);
-
+const {logout}  = useAuth();
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
+  async function handleLogout() {
+
+    setError('');
+    try {
+    await logout();
+    history.pushState('/')
+    }
+    catch{
+        setError('Nu te-am putut deconecta')
+    }
+        }
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -63,15 +80,7 @@ window.addEventListener('resize',showButton);
                   Intalnire
                 </Link>
               </li>
-              <li className='nav-item'>
-                <Link
-                  to='/products'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                   Lectii
-                </Link>
-              </li>
+           
               <li className='nav-item'>
                 <Link
                   to='/profile'
@@ -80,6 +89,9 @@ window.addEventListener('resize',showButton);
                 >
                   Profil
                 </Link>
+              </li>
+              <li className='nav-btn'>
+              <Button onClick={handleLogout}>Deconecteaza-te</Button>
               </li>
              </ul>
           </div>

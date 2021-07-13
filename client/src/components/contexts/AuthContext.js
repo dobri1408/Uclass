@@ -18,11 +18,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem('email',email)
     localStorage.setItem('tip',tip)
  return  auth.createUserWithEmailAndPassword(email, password);
-  
-  
-
-    
-  }
+    }
 
 
   function login(email, password) {
