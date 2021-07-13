@@ -9,7 +9,10 @@
   bottom:0;
 
 }
-
+.logofooter{
+  height:100px;
+  width:100px
+}
 .footer-subscription {
   display: flex;
   flex-direction: column;

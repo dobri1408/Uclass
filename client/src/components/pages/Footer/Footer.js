@@ -8,6 +8,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa';
 import { MdFingerprint } from 'react-icons/md';
+import Image5 from "../../LOGO UCLASS ALB full.png";
 
 function Footer() {
   return (
@@ -18,12 +19,12 @@ function Footer() {
           <div className='footer-link-items'>
             <h2>Despre Noi</h2>
             <a href = {Pdf} target = "_blank" rel="noreferrer">Termeni si conditii</a>
-        
-            <Link to='/'>Careers</Link>
+         
+           
           </div>
           <div className='footer-link-items'>
             <h2 >Contact</h2>
-            <Link to='/' >Contact</Link>
+         
             <Link to='/'>Suport</Link>
           </div>
         </div>
@@ -35,11 +36,11 @@ function Footer() {
         <div className='social-media-wrap'>
           <div className='footer-logo'>
             <Link to='/' className='social-logo'>
-              <MdFingerprint className='navbar-icon' />
-              Azur
+            
+            <img src={Image5} className='logofooter' alt="" style ={{height:70}}/>
             </Link>
           </div>
-          <small className='website-rights'>Azur © 2021</small>
+          <small className='website-rights'>Uclass © 2021</small>
           <div className='social-icons'>
             <Link
               className='social-icon-link'
