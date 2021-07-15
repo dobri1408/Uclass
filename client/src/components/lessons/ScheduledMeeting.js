@@ -259,7 +259,7 @@ export default function ScheduledMeeting(props) {
                             <CardHeader
                                 action={
                                     <IconButton
-                                    onClick={()=>window.open(`/board/${props.info.timestamp}/$1`)}
+                                    onClick={()=>window.open(`/board/${props.info.timestamp}$1`)}
                                     >
                                         <CreateIcon/>
                                     </IconButton>
