@@ -97,13 +97,7 @@ useEffect(() => {
   return (
     <>
       <NavbarProf />
-      <div class="v15_73"><div class="v15_74"></div><span class="v15_75">task bar</span><div class="name"></div><div class="v17_32"></div><span class="v17_39">
-<h3>Nume: {nume}</h3>
-
-<h3>Email: {email}</h3>
-
-</span><div class="v17_47"></div><div class="v17_48"></div><span class="v17_31">Schimba fotografia</span><span class="v17_49">Schimba datele personale</span><div class="v84_20"></div></div>
-         </>
+             </>
   )
 }
 
