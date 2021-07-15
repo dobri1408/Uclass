@@ -5,9 +5,16 @@ import NewPost from './NewPost';
 import Button from '@material-ui/core/Button';
 import GeneralCard from './MeetingCards/GeneralCard';
 import ScheduledMeeting from './ScheduledMeeting';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+// import CardHeader from '@material-ui/core/CardHeader';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import CardContent from '@material-ui/core/CardContent';
+
 
 import { db, auth } from '../firebase/firebase';
 
+import Navbar from './Navbar';
 
 export default function Classroom () {
     const firebaseData = useRef([]);
@@ -16,13 +23,15 @@ export default function Classroom () {
     const sortedData = useRef([]);
     const currentClassName = useRef('');
     // const meetingsData = useRef([]);
-    const currentClassInfo = useRef(null);
+    const currentClassInfo = useRef([]);
     const currentClassHash = useRef('');
     const [hash, setHash] = useState('');
     const [sortedData2, setSortedData2] = useState([]);
     const [classInfo, setClassInfo] = useState(null);
     const [titles, setTitles] = useState([])
     const { state } = useLocation();
+    
+    const [currentButton, setCurrentButton] = useState('activity');
      
     currentClassName.current = state.name;
     
@@ -87,7 +96,7 @@ export default function Classroom () {
         <>
             <NavbarProf/>
 
-            <Button variant="contained" color="secondary" onClick={()=>console.log(classInfo)}>
+            <Button variant="contained" color="secondary" onClick={()=>console.log(currentButton)}>
                 test
             </Button>
 
@@ -95,22 +104,53 @@ export default function Classroom () {
             <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
             <NewPost name={state.name} data={firebaseData}/>
 
+            <Grid container>
+                <Grid item xs={1}>
+                </Grid>
+                <Grid item xs={10}>
+                    <Card style={{backgroundColor: '#2A333A'}}>
+                        <Navbar f={setCurrentButton} v={currentButton}/>
+                        <CardContent style={{backgroundColor: '#345F65'}}>
 
-            {
-                titles.length !== 0 ? 
-                titles.map((element, index)=>{
-                    return <ScheduledMeeting info={titles[index]} sortedData={sortedData.current}/>
-                }):
-                <h1>loading</h1>
-            }
-            {
+                            {
+                                titles.length !== 0 ? 
+                                titles.map((element, index)=>{
+                                    return (
+                                    <ScheduledMeeting 
+                                        info={titles[index]} 
+                                        sortedData={sortedData.current} 
+                                        currentButton={currentButton} 
+                                        hash={currentClassHash.current} 
+                                        classInfo={currentClassInfo.current} 
+                                        key={index}
+                                    />)
+                                }):
+                                <Grid container>
+                                    <Grid item xs={6}>
+                                    </Grid>
+                                        <CircularProgress style={{marginTop: 25, marginBottom: 25, color: '#D99152'}}/>
+                                    <Grid item xs={6}>
+                                    </Grid>
+                                </Grid>
+                            }
+                        </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={1}>
+                </Grid>
+            </Grid>
+
+            
+
+
+            {/* {
                 sortedData2.length !==0 ? 
                 sortedData2.slice(0).reverse().filter((el)=>el.classHash === hash ).map((element)=>{
                     return(<GeneralCard info={element} name={state.name}/>)
                 }) 
                 : 
                 <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
-            }
+            } */}
         </>
     )
 }

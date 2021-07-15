@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect,useRef} from 'react';
 import NavbarProf from '../NavbarProf';
 import {
   Grid,
@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 export default function Class ()  {
   const [data, setData] = useState([]);
   const [meetingsData, setMeetingsData] = useState([]);
+  const mData = useRef([]);
   const getData = () => {
     db.collection('meetings').get().then((snapshot)=>{
       setData(prevData => snapshot.docs)
@@ -24,21 +25,23 @@ export default function Class ()  {
   
 
   useEffect(()=>{
-    const getReady = async () => {
+    const getReady = () => {
 
-      await auth.onAuthStateChanged((user)=>{
+      auth.onAuthStateChanged((user)=>{
         if(user) {
           db.collection('users').doc(user.uid).get().then((snap)=>{
               if(snap.exists) {
+                mData.current = snap.data();
                 setMeetingsData(prevMeetingsData => snap.data())
               } 
             });
           }
+          db.collection('meetings').get().then((snapshot)=>{
+            setData(prevData => snapshot.docs)
+            console.log(data)
+          });
         });
-
-        await db.collection('meetings').get().then((snapshot)=>{
-          setData(prevData => snapshot.docs)
-        });
+        
       
       //where('uid','==',user.uid)
 

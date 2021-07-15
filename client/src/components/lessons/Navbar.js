@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -34,9 +31,9 @@ const useStyles = makeStyles({
   });
 
 
-export default function Navbar() {
+export default function Navbar(props) {
     const classes = useStyles();
-    const [currentButton, setCurrentButton] = useState('activity');
+    // const [currentButton, setCurrentButton] = useState('activity');
     return (
         <div >
 
@@ -48,11 +45,11 @@ export default function Navbar() {
                     </Grid>
                     <Grid item xs={2}>
                         {
-                            currentButton === 'activity' ? 
-                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>setCurrentButton('activity')}>
+                            props.v === 'activity' ? 
+                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>props.f('activity')}>
                                 ACTIVITY
                             </Button> :
-                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>setCurrentButton('activity')}>
+                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>props.f('activity')}>
                                 ACTIVITY
                             </Button> 
                         }
@@ -63,11 +60,11 @@ export default function Navbar() {
                     </Grid>
                     <Grid item xs={2}>
                         {
-                            currentButton === 'homework' ? 
-                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>setCurrentButton('homework')}>
+                            props.v === 'homework' ? 
+                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>props.f('homework')}>
                                 HOMEWORK
                             </Button> :
-                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>setCurrentButton('homework')}>
+                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>props.f('homework')}>
                                 HOMEWORK
                             </Button> 
                         }
@@ -79,11 +76,11 @@ export default function Navbar() {
                     </Grid>
                     <Grid item xs={2}>
                         {
-                            currentButton === 'tests' ? 
-                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>setCurrentButton('tests')}>
+                            props.v === 'tests' ? 
+                            <Button color="white" classes={{root: classes.root, label: classes.label}} onClick={()=>props.f('tests')}>
                                 TESTS
                             </Button> :
-                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>setCurrentButton('tests')}>
+                            <Button color="white" classes={{root: classes.root2, label: classes.label}} onClick={()=>props.f('tests')}>
                                 TESTS
                             </Button> 
                         }
