@@ -6,6 +6,10 @@ import { db } from './firebase/firebase';
 // import {storage} from './firebase/firebase';
 import NavbarProf from './NavbarProf';
 import './profile.css';
+
+
+
+
 function Profile() {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
@@ -96,8 +100,17 @@ useEffect(() => {
  },[])
   return (
     <>
-      <NavbarProf />
-      <div class="v15_73"><div class="v15_74"></div><span class="v15_75">task bar</span><div class="name"></div><div class="v17_32"></div><span class="v17_39">
+      <div class="v15_73">
+        {/* <div class="v15_74">
+          </div> */}
+        <NavbarProf/>
+          {/* <span class="v15_75">task bar</span> */}
+          {/* <div class="name">
+        </div> */}
+        
+        <div class="v17_32">
+      
+      </div><span class="v17_39">
 <h3>Nume: {nume}</h3>
 
 <h3>Email: {email}</h3>
