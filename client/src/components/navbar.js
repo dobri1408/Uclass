@@ -100,27 +100,16 @@ window.addEventListener('resize',showButton);
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link
-                  to='/services'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Tarife
+                <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                  Uclass Business
                 </Link>
               </li>
-              <li className='nav-item'>
-                <Link
-                  to='/products'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Despre
-                </Link>
-              </li>
+             
+            
               <li className='nav-btn'>
 
               <div>
-        <Button onClick={openModal}>Login</Button>
+        <Button onClick={openModal}>Autentfica-te</Button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -132,7 +121,7 @@ window.addEventListener('resize',showButton);
 <div className="loglog">
       <div class="card">
         <div class="card--header">
-          <p class="title">Hello, World!</p>
+          <p class="title">Autentfica-te</p>
         </div>
         <div class="card--body">
           <label>Email Adress</label>
@@ -146,7 +135,18 @@ window.addEventListener('resize',showButton);
     </div>
     </div>
         </Modal>
+
       </div>  
+              </li>
+              <li className='nav-btn'>
+              <Link
+                  to='/signprofesor'
+                  className='nav-links'
+                  onClick={closeMobileMenu}
+          
+          >
+              <Button>Inregistreaza-te</Button>
+      </Link>
               </li>
             </ul>
           </div>

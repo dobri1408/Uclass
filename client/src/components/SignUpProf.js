@@ -7,6 +7,7 @@ import { useAuth } from '../components/contexts/AuthContext';
 import { Link, useHistory } from "react-router-dom";
 // import { db } from './firebase/firebase';
 import { auth } from './firebase/firebase';
+import app from './firebase/firebase'
 // import { CheckBox } from 'react-bootstrap';
 // import Image from 'react-bootstrap/Image';
 // import {storage} from '../components/firebase/firebase'
@@ -15,6 +16,7 @@ export default function SignupProf() {
     const nameRef = useRef();
     const telefonRef = useRef();
     const scoalaRef = useRef();
+    const profileImageRef = useRef();
     const citatRef = useRef();
     const passwordRef = useRef('');
     const passwordConfirmRef = useRef('');
@@ -34,7 +36,7 @@ export default function SignupProf() {
         try {
             setError("")
             setLoading(true);
-            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value, scoalaRef.current.value, "prof", telefonRef.current.value, citatRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, nameRef.current.value, scoalaRef.current.value, "prof", telefonRef.current.value, citatRef.current.value,profileImageRef.current)
             .then((user) => {
                     user = auth().currentUser;
                     console.log(user.uid);
@@ -47,6 +49,18 @@ export default function SignupProf() {
 
 
         history.push("/profile")
+    }
+    const onFileChange= async (e) => {
+        const file = e.target.files[0];
+        const storageRef = app.storage().ref().child('profile');
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        let url = await fileRef.getDownloadURL();
+        profileImageRef.current=url;
+        console.log(profileImageRef.current);
+        console.log(url);
+        
+
     }
     return (
         <Container className="d-flex align-items-center justify-content-center"
@@ -97,8 +111,9 @@ export default function SignupProf() {
 
                             <Form.Group id="photo-update">
                             
-                            <Form.File id = "fileupload" label ="Daca doresti o fotografie de profil pune o aici"/>
-                            
+                            <Form.File id = "fileupload" label ="Daca doresti o fotografie de profil pune o aici"
+                            onChange={(e)=>onFileChange(e)}/>
+
                                 
                             </Form.Group>
 

@@ -43,7 +43,7 @@ return (<img src={Image1} alt={alt} className='home__hero-img' />)
         <div className='container'>
           <div
             className='row home__hero-row'
-            style={{
+            styles={{
               display: 'flex',
               flexDirection: imgStart === 'start' ? 'row-reverse' : 'row'
             }}

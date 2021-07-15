@@ -1,12 +1,18 @@
 .footer-container {
-  background:#024873;
-  padding: 4rem 0 2rem 0;
+  background:#2A333A;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+  
+  bottom:0;
 
+}
+.logofooter{
+  height:100px;
+  width:100px
+}
 .footer-subscription {
   display: flex;
   flex-direction: column;
@@ -47,7 +53,7 @@
 
 .footer-links {
   width: 100%;
-  max-width: 1000px;
+  max-width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -109,7 +115,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
   max-width: 1000px;
   margin: 40px auto 0 auto;
 }
@@ -135,7 +140,7 @@
 
 .website-rights {
   color: #fff;
-  margin-bottom: 16px;
+
 }
 
 @media screen and (max-width: 820px) {
