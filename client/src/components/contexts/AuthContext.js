@@ -10,13 +10,14 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
   const [loading, setLoading] = useState(true)
 
-  function signup(email, password,nume,scoala,tip,telefon,citat) {
+  function signup(email, password,nume,scoala,tip,telefon,citat,profileImageUrl) {
     localStorage.setItem('nume',nume)
     localStorage.setItem('scoala',scoala)
     localStorage.setItem('citat',citat)
     localStorage.setItem('telefon',telefon)
     localStorage.setItem('email',email)
     localStorage.setItem('tip',tip)
+    localStorage.setItem('profileImageUrl',profileImageUrl)
  return  auth.createUserWithEmailAndPassword(email, password);
     }
 

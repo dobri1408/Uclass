@@ -12,7 +12,7 @@ function Home() {
 <div className="marireartificiala">
 <Navbar/> 
 <AliceCarousel
-        duration={400}
+        duration={4000}
         autoPlay={true}
         startIndex = {1}
         fadeOutAnimation={true}
