@@ -36,13 +36,6 @@ const TeacherTimetable = () => {
                     snap.data().dates.forEach((element,index)=>{
     
                         if(aux.current.length < snap.data().dates.length) {
-                            // setReadyData(prevReadyData => [...readyData, {
-                            //     title: element.className,
-                            //     startDate: new Date(element.start * 1000),
-                            //     endDate: new Date(element.end * 1000),
-                            //     id: index,
-                            //     location: 'Room 1'
-                            // }])
                             aux.current.push({
                                     title: element.className,
                                     startDate: new Date(element.start * 1000),

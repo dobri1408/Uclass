@@ -18,8 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { useAuth } from './contexts/AuthContext';
-// import { useHistory } from "react-router-dom";
-
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
   typo: {
     fontWeight: 600,
     
+  },
+  icon: {
+    backgroundColor: '#345F65',
+    '&:hover': {
+      backgroundColor: '#2A333A',
+    }
   }
 }));
 
@@ -89,6 +94,17 @@ const {logout}  = useAuth();
     }
 },[]);
 window.addEventListener('resize',showButton);
+
+async function handleLogout() {
+
+  try {
+    await logout();
+    history.push('/')
+  } catch (err) {
+    console.log(err)
+  }
+
+}
   return (
     <>
      
@@ -176,6 +192,10 @@ window.addEventListener('resize',showButton);
                   Profil
                 </Typography>
               </Button>
+              
+              <IconButton className={classes.icon} onClick={handleLogout}>
+                <PowerSettingsNewIcon style={{color: '#E57373'}}/>
+              </IconButton>
 
             </Toolbar>
           </AppBar>
