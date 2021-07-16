@@ -100,10 +100,6 @@ useEffect(() => {
  },[])
   return (
     <>
-<<<<<<< HEAD
-      <NavbarProf />
-             </>
-=======
       <div class="v15_73">
         {/* <div class="v15_74">
           </div> */}
@@ -121,7 +117,6 @@ useEffect(() => {
 
 </span><div class="v17_47"></div><div class="v17_48"></div><span class="v17_31">Schimba fotografia</span><span class="v17_49">Schimba datele personale</span><div class="v84_20"></div></div>
          </>
->>>>>>> c7249c3c9eddffcd74ac2088cb6602b24761ecd2
   )
 }
 

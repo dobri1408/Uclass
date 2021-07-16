@@ -50,12 +50,16 @@ if(CTX != null) {
     //e.currentTarget.value
 }
 const handleEraserMode=(e) => {
-    if(CTX != null) {CTX.current.globalCompositeOperation = "destination-out"
-    }
+    if(CTX != null) {
+        //CTX.current.globalCompositeOperation = "destination-out"
+    CTX.current.strokeStyle='white';
+
+}
 }
 const handleRegularMode=(e) => {
     if(CTX != null) {CTX.current.globalCompositeOperation = "source-over"
-    }
+    CTX.current.strokeStyle=selectedColor.curret;
+}
 }
 
 useEffect(() =>{
@@ -104,7 +108,15 @@ useEffect(() => {
           console.log("enter");
         var image = new Image();
         var canvas = document.querySelector("#board");
+        
         var ctx = canvas.getContext("2d");
+        console.log(ctx.strokeStyle);
+        if(ctx.strokeStyle==='#ffffff') {
+            console.log("wtf");
+
+            return;
+        }
+        
         image.onload = function () {
             ctx.drawImage(image,0,0);
         }
@@ -163,7 +175,7 @@ useEffect(() =>{
         canvas.addEventListener('mouseup', function() {
             canvas.removeEventListener('mousemove', onPaint, false);
         }, false);
-    var root= this;
+  
         var onPaint = function() {
             ctx.beginPath();
             ctx.moveTo(last_mouse.x, last_mouse.y);
