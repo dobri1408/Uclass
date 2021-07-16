@@ -63,7 +63,9 @@ const NewClass = () => {
     //   className, students, subject
     // })
     await db.collection('meetings').doc(postId).set({
-      className, students, subject
+      className, students, subject,
+      homework: [],
+      titles: []
     })
 
     // await db.collection('users').where('uid','==',uid).where(db.FieldPath.documentId(), '==', id)

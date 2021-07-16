@@ -39,13 +39,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const { login } = useAuth()
   const classes = useStyles();
   const emailRef = useRef()
   const passwordRef = useRef()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const { login } = useAuth()
   const [visible, setVisible] = useState(false)
 
 
