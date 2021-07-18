@@ -57,7 +57,7 @@ export default function Class ()  {
           Post new dummy data!
         </Button> */}
 
-        <h3 style={{color:"white"}}>Click the plus button to add a new class</h3>
+        <h3 style={{color:"black"}}>Click the plus button to add a new class</h3>
         <NewClass/>
         <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
           refresh (not auto yet!)
@@ -73,7 +73,7 @@ export default function Class ()  {
           data.filter(element => meetingsData.meetings.includes(element.id)).map(element => {
             return(<ClassCard className={element.data().className} subject={element.data().subject} students={element.data().students} data={data}/>)
           
-          }) : <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
+          }) : <h1 style={{color:"black", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
 
           //chained filter and map. please do not modify unless you know what you are doing!
           

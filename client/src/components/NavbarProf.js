@@ -159,7 +159,7 @@ async function handleLogout() {
         <br/> */}
 
         <div className={classes.root}>
-          <AppBar position="static" style={{backgroundColor: '#024873'}}>
+          <AppBar position="static" style={{backgroundColor: '#2A333A'}}>
             <Toolbar>
               <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>history.push('/profile')}>
                 <img src={Image5}  alt="" style={{width: 100}}/>

@@ -101,7 +101,7 @@ export default function Classroom () {
             </Button>
 
 
-            <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
+            <h1 style={{color:"black", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
             <NewPost name={state.name} data={firebaseData}/>
 
             <Grid container>

@@ -82,7 +82,7 @@ const TeacherTimetable = () => {
                     <Appointments />
                     </Scheduler>
                 </Paper>:
-                <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading calendar...</h1>
+                <h1 style={{color:"black", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading calendar...</h1>
             }
 
 
