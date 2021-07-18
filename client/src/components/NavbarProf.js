@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './navbar.css';
 import {useHistory} from 'react-router-dom';
 
 // import { Button } from 'react-bootstrap';
-import { MdFingerprint } from 'react-icons/md';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { IconContext } from 'react-icons/lib';
+// import { MdFingerprint } from 'react-icons/md';
+// import { FaBars, FaTimes } from 'react-icons/fa';
+// import { IconContext } from 'react-icons/lib';
 import Image5 from "./LOGO UCLASS ALB full.png";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,11 +14,20 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import Card from '@material-ui/core/Card';
+// import CardContent from '@material-ui/core/CardContent';
 import { useAuth } from './contexts/AuthContext';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Avatar from '@material-ui/core/Avatar';
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Schedule from './lessons/Schedule';
+import NewMeeting from './lessons/NewMeeting';
+import NewClass from './lessons/NewClass';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    color: '#FFFFFF',
+    fontSize: 30,
+    fontWeight: 400,
+    // marginLeft: 40
   },
   button: {
     paddingLeft: 20,
@@ -57,22 +70,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function NavbarProf() {
+function NavbarProf(props) {
   let history = useHistory();
   const classes = useStyles();
-  const [click, setClick] = useState(false);
+  // const [click, setClick] = useState(false);
   const [error,setError] = useState('');
   const [button, setButton] = useState(true);
-const {logout}  = useAuth();
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
+  const {logout}  = useAuth();
+  // const handleClick = () => setClick(!click);
+  // const closeMobileMenu = () => setClick(false);
 
   async function handleLogout() {
 
     setError('');
     try {
     await logout();
-    history.pushState('/')
+    history.push('/login')
     }
     catch{
         setError('Nu te-am putut deconecta')
@@ -95,16 +108,16 @@ const {logout}  = useAuth();
 },[]);
 window.addEventListener('resize',showButton);
 
-async function handleLogout() {
+// async function handleLogout() {
 
-  try {
-    await logout();
-    history.push('/')
-  } catch (err) {
-    console.log(err)
-  }
+//   try {
+//     await logout();
+//     history.push('/')
+//   } catch (err) {
+//     console.log(err)
+//   }
 
-}
+// }
   return (
     <>
      
@@ -164,8 +177,69 @@ async function handleLogout() {
               <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>history.push('/profile')}>
                 <img src={Image5}  alt="" style={{width: 100}}/>
               </IconButton>
-              <Typography variant="h6" className={classes.title}>
-              </Typography>
+              {/* <Button onClick={()=>console.log(props.feed === undefined)}>
+                click
+              </Button> */}
+              
+              {
+                props.feed !== undefined &&
+                <>
+                  {/* <Button color="inherit" className={classes.button} onClick={()=>console.log('new meeting added!')}>
+                    <Typography className={classes.typo}>
+                      new meeting
+                    </Typography>
+                  </Button> */}
+                  <NewMeeting info={{className: props.feed.title}} />
+                  <Card style={{backgroundColor: '#024873', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
+                    <CardHeader
+                      title={
+                        <>
+                          <Typography style={{color: 'white', fontSize: 40, fontWeight: 500}}>
+                            {props.feed.title}
+                          </Typography>
+                        </>
+                      }
+                    />
+                    {/* <CardContent>
+                      <Typography variant="h6" className={classes.title}>
+                        {props.feed.title}
+                      </Typography>
+                    </CardContent> */}
+                    
+                  </Card>
+                </>
+              }
+
+              {
+                props.classes !== undefined &&
+                <>
+                  {/* <Button color="inherit" className={classes.button} onClick={()=>console.log('new meeting added!')}>
+                    <Typography className={classes.typo}>
+                      new meeting
+                    </Typography>
+                  </Button> */}
+                  <NewClass />
+                  <Card style={{backgroundColor: '#024873', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
+                    <CardHeader
+                      title={
+                        <>
+                          <Typography style={{color: 'white', fontSize: 40, fontWeight: 500}}>
+                            {props.classes.title}
+                          </Typography>
+                        </>
+                      }
+                    />
+                    
+                  </Card>
+                </>
+              }
+              {
+                props.classes === undefined && props.feed === undefined &&
+                <Typography variant="h6" className={classes.title}>
+                </Typography>
+              }
+                
+              
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/teachertimetable')}>
                 <Typography style={{fontWeight: 600}}>
                   Orar

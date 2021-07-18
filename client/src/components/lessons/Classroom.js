@@ -10,6 +10,8 @@ import Card from '@material-ui/core/Card';
 // import CardHeader from '@material-ui/core/CardHeader';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CardContent from '@material-ui/core/CardContent';
+import Schedule from './Schedule';
+import NewMeeting from './NewMeeting';
 
 
 import { db, auth } from '../firebase/firebase';
@@ -20,6 +22,7 @@ export default function Classroom () {
     const firebaseData = useRef([]);
     const data = useRef([]);
     const timestamps = useRef([]);
+    const startDates = useRef([]);
     const sortedData = useRef([]);
     const currentClassName = useRef('');
     // const meetingsData = useRef([]);
@@ -35,76 +38,78 @@ export default function Classroom () {
      
     currentClassName.current = state.name;
     
-    useEffect((state)=>{
-        const getData = async () => {
-            await auth.onAuthStateChanged((user)=>{
-                if(user) {
-                  db.collection('users').doc(user.uid).get().then((snap)=>{
-                      if(snap.exists) {
-                        firebaseData.current = snap.data();
-                        firebaseData.current.meetings.forEach((element)=>{
-                          db.collection("meetings").doc(element).get().then((doc)=>{
-                            if(doc.exists) {
-                              if(doc.data().className === currentClassName.current) {
-                                currentClassHash.current = doc.id;
-                                setHash(doc.id);
-                                db.collection('meetings').doc(doc.id).get().then((snap)=>{
-                                    if(snap.exists) {
-                                        currentClassInfo.current = snap.data();
-                                        setClassInfo(currentClassInfo.current);
-                                        setTitles(currentClassInfo.current.titles);
-                                    }
-                                })
-                              }  
-                            } else {
-                              console.log('no hash found!')
-                            }
-                          })
-                        })
-                        data.current = [...snap.data().dates, ...snap.data().messages,...snap.data().files];
-                            [...snap.data().dates, ...snap.data().messages,...snap.data().files].forEach((element)=>{
-                                if(timestamps.current.length < [...snap.data().dates, ...snap.data().messages, ...snap.data().files].length)
-                                timestamps.current = [...timestamps.current, element.timestamp]
-                            })
-                        let copy = timestamps.current;
-                        copy.sort();
-                        timestamps.current = copy;
-                        timestamps.current.forEach((element,index)=>{
-                            data.current.forEach(i => {
-                                if(i.timestamp === element && sortedData.current.length < data.current.length) {
-                                    sortedData.current.push(i);
+    const getData = async () => {
+        await auth.onAuthStateChanged((user)=>{
+            if(user) {
+              db.collection('users').doc(user.uid).get().then((snap)=>{
+                  if(snap.exists) {
+                    firebaseData.current = snap.data();
+                    firebaseData.current.meetings.forEach((element)=>{
+                      db.collection("meetings").doc(element).get().then((doc)=>{
+                        if(doc.exists) {
+                          if(doc.data().className === currentClassName.current) {
+                            currentClassHash.current = doc.id;
+                            setHash(doc.id);
+                            db.collection('meetings').doc(doc.id).get().then((snap)=>{
+                                if(snap.exists) {
+                                    currentClassInfo.current = snap.data();
+                                    setClassInfo(currentClassInfo.current);
+                                    setTitles(currentClassInfo.current.titles);
                                 }
                             })
+                          }  
+                        } else {
+                          console.log('no hash found!')
+                        }
+                      })
+                    })
+                    data.current = [...snap.data().dates, ...snap.data().messages,...snap.data().files];
+                        [...snap.data().dates, ...snap.data().messages,...snap.data().files].forEach((element)=>{
+                            if(timestamps.current.length < [...snap.data().dates, ...snap.data().messages, ...snap.data().files].length)
+                                timestamps.current = [...timestamps.current, element.timestamp]
+
+                            
                         })
-                        
-                        
-                      }
-                    setSortedData2(prevSortedData2 => sortedData.current)
-                  }) 
+                    let copy = timestamps.current;
+                    copy.sort();
+                    timestamps.current = copy;
+                    timestamps.current.forEach((element,index)=>{
+                        data.current.forEach(i => {
+                            if(i.timestamp === element && sortedData.current.length < data.current.length) {
+                                sortedData.current.push(i);
+                            }
+                        })
+                    })
+                    
+                    
+                  }
+                setSortedData2(prevSortedData2 => sortedData.current)
+              }) 
 
 
-                
+            
 
-                } 
-            })
-        }
-        getData()
-    },[]);
+            } 
+        })
+    }
+    useEffect((state)=>{
+        getData();
+    },[titles]);
 
 
     return (
         <>
-            <NavbarProf/>
+            <NavbarProf feed={{title: state.name}} change={setTitles}/>
 
-            <Button variant="contained" color="secondary" onClick={()=>console.log(currentButton)}>
+            {/* <Button variant="contained" color="secondary" onClick={()=>console.log(titles)}>
                 test
-            </Button>
+            </Button> */}
+            {/* <NewMeeting info={{className: state.name,}}/> */}
 
+            {/* <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1> */}
+            {/* <NewPost name={state.name} data={firebaseData}/> */}
 
-            <h1 style={{color:"white", textAlign: "center", paddingTop: "50px"}}>This is the feed page for {state.name}</h1>
-            <NewPost name={state.name} data={firebaseData}/>
-
-            <Grid container>
+            <Grid container style={{marginTop: 25}}>
                 <Grid item xs={1}>
                 </Grid>
                 <Grid item xs={10}>
@@ -114,7 +119,8 @@ export default function Classroom () {
 
                             {
                                 titles.length !== 0 ? 
-                                titles.map((element, index)=>{
+                                
+                                titles.sort((a,b)=>(a.start > b.start) ? -1 : 1).map((element, index)=>{
                                     return (
                                     <ScheduledMeeting 
                                         info={titles[index]} 

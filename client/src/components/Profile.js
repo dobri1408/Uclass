@@ -162,6 +162,8 @@ export default function Profile() {
           <h1>last name {data.lastName}</h1>
           <h1>email {data.email}</h1>
           <h1>phone no. {data.phone}</h1>
+          
+          <img src={data.profilePhoto} alt='nu ai poza' heigth="300" width="300"/>
         </>
       }
 
