@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react"
-// import { Form, Button, Card, Alert } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
 import {useAuth} from './contexts/AuthContext';
 
@@ -15,8 +14,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { OutlinedInput } from "@material-ui/core";
-import CardHeader from '@material-ui/core/CardHeader';
 import ErrorIcon from '@material-ui/icons/Error';
+import { db, auth } from './firebase/firebase';
+
+
 
 const useStyles = makeStyles((theme) => ({
   typoRight: {
@@ -38,62 +39,50 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Login() {
+export default function Login(props) {
   const { login } = useAuth()
   const classes = useStyles();
-  const emailRef = useRef()
-  const passwordRef = useRef()
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  // const userData = useRef([]);
+  // const classesData = useRef([]);
   const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
   const history = useHistory()
   const [visible, setVisible] = useState(false)
-
-
+  const mData = useRef([]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       setError("")
-      setLoading(true)
-      // await login(emailRef.current.value, passwordRef.current.value)
-      await login(emailRef.current, passwordRef.current)
-      history.push("/profile")
+      login(emailRef.current, passwordRef.current).then(async ()=>{
+        await auth.onAuthStateChanged((user)=>{
+          db.collection('users').doc(user.uid).get().then((snap)=>{
+            if(snap.exists) {
+              props.data.setUserData(snap.data());
+              snap.data().meetings.forEach((element, index)=>{
+                db.collection('meetings').doc(element).get().then((s)=>{
+                  if(mData.current.length < snap.data().meetings.length) mData.current.push(s.data())
+                })
+              })
+              props.data.setMeetingsData(mData.current)
+            }
+          })
+
+        })
+
+        history.push('/profile')
+
+      })
     } catch {
       setError("Nu am putut sa te conectam, mai incearca o data")
     }
 
-    setLoading(false)
   }
 
   return (
     <>
-      {/* <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
-            </Form.Group>
-            <Form.Group id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
-            </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
-              Log In
-            </Button>
-          </Form>
-          <div className="w-100 text-center mt-3">
-            <Link to="/forgot-password">Ai uitat parola?</Link>
-          </div>
-        </Card.Body>
-      </Card>
-      <div className="w-100 text-center mt-2">
-        Nu ai cont <Link to="/signprofesor">Creeaza</Link>
-      </div> */}
-
       <Grid container>
         <Grid item xs={4}> 
         </Grid>
@@ -133,10 +122,6 @@ export default function Login() {
                 </Card>
                 <Card>
                   <CardContent style={{backgroundColor: '#608BA6'}}>
-
-                  {/* <TextField id="standard-basic" label="Password" style={{minWidth: '100%'}}/> */}
-                  {/* <TextField id="outlined-basic" label="" variant="outlined" placeholder="PASSWORD" style={{minWidth: '100%'}} type='password'/> */}
-
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={visible ? 'text' : 'password'}
@@ -148,8 +133,6 @@ export default function Login() {
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
-                          // onClick={handleClickShowPassword}
-                          // onMouseDown={handleMouseDownPassword}
                           edge="end"
                           onClick={()=>setVisible(!visible)}
                         >
@@ -159,7 +142,6 @@ export default function Login() {
                     }
                     style={{minWidth: '100%', marginTop: 20}}
                   />
-
                   </CardContent>
                 </Card>
                 <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={handleSubmit} type='submit'>
@@ -184,18 +166,12 @@ export default function Login() {
                     </Link>
                   </Grid>
                 </Grid>
-
-
               </CardContent>
             </Card>
         </Grid>
         <Grid item xs={4}> 
         </Grid>
-
       </Grid>
-
-
-
     </>
   )
 }
