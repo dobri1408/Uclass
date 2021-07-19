@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import './App.css';
+import Ask from './components/Ask.js';
 import Home from './components/pages/HomePage/Home';
 import Services from './components/pages/Services/Services';
 import Products from './components/pages/Products/Products';
@@ -89,6 +90,9 @@ function App() {
           }}/>
         </Route> 
 {/*-------------------------------------------------------------------------------------- */}
+          <Route path="/ask" component={Ask} />
+
+{/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/update-profile' component={UpdateProfile} />  
 {/*-------------------------------------------------------------------------------------- */}
         <Route path="/forgot-password" component={Forgot}/>
@@ -102,6 +106,7 @@ function App() {
         <Route path='/fileupload' component={FileUpload} />
 {/*-------------------------------------------------------------------------------------- */}
         <Route path='/texteditor' component={TextEditor} />
+
 {/*-------------------------------------------------------------------------------------- */}       
         <Route exact path='/board/:id'>
           <Container/>
