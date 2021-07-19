@@ -9,16 +9,40 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import { db, auth } from '../firebase/firebase';
 import {v4 as uuidV4} from 'uuid';
 import firebase from "firebase/app";
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 
+const useStyles = makeStyles((theme) => ({
+
+  button: {
+      paddingLeft: 20,
+      paddingRight: 20,
+      paddingTop: 10,
+      paddingBottom: 10,
+      borderRadius: 50,
+      backgroundColor: '#345F65',
+      marginRight: 10,
+      marginLeft: 10,
+      '&:hover': {
+        backgroundColor: '#2A333A',
+        // marginBottom: 10,
+      }
+    },
+    typo: {
+      fontWeight: 600,
+      
+    },
+}));
 
 
-const NewClass = () => {
+const NewClass = (props) => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [numbers, setNumbers] = useState([0]);
   const [className, setClassName] = useState(''); //sent to firestore
@@ -82,11 +106,18 @@ const NewClass = () => {
   }
 
 
+  
+
   return (
     <div>
-      <IconButton onClick={handleClickOpen} >
+      {/* <IconButton onClick={handleClickOpen} >
         <AddCircleIcon fontSize="large"/>
-      </IconButton>
+      </IconButton> */}
+      <Button color="inherit" className={classes.button} onClick={handleClickOpen}>
+          <Typography className={classes.typo}>
+              NEW CLASS
+          </Typography>
+      </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Create a new class</DialogTitle>
         <IconButton aria-label="close" style={{position: "absolute", right: 3, top: 3}} onClick={handleClose}>

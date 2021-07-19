@@ -286,6 +286,7 @@ export default function Login() {
                     try {
                         
                         const data = {
+                            
                             dates: [],
                             files: [],
                             meetings: [],
@@ -295,7 +296,8 @@ export default function Login() {
                             lastName: lastName.current,
                             email: email.current,
                             phone: phone.current,
-                            profilePhoto: photoURL.current
+                            profilePhoto: photoURL.current,
+                            
                         }
                         signup(email.current, password.current).then(async (e)=>{
                             await logout();

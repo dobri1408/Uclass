@@ -52,7 +52,7 @@ if(CTX != null) {
 const handleEraserMode=(e) => {
     if(CTX != null) {
         //CTX.current.globalCompositeOperation = "destination-out"
-    CTX.current.strokeStyle='white';
+    CTX.current.strokeStyle='#ffffff';
 
 }
 }

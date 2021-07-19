@@ -1,6 +1,4 @@
 import React, {useState,forwardRef, useEffect, useRef} from 'react';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import { IconButton } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { auth, db } from '../firebase/firebase';
 import firebase from "firebase/app";
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -23,13 +22,31 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       width: 200,
     },
+    button: {
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderRadius: 50,
+        backgroundColor: '#345F65',
+        marginRight: 10,
+        marginLeft: 10,
+        '&:hover': {
+          backgroundColor: '#2A333A',
+          // marginBottom: 10,
+        }
+      },
+      typo: {
+        fontWeight: 600,
+        
+      },
   }));
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Schedule ({info}) {
+export default function NewMeeting ({info}) {
     const classes2 = useStyles();
     const [title, setTitle] = useState('');
     const [open, setOpen] = useState(false);
@@ -111,9 +128,11 @@ export default function Schedule ({info}) {
             {/* <IconButton onClick={handleClickOpen}>
                 <ScheduleIcon/>
             </IconButton> */}
-            <IconButton onClick={()=>console.log(info)}>
-                <ScheduleIcon/>
-            </IconButton>
+            <Button color="inherit" className={classes2.button} onClick={handleClickOpen}>
+                <Typography className={classes2.typo}>
+                    new meeting
+                </Typography>
+            </Button>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}

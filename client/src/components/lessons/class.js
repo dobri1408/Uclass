@@ -11,22 +11,22 @@ import NewClass from './NewClass';
 import Container from '@material-ui/core/Container';
 
 
+
 export default function Class ()  {
   const [data, setData] = useState([]);
   const [meetingsData, setMeetingsData] = useState([]);
   const mData = useRef([]);
-  const getData = () => {
-    db.collection('meetings').get().then((snapshot)=>{
-      setData(prevData => snapshot.docs)
-    });
+  // const getData = () => {
+  //   db.collection('meetings').get().then((snapshot)=>{
+  //     setData(prevData => snapshot.docs)
+  //   });
     
-  }
+  // }
 
   
 
   useEffect(()=>{
     const getReady = () => {
-
       auth.onAuthStateChanged((user)=>{
         if(user) {
           db.collection('users').doc(user.uid).get().then((snap)=>{
@@ -38,11 +38,13 @@ export default function Class ()  {
           }
           db.collection('meetings').get().then((snapshot)=>{
             setData(prevData => snapshot.docs)
-            console.log(data)
           });
         });
-        
-      
+
+      db.collection('meetings').get().then((snapshot)=>{
+        setData(prevData => snapshot.docs)
+      });
+
       //where('uid','==',user.uid)
 
     }
@@ -51,25 +53,19 @@ export default function Class ()  {
   
    return (
      <div>
-        <NavbarProf/>
+        <NavbarProf classes={{title: 'Welcome, ..'}}/>
+        
 
-        {/* <Button variant="contained" color="primary" onClick={()=>postData("ceva",["ceva1","ceva2"],"CEva")}>
-          Post new dummy data!
-        </Button> */}
+        {/* <h3 style={{color:"black"}}>Click the plus button to add a new class</h3>
+        <NewClass/> */}
 
-        <h3 style={{color:"black"}}>Click the plus button to add a new class</h3>
-        <NewClass/>
-        <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
-          refresh (not auto yet!)
-        </Button>
-        {/* <Button variant="contained" color="primary" onClick={()=>{getData();refreshPage()}}>
-          refresh
-        </Button> */}
+
         <Container style={{marginTop: "auto"}}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{marginTop: 25}}>
+
         {
 
-          data.length !== 0 ? 
+          data.length !== 0 && meetingsData.meetings !== undefined ? 
           data.filter(element => meetingsData.meetings.includes(element.id)).map(element => {
             return(<ClassCard className={element.data().className} subject={element.data().subject} students={element.data().students} data={data}/>)
           
@@ -78,6 +74,8 @@ export default function Class ()  {
           //chained filter and map. please do not modify unless you know what you are doing!
           
         }
+
+
         </Grid>
         </Container>
         
@@ -85,6 +83,3 @@ export default function Class ()  {
    )
 }
 
-const refreshPage = ()=>{
-  window.location.reload();
-}

@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -39,7 +39,7 @@ export default function Students(props) {
   return (
     <div style={{marginLeft: "auto"}}>
         <IconButton  onClick={handleClickOpen('paper')}>
-            <ExpandMoreIcon/>
+            <ExpandMoreIcon style={{color: 'white'}}/>
         </IconButton>
         <Dialog
             open={open}
@@ -47,23 +47,41 @@ export default function Students(props) {
             scroll={scroll}
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
+            style={{borderRadius: 30}}
+            PaperProps={{
+              style: {
+                backgroundColor: 'transparent',
+                boxShadow: 'none',
+              },
+            }}
         >
-            <DialogTitle id="scroll-dialog-title">Enrolled students ({props.students.length})</DialogTitle>
-            <DialogContent dividers={scroll === 'paper'}>
+            <DialogTitle id="scroll-dialog-title" style={{backgroundColor: '#2A333A', color: 'red'}}>
+              <Typography style={{color: 'white', fontSize: 20, fontWeight: 600}}>
+                Enrolled students ({props.students.length})
+              </Typography>
+            </DialogTitle>
+            <DialogContent dividers={scroll === 'paper'} style={{backgroundColor: '#345F65'}}>
 
             <DialogContentText
                 id="scroll-dialog-description"
                 ref={descriptionElementRef}
                 tabIndex={-1}
             >
-                {props.students.map((element, index) => <h4 style={{minWidth: 300}}>{index+1}. {element}</h4>)}
+                {props.students.map((element, index) => 
+                    <>
+                      {/* <h4 style={{minWidth: 300}}>{index+1}. {element}</h4> */}
+                      <Typography style={{color: 'white', fontSize: 25, fontWeight: 600, minWidth: 300}}>{index+1}. {element}</Typography>
+                    </>
+                )}
             </DialogContentText>
 
             </DialogContent>
-            <DialogActions>
-            <Button onClick={handleClose} color="primary">
-                Done
-            </Button>
+            <DialogActions style={{backgroundColor: '#345F65'}}>
+              <Button variant="contained" color="secondary" style={{backgroundColor: '#D99152'}} onClick={handleClose}>
+                <Typography style={{color: 'white', fontSize: 15, fontWeight: 600}}>
+                  Done
+                </Typography>
+              </Button>
             </DialogActions>
         </Dialog>
     </div>
