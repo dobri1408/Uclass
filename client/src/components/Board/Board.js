@@ -43,6 +43,8 @@ const handleColor = (e) => {
      }
 
   }; 
+
+ 
 const handleWidth=(e) =>{
 if(CTX != null) {
     CTX.current.lineWidth=e.currentTarget.value;
@@ -59,6 +61,7 @@ const handleEraserMode=(e) => {
 const handleRegularMode=(e) => {
     if(CTX != null) {CTX.current.globalCompositeOperation = "source-over"
     CTX.current.strokeStyle=selectedColor.curret;
+    console.log("muieee");
 }
 }
 
