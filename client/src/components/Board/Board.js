@@ -53,8 +53,8 @@ if(CTX != null) {
 }
 const handleEraserMode=(e) => {
     if(CTX != null) {
-        CTX.current.globalCompositeOperation = "destination-out"
-    //CTX.current.strokeStyle='#ffffff';
+       // CTX.current.globalCompositeOperation = "destination-out"
+    CTX.current.strokeStyle='#ffffff';
 }
 }
 const handleRegularMode=(e) => {
@@ -144,13 +144,10 @@ useEffect(() => {
         var image = new Image();
         var canvas = document.querySelector("#board");
        image.src = data;
-       var value = white2transparent(image)
-        if(value === -1){
-            return;
-        }
-        data = value;
+     
+       
         var ctx = canvas.getContext("2d");
-        if(ctx.globalCompositeOperation ==='destination-out') {
+        if(ctx.strokeStyle ==='#ffffff') {
             console.log("radiera acum");    
 
             return; 
@@ -158,7 +155,7 @@ useEffect(() => {
         image.onload = function () {
             ctx.drawImage(image,0,0);
         }
-        image.src=data;
+        image.src=data; 
     });
   },[socket])
 useEffect(() =>{
