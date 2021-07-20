@@ -70,6 +70,9 @@ useEffect(() =>{
         console.log("salvez")
         var canvas = document.querySelector('#board');
            var base64ImageData=canvas.toDataURL("image/png");
+            var image = new Image();
+            image.src = base64ImageData;
+            base64ImageData = white2transparent(image);          
             socket.emit("save-board",base64ImageData);
     },7000)
     return () =>clearInterval(interval);
