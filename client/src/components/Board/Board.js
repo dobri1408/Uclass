@@ -53,15 +53,13 @@ if(CTX != null) {
 }
 const handleEraserMode=(e) => {
     if(CTX != null) {
-        //CTX.current.globalCompositeOperation = "destination-out"
-    CTX.current.strokeStyle='#ffffff';
-
+        CTX.current.globalCompositeOperation = "destination-out"
+    //CTX.current.strokeStyle='#ffffff';
 }
 }
 const handleRegularMode=(e) => {
     if(CTX != null) {CTX.current.globalCompositeOperation = "source-over"
-    CTX.current.strokeStyle=selectedColor.curret;
-    console.log("muieee");
+   
 }
 }
 
@@ -77,6 +75,40 @@ useEffect(() =>{
     return () =>clearInterval(interval);
 },[socket])
 
+
+
+function white2transparent(img)
+{
+    var c = document.createElement('canvas');
+
+    var w = img.width || img.naturalWidth, h = img.height || img.naturalHeight;
+if(w == 0 || h == 0) return -1;
+    c.width = w;
+    c.height = h;
+    console.log("The width is" + w);
+    console.log("The height is" + h);
+    
+    var ctx = c.getContext('2d');
+
+    ctx.drawImage(img, 0, 0, w, h);
+    var imageData = ctx.getImageData(0,0, w, h);
+    var pixel = imageData.data;
+
+    var r=0, g=1, b=2,a=3;
+    for (var p = 0; p<pixel.length; p+=4)
+    {
+      if (
+          pixel[p+r] == 255 &&
+          pixel[p+g] == 255 &&
+          pixel[p+b] == 255) // if white then change alpha to 0
+      {pixel[p+a] = 0;}
+    }
+
+    ctx.putImageData(imageData,0,0);
+
+    return c.toDataURL('image/png');
+
+}
 useEffect(() => {
     const s = io("http://localhost:3002");
     setSocket(s)
@@ -111,15 +143,18 @@ useEffect(() => {
           console.log("enter");
         var image = new Image();
         var canvas = document.querySelector("#board");
-        
-        var ctx = canvas.getContext("2d");
-        console.log(ctx.strokeStyle);
-        if(ctx.strokeStyle==='#ffffff') {
-            console.log("wtf");
-
+       image.src = data;
+       var value = white2transparent(image)
+        if(value === -1){
             return;
         }
-        
+        data = value;
+        var ctx = canvas.getContext("2d");
+        if(ctx.globalCompositeOperation ==='destination-out') {
+            console.log("radiera acum");    
+
+            return; 
+    }
         image.onload = function () {
             ctx.drawImage(image,0,0);
         }
