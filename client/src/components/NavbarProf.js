@@ -250,16 +250,7 @@ window.addEventListener('resize',showButton);
                   Clasele Mele
                 </Typography>
               </Button>
-              <Button color="inherit" className={classes.button} onClick={()=>history.push('/startmeeting')}>
-                <Typography style={{fontWeight: 600}}>
-                  Intalnire
-                </Typography>
-              </Button>
-              <Button color="inherit" className={classes.button} onClick={()=>history.push('/products')}>
-                <Typography style={{fontWeight: 600}}>
-                  Lectii
-                </Typography>
-              </Button>
+             
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/profile')}>
                 <Typography className={classes.typo}>

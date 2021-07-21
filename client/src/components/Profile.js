@@ -11,13 +11,32 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import {makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Logo from './Logoo.jpg';
+import './profile.css'
 
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    height:'100%',
+    color: theme.palette.text.secondary,
+    boxShadow: "none"
+  },
+  profile:{
+    height:"80vh",
+    flexGrow: 1,
+  }
+}));
 
 
 
 
 export default function Profile(props) {
+  const classes = useStyles();
 
   return (
     <>
@@ -30,42 +49,30 @@ export default function Profile(props) {
       </Button>
       {
         props.data.userData !== [] ?
-        <>
-
-
-          <Grid container style={{marginTop: 25}}>
-            <Grid item xs={1}>
-            </Grid>
-            <Grid item xs={10}>
-          <Card>
-            <CardHeader
-              avatar={
-                <Avatar style={{color: 'red'}}>
-                  R
-                </Avatar>
-              }
-            />
-            <CardContent style={{backgroundColor: '#345F65'}}>
-              <Typography>
-                ceva
-              </Typography>
-            </CardContent>
-          </Card>
-
-            </Grid>
-            <Grid item xs={1}>
-            </Grid>
-          </Grid>
-
-          <h1>first name {props.data.userData.firstName}</h1>
-          <h1>last name {props.data.userData.lastName}</h1>
-          <h1>email {props.data.userData.email}</h1>
-          <h1>phone no. {props.data.userData.phone}</h1>
-          
-          <img src={props.data.userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/>
-
-
-        </>:
+        <div className={classes.profile} style ={{alignItems:'center',display: 'flex', justifyContent: 'center'}}>
+      <Grid container spacing={3}>
+       
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+            {props.data.userData.profilePhoto ?          <img style = {{height:"670px",width:"910px"}} src={props.data.userData.profilePhoto} alt= 'ai poza de profil'/> :<img style = {{height:"670px",width:"910px"}}src={Logo} alt= 'nu ai poza de profil'/> }
+               </Paper>
+        </Grid>
+        <Grid item xs={6}>
+        <Paper className={classes.paper} style={{paddingTop:"16%",backgroundColor: '#F2F2F2'}}>
+            <div style ={{backgroundColor:'#345F65'}}>
+            <h1 style ={{color:'white', margin:15}}> Prenume: {props.data.userData.firstName}</h1>
+            <h1 style ={{color:'white', margin:15}}> Nume de familie: {props.data.userData.lastName}</h1>
+            
+            <h1 style ={{color:'white', margin:15}}> Email: {props.data.userData.email}</h1>
+            <h1 style ={{color:'white', margin:15}}> Telefon: {props.data.userData.phone}</h1>
+            <h1 style ={{color:'white', margin:15}}>Cont: Profesor</h1>
+            
+            </div>
+          </Paper>
+      
+        </Grid>
+             </Grid>
+    </div>:
         <>
           <Grid container spacing={0}>
             <Grid item xs={6}>

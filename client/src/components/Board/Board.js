@@ -74,7 +74,7 @@ useEffect(() =>{
             image.src = base64ImageData;
             base64ImageData = white2transparent(image);          
             socket.emit("save-board",base64ImageData);
-    },7000)
+    },5000)
     return () =>clearInterval(interval);
 },[socket])
 
