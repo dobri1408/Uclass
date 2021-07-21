@@ -11,7 +11,7 @@ mongoose.connect("mongodb://localhost/board", {
   useCreateIndex: true,
 })
 var io = require('socket.io')(http,{
-    cors: {
+    cors: { 
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
 },
@@ -20,7 +20,7 @@ io.on('connection',(socket) => {
     console.log('connected');
     socket.on('get-board',async (BoardId) =>{ 
         const board = await findOrCreateBoard(BoardId);
-
+console.log("intru");
         socket.join(BoardId)
         socket.emit("load-board",board.data);
         console.log(BoardId);

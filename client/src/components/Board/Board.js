@@ -43,6 +43,8 @@ const handleColor = (e) => {
      }
 
   }; 
+
+ 
 const handleWidth=(e) =>{
 if(CTX != null) {
     CTX.current.lineWidth=e.currentTarget.value;
@@ -50,12 +52,15 @@ if(CTX != null) {
     //e.currentTarget.value
 }
 const handleEraserMode=(e) => {
-    if(CTX != null) {CTX.current.globalCompositeOperation = "destination-out"
-    }
+    if(CTX != null) {
+       // CTX.current.globalCompositeOperation = "destination-out"
+    CTX.current.strokeStyle='#ffffff';
+}
 }
 const handleRegularMode=(e) => {
     if(CTX != null) {CTX.current.globalCompositeOperation = "source-over"
-    }
+   
+}
 }
 
 useEffect(() =>{
@@ -65,11 +70,48 @@ useEffect(() =>{
         console.log("salvez")
         var canvas = document.querySelector('#board');
            var base64ImageData=canvas.toDataURL("image/png");
+            var image = new Image();
+            image.src = base64ImageData;
+            base64ImageData = white2transparent(image);          
             socket.emit("save-board",base64ImageData);
     },7000)
     return () =>clearInterval(interval);
 },[socket])
 
+
+
+function white2transparent(img)
+{
+    var c = document.createElement('canvas');
+
+    var w = img.width || img.naturalWidth, h = img.height || img.naturalHeight;
+if(w == 0 || h == 0) return -1;
+    c.width = w;
+    c.height = h;
+    console.log("The width is" + w);
+    console.log("The height is" + h);
+    
+    var ctx = c.getContext('2d');
+
+    ctx.drawImage(img, 0, 0, w, h);
+    var imageData = ctx.getImageData(0,0, w, h);
+    var pixel = imageData.data;
+
+    var r=0, g=1, b=2,a=3;
+    for (var p = 0; p<pixel.length; p+=4)
+    {
+      if (
+          pixel[p+r] == 255 &&
+          pixel[p+g] == 255 &&
+          pixel[p+b] == 255) // if white then change alpha to 0
+      {pixel[p+a] = 0;}
+    }
+
+    ctx.putImageData(imageData,0,0);
+
+    return c.toDataURL('image/png');
+
+}
 useEffect(() => {
     const s = io("http://localhost:3002");
     setSocket(s)
@@ -104,11 +146,19 @@ useEffect(() => {
           console.log("enter");
         var image = new Image();
         var canvas = document.querySelector("#board");
+       image.src = data;
+     
+       
         var ctx = canvas.getContext("2d");
+        if(ctx.strokeStyle ==='#ffffff') {
+            console.log("radiera acum");    
+
+            return; 
+    }
         image.onload = function () {
             ctx.drawImage(image,0,0);
         }
-        image.src=data;
+        image.src=data; 
     });
   },[socket])
 useEffect(() =>{
@@ -163,7 +213,7 @@ useEffect(() =>{
         canvas.addEventListener('mouseup', function() {
             canvas.removeEventListener('mousemove', onPaint, false);
         }, false);
-    var root= this;
+  
         var onPaint = function() {
             ctx.beginPath();
             ctx.moveTo(last_mouse.x, last_mouse.y);

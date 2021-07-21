@@ -68,7 +68,7 @@ export default function NewPost({name,data}) {
         </IconButton>
     </Grid>
     <Grid item >
-        <h5 style={{color:"white"}}>Click the arrow to add a new post to your feed</h5>
+        <h5 style={{color:"black"}}>Click the arrow to add a new post to your feed</h5>
     </Grid>
     </Grid>
                 

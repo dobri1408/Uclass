@@ -129,17 +129,7 @@ export const Toolbar = ({
           )}
 
         </div>
-        <div>
-          <a
-            className="btn btn--main btn--block"
-            download="image.png"
-            onClick={handleDownload}
-            href={dateUrl}
-          >
-            Save Image
-          </a>
-
-        </div>
+       
       </aside>
     </div>
   )

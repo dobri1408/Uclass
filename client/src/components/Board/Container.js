@@ -10,7 +10,7 @@ import {drawImage} from 'react-drawing-board'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useEffect,useRef,useCallback} from 'react';
-import io from 'socket.io-client';
+
 import {Board} from './Board'
 function Container(){
   /*var {id:boardId} = useParams();
@@ -107,7 +107,7 @@ var idk;
 console.log("IDk"+idk);*/
 return (
         <>
-        <NavbarProf/>
+       
     <Board/>
 
           </>        
