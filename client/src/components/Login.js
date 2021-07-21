@@ -19,6 +19,7 @@ import { db, auth } from './firebase/firebase';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   typoRight: {
     color: 'white', 
@@ -44,13 +45,11 @@ export default function Login(props) {
   const classes = useStyles();
   const emailRef = useRef();
   const passwordRef = useRef();
-  // const userData = useRef([]);
-  // const classesData = useRef([]);
+  const userData = useRef([]);
+  const meetingsData = useRef([]);
   const [error, setError] = useState("")
   const history = useHistory()
   const [visible, setVisible] = useState(false)
-  const mData = useRef([]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -60,19 +59,22 @@ export default function Login(props) {
         await auth.onAuthStateChanged((user)=>{
           db.collection('users').doc(user.uid).get().then((snap)=>{
             if(snap.exists) {
-              props.data.setUserData(snap.data());
+              userData.current = snap.data();
               snap.data().meetings.forEach((element, index)=>{
                 db.collection('meetings').doc(element).get().then((s)=>{
-                  if(mData.current.length < snap.data().meetings.length) mData.current.push(s.data())
+                  if(meetingsData.current.length < snap.data().meetings.length) {meetingsData.current.push(s.data())}
                 })
               })
-              props.data.setMeetingsData(mData.current)
+              
+              props.setData({
+                userData: userData.current,
+                meetingsData: meetingsData.current
+              })
             }
           })
 
         })
-
-        history.push('/profile')
+        history.push('/profile');
 
       })
     } catch {

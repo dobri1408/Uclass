@@ -1,8 +1,5 @@
-// import React, {useEffect, useState, useRef} from 'react';
-import React from 'react';
-// import {db} from './firebase/firebase';
+import React, {useContext} from 'react';
 import NavbarProf from './NavbarProf';
-// import {auth} from './firebase/firebase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-
+import { DataContext } from '../App';
 
 
 
@@ -19,14 +16,13 @@ import Button from '@material-ui/core/Button';
 
 export default function Profile(props) {
 
+  const data = useContext(DataContext);
+
   return (
     <>
       <NavbarProf/>
-      <Button onClick={()=>console.log(props.data.userData)}>
-        userData
-      </Button>
-      <Button onClick={()=>console.log(props.data.meetingsData)}>
-        meetingsData
+      <Button variant='contained' onClick={()=>console.log(data)}>
+        dai
       </Button>
       {
         props.data.userData !== [] ?
@@ -57,12 +53,12 @@ export default function Profile(props) {
             </Grid>
           </Grid>
 
-          <h1>first name {props.data.userData.firstName}</h1>
-          <h1>last name {props.data.userData.lastName}</h1>
-          <h1>email {props.data.userData.email}</h1>
-          <h1>phone no. {props.data.userData.phone}</h1>
+          {/* <h1>first name {userData.firstName}</h1>
+          <h1>last name {userData.lastName}</h1>
+          <h1>email {userData.email}</h1>
+          <h1>phone no. {userData.phone}</h1> */}
           
-          <img src={props.data.userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/>
+          {/* <img src={userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/> */}
 
 
         </>:

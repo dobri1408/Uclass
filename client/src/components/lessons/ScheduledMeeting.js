@@ -502,7 +502,8 @@ export default function ScheduledMeeting(props) {
                 })
             }
         });
-        alert('File was uploaded!');
+        handleExpandClick();
+        alert(`you uploaded ${file.name}`);
     }
 
     const handleClick = async (e) => {

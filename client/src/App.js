@@ -29,11 +29,20 @@ import JoinRoom from './components/JoinRoom/JoinRoom';
 
 
 
+
+
+export const DataContext = React.createContext();
+
 function App() {
 
   const [meetingsData, setMeetingsData] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [data, setData] = useState({});
+
+        
+
   return (
+<DataContext.Provider value={data}>
     <Provider store={store}>
       <AuthProvider>
       <Router>
@@ -68,10 +77,11 @@ function App() {
         <PrivateRoute path='/classrooms/:id'>
           <Classroom data={{userData: userData, meetingsData: meetingsData}}/>
         </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}s  
+{/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/profile'>
           <Profile data={{userData: userData, meetingsData: meetingsData}}/>
         </PrivateRoute>
+        {/* <PrivateRoute path='/profile' component={Profile} /> */}
 {/*-------------------------------------------------------------------------------------- */}
         <Route path = "/" exact>
           <Redirect to ={`/documents/${uuidV4()}`}/>
@@ -82,11 +92,9 @@ function App() {
         </PrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <Route path='/login'>
-          <Login data={{
-            setUserData: setUserData, 
-            setMeetingsData: setMeetingsData, 
-            meetingsData: meetingsData
-          }}/>
+          <Login 
+            setData={setData()}
+          />
         </Route> 
 {/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/update-profile' component={UpdateProfile} />  
@@ -115,6 +123,7 @@ function App() {
       </Router>
       </AuthProvider>
     </Provider>
+    </DataContext.Provider>
   );
 }
 

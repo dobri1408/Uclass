@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import './navbar.css';
 import {useHistory} from 'react-router-dom';
-
-// import { Button } from 'react-bootstrap';
-// import { MdFingerprint } from 'react-icons/md';
-// import { FaBars, FaTimes } from 'react-icons/fa';
-// import { IconContext } from 'react-icons/lib';
 import Image5 from "./LOGO UCLASS ALB full.png";
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,20 +8,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
 import { useAuth } from './contexts/AuthContext';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
-import ScheduleIcon from '@material-ui/icons/Schedule';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import Schedule from './lessons/Schedule';
 import NewMeeting from './lessons/NewMeeting';
 import NewClass from './lessons/NewClass';
+import { DataContext } from '../App';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     color: '#FFFFFF',
     fontSize: 30,
     fontWeight: 400,
-    // marginLeft: 40
   },
   button: {
     paddingLeft: 20,
@@ -54,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 10,
     '&:hover': {
       backgroundColor: '#2A333A',
-      // marginBottom: 10,
     }
   },
   typo: {
@@ -71,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function NavbarProf(props) {
+  const data = useContext(DataContext);
   let history = useHistory();
   const classes = useStyles();
   // const [click, setClick] = useState(false);
@@ -84,7 +71,10 @@ function NavbarProf(props) {
 
     setError('');
     try {
-    await logout();
+    logout().then(()=>{
+      localStorage.removeItem('userData');
+      localStorage.removeItem('meetingsData');
+    });
     history.push('/login')
     }
     catch{
