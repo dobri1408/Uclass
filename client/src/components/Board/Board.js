@@ -8,6 +8,8 @@ import {Toolbar} from './Toolbar';
 export const Board =()=>{
 const [socket,setSocket] = useState()
 const[currentColor,setCurrentColor] = useState();
+var send = 0;
+const [SEND,setSEND] = useState(0);
 const[render,setRender] = useState(0);
 const CTX = useRef();
 var {id:boardId} = useParams();
@@ -74,7 +76,7 @@ useEffect(() =>{
             image.src = base64ImageData;
             base64ImageData = white2transparent(image);          
             socket.emit("save-board",base64ImageData);
-    },7000)
+    },5000)
     return () =>clearInterval(interval);
 },[socket])
 
@@ -162,16 +164,20 @@ useEffect(() => {
     });
   },[socket])
 useEffect(() =>{
-    if(socket == null) return;
+    console.log(SEND);
+    if(socket == null || SEND === 0) return;
     const interval =setInterval(() =>
     { 
+       
         console.log("trimit")
+        
         var canvas = document.querySelector('#board');
            var base64ImageData=canvas.toDataURL("image/png");
             socket.emit("canvas-data",base64ImageData);
+        
     },1000)
     return () =>clearInterval(interval);
-},[socket])
+},[socket,SEND])
 
     const  drawonCanvas= useCallback((e)=> {
         var canvas = document.querySelector('#board');
@@ -220,6 +226,9 @@ useEffect(() =>{
             ctx.lineTo(mouse.x, mouse.y);
             ctx.closePath();
             ctx.stroke();
+     setSEND(1);
+            console.log("densenez");
+            console.log(send);
           
         };
     },[ctx,currentColor],)
