@@ -67,7 +67,7 @@ export default function Students(props) {
                 ref={descriptionElementRef}
                 tabIndex={-1}
             >
-                {props.students.map((element, index) => 
+                {['aas','ssd'].map((element, index) => 
                     <>
                       {/* <h4 style={{minWidth: 300}}>{index+1}. {element}</h4> */}
                       <Typography style={{color: 'white', fontSize: 25, fontWeight: 600, minWidth: 300}}>{index+1}. {element}</Typography>

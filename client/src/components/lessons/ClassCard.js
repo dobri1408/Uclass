@@ -7,13 +7,10 @@ import {
     Typography,
     CardActions,
     Avatar,
-    IconButton,
 } from '@material-ui/core';
 import Students from './Students';
 import { deepOrange, deepPurple, red } from '@material-ui/core/colors';
-import LaunchIcon from '@material-ui/icons/Launch';
 import {Link} from 'react-router-dom';
-import Schedule from './Schedule';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles';
 

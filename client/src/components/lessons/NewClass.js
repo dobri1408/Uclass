@@ -16,7 +16,7 @@ import {v4 as uuidV4} from 'uuid';
 import firebase from "firebase/app";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import {data, refresh} from '../../store/data';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -95,7 +95,7 @@ const NewClass = (props) => {
     // await db.collection('users').where('uid','==',uid).where(db.FieldPath.documentId(), '==', id)
   }
 
-  const handleDataPost = () => {
+  const handleDataPost = async () => {
     postData(className,students,subject);
     handleClose();
     alert('The new class was added successfully!');
@@ -103,6 +103,8 @@ const NewClass = (props) => {
       meetings: firebase.firestore.FieldValue.arrayUnion(postId)
     })
     setPostId(prevPostId => uuidV4());
+    // await data.dispatch(refresh());
+
   }
 
 

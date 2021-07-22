@@ -14,8 +14,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import NewMeeting from './lessons/NewMeeting';
 import NewClass from './lessons/NewClass';
-import { DataContext } from '../App';
-
+import {data, refresh, persistor} from '../store/data';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function NavbarProf(props) {
-  const data = useContext(DataContext);
   let history = useHistory();
   const classes = useStyles();
   // const [click, setClick] = useState(false);
@@ -72,8 +70,8 @@ function NavbarProf(props) {
     setError('');
     try {
     logout().then(()=>{
-      localStorage.removeItem('userData');
-      localStorage.removeItem('meetingsData');
+      localStorage.clear();
+      persistor.purge();
     });
     history.push('/login')
     }
@@ -180,7 +178,7 @@ window.addEventListener('resize',showButton);
                     </Typography>
                   </Button> */}
                   <NewMeeting info={{className: props.feed.title}} />
-                  <Card style={{backgroundColor: '#024873', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
+                  <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
                       title={
                         <>
@@ -209,7 +207,7 @@ window.addEventListener('resize',showButton);
                     </Typography>
                   </Button> */}
                   <NewClass />
-                  <Card style={{backgroundColor: '#024873', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
+                  <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
                       title={
                         <>

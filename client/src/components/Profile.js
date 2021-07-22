@@ -1,31 +1,27 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import NavbarProf from './NavbarProf';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardContent';
-import Avatar from '@material-ui/core/Avatar';
+// import Typography from '@material-ui/core/Typography';
+// import Card from '@material-ui/core/Card';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardHeader from '@material-ui/core/CardContent';
+// import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import { DataContext } from '../App';
-
-
-
-
+import { data } from '../store/data';
+import {useHistory} from 'react-router-dom';
 
 export default function Profile(props) {
-
-  const data = useContext(DataContext);
+  let history = useHistory();
 
   return (
     <>
       <NavbarProf/>
-      <Button variant='contained' onClick={()=>console.log(data)}>
-        dai
+      <Button variant='contained' id='getData' onClick={()=>console.log(data.getState())}>
+        console
       </Button>
       {
-        props.data.userData !== [] ?
+        data.getState() !== undefined ?
         <>
 
 
@@ -33,32 +29,32 @@ export default function Profile(props) {
             <Grid item xs={1}>
             </Grid>
             <Grid item xs={10}>
-          <Card>
+          {/* <Card>
             <CardHeader
-              avatar={
-                <Avatar style={{color: 'red'}}>
-                  R
-                </Avatar>
-              }
+              // avatar={
+              //   <Avatar style={{color: 'red'}}>
+              //     R
+              //   </Avatar>
+              // }
             />
             <CardContent style={{backgroundColor: '#345F65'}}>
               <Typography>
                 ceva
               </Typography>
             </CardContent>
-          </Card>
+          </Card> */}
 
             </Grid>
             <Grid item xs={1}>
             </Grid>
           </Grid>
 
-          {/* <h1>first name {userData.firstName}</h1>
-          <h1>last name {userData.lastName}</h1>
-          <h1>email {userData.email}</h1>
-          <h1>phone no. {userData.phone}</h1> */}
+          <h1>first name {data.getState().userData.firstName}</h1>
+          <h1>last name {data.getState().userData.lastName}</h1>
+          <h1>email {data.getState().userData.email}</h1>
+          <h1>phone no. {data.getState().userData.phone}</h1>
           
-          {/* <img src={userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/> */}
+          <img src={data.getState().userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/>
 
 
         </>:

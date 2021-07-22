@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+// import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 // import { MdFingerprint } from 'react-icons/md';
@@ -109,7 +109,7 @@ window.addEventListener('resize',showButton);
               <li className='nav-btn'>
 
               <div>
-        <Button onClick={openModal}>Autentfica-te</Button>
+        <button onClick={openModal}>Autentfica-te</button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -145,7 +145,7 @@ window.addEventListener('resize',showButton);
                   onClick={closeMobileMenu}
           
           >
-              <Button>Inregistreaza-te</Button>
+              <button>Inregistreaza-te</button>
       </Link>
               </li>
             </ul>

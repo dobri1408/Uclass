@@ -6,7 +6,7 @@ import Image2 from "./copil.png";
 import Image1 from "./img1.png";
 import Image3 from './gagica.jpg';
 import Image4 from './comunitate.jpg';
-import {Button} from 'react-bootstrap';
+// import {Button} from 'react-bootstrap';
 function HeroSection({
   lightBg,
   topLine,
@@ -64,9 +64,9 @@ return (<img src={Image1} alt={alt} className='home__hero-img' />)
                   {description}
                 </p>
                 <Link to='/signprofesor'>
-                  <Button>
+                  <button>
                     {buttonLabel}
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>

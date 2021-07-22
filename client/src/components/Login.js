@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
 import {useAuth} from './contexts/AuthContext';
-
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -15,9 +14,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { OutlinedInput } from "@material-ui/core";
 import ErrorIcon from '@material-ui/icons/Error';
-import { db, auth } from './firebase/firebase';
-
-
+import {data, refresh} from '../store/data';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     '&:hover': {
       color: '#608BA6',
-      // marginBottom: 10,
     }
   },
   typoLeft: {
@@ -35,50 +31,32 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600, 
     '&:hover': {
       color: '#608BA6',
-      // marginBottom: 10,
     }
   }
 }));
 
-export default function Login(props) {
+
+export default function Login (props) {
+  let history = useHistory();
   const { login } = useAuth()
   const classes = useStyles();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const userData = useRef([]);
-  const meetingsData = useRef([]);
-  const [error, setError] = useState("")
-  const history = useHistory()
-  const [visible, setVisible] = useState(false)
+  const [error, setError] = useState("");
+  const [visible, setVisible] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      setError("")
       login(emailRef.current, passwordRef.current).then(async ()=>{
-        await auth.onAuthStateChanged((user)=>{
-          db.collection('users').doc(user.uid).get().then((snap)=>{
-            if(snap.exists) {
-              userData.current = snap.data();
-              snap.data().meetings.forEach((element, index)=>{
-                db.collection('meetings').doc(element).get().then((s)=>{
-                  if(meetingsData.current.length < snap.data().meetings.length) {meetingsData.current.push(s.data())}
-                })
-              })
-              
-              props.setData({
-                userData: userData.current,
-                meetingsData: meetingsData.current
-              })
-            }
-          })
+      localStorage.clear();
+      await data.dispatch(refresh());
 
-        })
-        history.push('/profile');
-
+      history.push('/profile');
       })
     } catch {
-      setError("Nu am putut sa te conectam, mai incearca o data")
+      setError('1')
     }
 
   }
@@ -95,11 +73,8 @@ export default function Login(props) {
                   Login page
                 </Typography>
                 {
-                  error &&
+                  error !== '' &&
                   <Card style={{marginBottom: 20}}>
-                    {/* <CardHeader>
-
-                    </CardHeader> */}
                     <CardContent style={{backgroundColor: '#E57373'}}>
                       <Grid container>
                         <Grid item xs={2}>
@@ -118,7 +93,6 @@ export default function Login(props) {
                 <Card style={{marginBottom: 20}}>
                   <CardContent style={{backgroundColor: '#608BA6'}}>
 
-                  {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
                   <TextField id="outlined-basic" label="" variant="outlined" placeholder="EMAIL" style={{minWidth: '100%'}} type='email' onChange={(e)=>emailRef.current=e.target.value}/>
                   </CardContent>
                 </Card>
@@ -129,8 +103,6 @@ export default function Login(props) {
                     type={visible ? 'text' : 'password'}
                     placeholder='PASSWORD'
                     onChange={(e)=>passwordRef.current=e.target.value}
-                    // value={values.password}
-                    // onChange={handleChange('password')}
                     endAdornment={
                       <InputAdornment position="end">
                         <IconButton

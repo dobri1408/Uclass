@@ -1,61 +1,69 @@
-// import React, {useState,useEffect,useRef} from 'react';
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import NavbarProf from '../NavbarProf';
 import {
-  Grid,
-  // Button,
+  Grid
 } from '@material-ui/core';
-// import { db, auth } from '../firebase/firebase';
 import ClassCard from './ClassCard';
 import './icons.css';
-// import NewClass from './NewClass';
 import Container from '@material-ui/core/Container';
-
-
+import { data } from '../../store/data';
+import Button from '@material-ui/core/Button'; 
 
 export default function Class (props)  {
-  // const [data, setData] = useState([]);
-  // const [meetingsData, setMeetingsData] = useState([]);
-  // const mData = useRef([]);
-  // const getData = () => {
-  //   db.collection('meetings').get().then((snapshot)=>{
-  //     setData(prevData => snapshot.docs)
-  //   });
-    
-  // }
-
   
+  // const [ready, setReady] = useState(false);
 
   // useEffect(()=>{
   //   const getReady = () => {
   //     auth.onAuthStateChanged((user)=>{
-  //       if(user) {
+  //       if(user){
   //         db.collection('users').doc(user.uid).get().then((snap)=>{
-  //             if(snap.exists) {
-  //               mData.current = snap.data();
-  //               setMeetingsData(prevMeetingsData => snap.data())
-  //             } 
-  //           });
+  //           u.current = snap.data();
+  //           u.current.meetings.forEach((element)=>{
+  //             db.collection('meetings').doc(element).get().then((s)=>{
+  //               if(m.current.length < u.current.meetings.length) m.current.push(s.data());
+  //             })
+  //           })
+  //           setUserData(u.current);
+  //           setMeetingsData(m.current);
+  //           setReady(true);
+  //           })
   //         }
-  //         db.collection('meetings').get().then((snapshot)=>{
-  //           setData(prevData => snapshot.docs)
-  //         });
-  //       });
-
-  //     db.collection('meetings').get().then((snapshot)=>{
-  //       setData(prevData => snapshot.docs)
-  //     });
-
-  //     //where('uid','==',user.uid)
-
-  //   }
+  //       })
+  //     }
   //   getReady();
   // },[])
-  
+
+  // useEffect((userData, meetingsData)=>{
+  //   const getReady = () => {
+  //     auth.onAuthStateChanged((user)=>{
+  //       if(user){
+  //         db.collection('users').doc(user.uid).get().then((snap)=>{
+  //           u.current = snap.data();
+            
+  //           snap.data().meetings.forEach((element)=>{
+  //             db.collection('meetings').doc(element).get().then((s)=>{
+  //               if(m.current.length < snap.data().meetings.length) m.current.push(s.data());
+  //             })
+  //           })
+  //           setUserData(u.current);
+  //           setMeetingsData(m.current);
+  //         })
+  //       }
+  //     })
+  //   }
+  //   getReady();
+
+  // },[])
+
+
+
    return (
      <div>
         <NavbarProf classes={{title: 'Welcome, ..'}}/>
-
+        <Button variant="contained" onClick={()=>console.log(data.getState())}>
+          click
+        </Button>
 
         <Container style={{marginTop: "auto"}}>
         <Grid container spacing={3} style={{marginTop: 25}}>
@@ -71,16 +79,16 @@ export default function Class (props)  {
           //chained filter and map. please do not modify unless you know what you are doing!
           
         } */}
-
+        <ClassCard className={'test'} subject={'test'} students={'test'} key={'cddc'}/>
         {
 
-        props.data.meetingsData.length !== 0 ? 
-        props.data.meetingsData.map(element => {
-          return(<ClassCard className={element.className} subject={element.subject} students={element.students} />)
-
-        }) : <h1 style={{color:"white", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
+        data.getState().meetingsData !== [] ? 
+        data.getState().meetingsData.map((element, index) => {
+          return(<ClassCard className={element.className} subject={element.subject} students={element.students} key={index}/>)
+        }) : <h1 style={{color:"black", display: "flex", justifyContent: "center", verticalAlign: "middle", paddingTop: 30}}>loading...</h1>
 
         }
+
 
 
         </Grid>

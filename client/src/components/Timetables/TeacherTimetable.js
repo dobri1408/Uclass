@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import NavbarProf from '../NavbarProf.js';
-// import Button from '@material-ui/core/Button';
-// import { db, auth } from '../firebase/firebase';
-
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -14,13 +11,15 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
+import { data } from '../../store/data';
 
 
 const TeacherTimetable = (props) => {
     const [currentDate, setCurrentDate] = useState('2021-07-04');
     const [readyData, setReadyData] = useState([]);
+    const rData = useRef([]);
     const final = useRef([]);
-    
+
     useEffect(()=>{
         const today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -28,7 +27,7 @@ const TeacherTimetable = (props) => {
         const yyyy = today.getFullYear();
         setCurrentDate(yyyy + '-' + mm + '-' + dd);
 
-        props.data.meetingsData.forEach((element, index) => {
+        data.getState().meetingsData.forEach((element, index) => {
             if(element.titles !== []) {
                 element.titles.forEach((e)=>{
                     final.current.push({
@@ -40,8 +39,20 @@ const TeacherTimetable = (props) => {
                     })
                 })
             }
-            setReadyData(prevReadyData => [...readyData, ...final.current])
+
+            [...final.current].forEach(e=>{
+              if(!rData.current.includes(e)) {
+                rData.current.push(e);
+              }
+            })
+
+            // rData.includes()
+            // rData.current = [...rData.current, ...final.current];
+            // if( readyData !== [] ) setReadyData(prevReadyData => [...readyData, ...final.current])
+            // else setReadyData(prevReadyData => [...final.current]).
+            // setReadyData(rData.current);
         })
+        
            
     },[])
 
@@ -49,11 +60,11 @@ const TeacherTimetable = (props) => {
     return (
         <div>
             <NavbarProf/>
-            {/* <Button variant='contained' onClick={()=>console.log(readyData)}>
+            <Button variant='contained' onClick={()=>console.log(readyData)}>
                 cv
-            </Button> */}
+            </Button>
             {
-                readyData.length !== 0 ?
+                readyData !== [] ?
                 <Paper style={{marginTop: 25}}>
                     <Scheduler
                     data={readyData}

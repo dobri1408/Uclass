@@ -1,20 +1,9 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {useHistory} from 'react-router-dom';
 import './Ask.scss'
 
 function Ask()  {
     let history = useHistory();
-    // useEffect (() => 
-    //     {
-    //         var styleei=document.getElementById("styleei");
-    //         if (styleei){
-    //             styleei.style.height= window.screen.height;
-    //             console.log(window.screen.height);
-    //             styleei.style.width= window.screen.width;
-                
-    //         }
-    //     }, []
-    // )
     return (
         <div id='styleei'>
         <button id='esti_prof' onClick={()=>{history.push('/signprofesor')}}>

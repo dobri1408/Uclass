@@ -12,33 +12,21 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CardContent from '@material-ui/core/CardContent';
 // import Schedule from './Schedule';
 // import NewMeeting from './NewMeeting';
+import { data, refresh } from '../../store/data';
 
-
-// import { db, auth } from '../firebase/firebase';
 
 import Navbar from './Navbar';
 
 export default function Classroom (props) {
-    // const firebaseData = useRef([]);
-    // const data = useRef([]);
-    // const timestamps = useRef([]);
-    // const startDates = useRef([]);
-    const sortedData = useRef([]);
     const currentClassName = useRef('');
-    // const meetingsData = useRef([]);
     const currentClassInfo = useRef([]);
     const currentClassHash = useRef('');
-    // const [hash, setHash] = useState('');
-    // const [sortedData2, setSortedData2] = useState([]);
-    // const [classInfo, setClassInfo] = useState(null);
     const [titles, setTitles] = useState([])
     const { state } = useLocation();
-    
     const [currentButton, setCurrentButton] = useState('activity');
-    
-    currentClassName.current = state.name;
-    
-    const getData = async () => {
+    currentClassName.current = state.name;    
+
+    // const getData = async () => {
         // await auth.onAuthStateChanged((user)=>{
         //     if(user) {
         //       db.collection('users').doc(user.uid).get().then((snap)=>{
@@ -91,16 +79,14 @@ export default function Classroom (props) {
 
         //     } 
         // })
-    }
-    useEffect((state)=>{
-        getData();
-        console.log(props.data)
-        console.log(currentClassName.current)
-        props.data.meetingsData.forEach((element, index) => {
+    // }
+    useEffect((state, meetingsData, userData)=>{
+
+        data.getState().meetingsData.forEach((element, index) => {
             if(element.className === currentClassName.current) {
                 setTitles(element.titles);
                 currentClassInfo.current = element;
-                currentClassHash.current = props.data.userData.meetings[index]
+                currentClassHash.current = data.getState().userData.meetings[index]
             }
         })
     },[]);
@@ -109,9 +95,9 @@ export default function Classroom (props) {
     return (
         <>
             <NavbarProf feed={{title: state.name}} change={setTitles}/>
-            {/* <Button variant='contained' onClick={()=>console.log(props.data)}>
-                ceva
-            </Button> */}
+            <Button variant='contained' onClick={()=>console.log(titles)}>
+                ceva2
+            </Button>
             
 
             <Grid container style={{marginTop:30}}>
