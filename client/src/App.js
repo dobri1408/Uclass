@@ -27,7 +27,7 @@ import TeacherTimetable from './components/Timetables/TeacherTimetable';
 import RoomPage from './components/RoomPage/RoomPage'
 import StartMeeting from './components/StartMeeting/StartMeeting';
 import JoinRoom from './components/JoinRoom/JoinRoom';
-
+import BoardAPI from './components/BoardAPI';
 
 
 function App() {
@@ -68,6 +68,9 @@ function App() {
 {/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/classrooms/:id'>
           <Classroom data={{userData: userData, meetingsData: meetingsData}}/>
+        </PrivateRoute>
+        <PrivateRoute path ='/boardAPI'>
+                <BoardAPI />
         </PrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}s  
         <PrivateRoute path='/profile'>

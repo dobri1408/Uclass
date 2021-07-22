@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import {makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Logo from './Logoo.jpg';
+import {useAuth } from './contexts/AuthContext'
 import './profile.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile(props) {
   const classes = useStyles();
-
   return (
     <>
       <NavbarProf/>

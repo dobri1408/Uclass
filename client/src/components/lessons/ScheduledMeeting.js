@@ -446,7 +446,7 @@ import { auth, db } from '../firebase/firebase';
 import firebase from "firebase/app";
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
-
+import {useAuth } from '../contexts/AuthContext'
 import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -480,9 +480,21 @@ export default function ScheduledMeeting(props) {
     const [meetingExpand, setMeetingExpand] = useState(false);
     const [documentsExpand, setDocumentsExpand] = useState(false);
     const [boardExpand, setBoardExpand] = useState(false);
+    const firstNameUser = useRef("");
 
+const userId = useRef("");
     const hiddenFileInput = useRef(null);
-  
+  auth.onAuthStateChanged((user) => {
+    if(user) {
+ 
+        userId.current=user.uid;
+        var docRef = db.collection('users').doc(userId.current);
+docRef.get().then((snap) => {
+firstNameUser.current = snap.data().firstName;
+})
+    }
+})
+
 
     const onFileChange = async (e) => {
         const file = e.target.files[0];
@@ -607,7 +619,7 @@ export default function ScheduledMeeting(props) {
                         <CardActions>
                             {
                                 props.info.start > (Date.now() / 1000 | 0) &&
-                                <IconButton onClick={()=>window.open(`/startmeeting`)}>
+                                <IconButton onClick={()=>window.open(`https://192.168.0.87/${props.info.timestamp}name${firstNameUser.current}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
                             }
