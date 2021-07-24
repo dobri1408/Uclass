@@ -73,7 +73,7 @@ function NavbarProf(props) {
       localStorage.clear();
       persistor.purge();
     });
-    history.push('/login')
+    history.push('/')
     }
     catch{
         setError('Nu te-am putut deconecta')

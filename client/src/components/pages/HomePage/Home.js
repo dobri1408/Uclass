@@ -8,21 +8,20 @@ import AliceCarousel from 'react-alice-carousel';
 function Home() {
   return (
 
-
-<div className="marireartificiala">
-<Navbar/> 
-<AliceCarousel
-        duration={4000}
-        autoPlay={true}
-        startIndex = {1}
-        fadeOutAnimation={true}
-        mouseDragEnabled={true}
-        playButtonEnabled={true}
-   
-        autoPlayInterval={20000}
-        autoPlayDirection="rtl"
-        autoPlayActionDisabled={true}
-  
+    <div className="marireartificiala">
+      <Navbar/> 
+      <AliceCarousel
+              duration={4000}
+              autoPlay={true}
+              startIndex = {1}
+              fadeOutAnimation={true}
+              mouseDragEnabled={true}
+              playButtonEnabled={true}
+        
+              autoPlayInterval={20000}
+              autoPlayDirection="rtl"
+              autoPlayActionDisabled={true}
+        
       >
       <HeroSection {...homeObjOne} />
       <HeroSection {...homeIntalnire} />
@@ -32,9 +31,9 @@ function Home() {
       <HeroSection {...homeTabla} />
       <HeroSection {...homeVideo} />
       </AliceCarousel>
-     
+
       <Footer/>
-      </div>
+    </div>
   
     
   );
