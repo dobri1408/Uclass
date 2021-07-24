@@ -12,6 +12,26 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { auth, db } from '../firebase/firebase';
 import firebase from "firebase/app";
+import {data, change} from '../store/data';
+
+const getReady = async () => {
+    await auth.onAuthStateChanged((user)=>{
+      if(user){
+        db.collection('users').doc(user.uid).get().then((snap)=>{
+          if(snap.exists) {
+            db.collection('meetings').get().then((s)=>{
+              data.dispatch(change({
+                userData: snap.data(),
+                meetingsData: s.docs.map(e=>e.data()),
+                meetingsIDs: s.docs.map(e=>e.id)
+              }))
+            })
+          }
+        
+        })
+      }
+    })
+  }
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -42,9 +62,10 @@ export default function Schedule ({info}) {
         const getHash = () => {
             auth.onAuthStateChanged((user)=>{
                 if(user) {
-                  db.collection('users').doc(user.uid).get().then((snap)=>{
-                      if(snap.exists) {
-                        firebaseData.current = snap.data().meetings;
+                //   db.collection('users').doc(user.uid).get().then((snap)=>{
+                //       if(snap.exists) {
+                        // firebaseData.current = snap.data().meetings;
+                        firebaseData.current = data.getState().userData.meetings;
                         firebaseData.current.forEach((element)=>{
                           db.collection("meetings").doc(element).get().then((doc)=>{
                             if(doc.exists) {
@@ -56,8 +77,8 @@ export default function Schedule ({info}) {
                             }
                           })
                         })
-                      } 
-                    });
+                    //   } 
+                    // });
                   }
                 })
         }
@@ -81,7 +102,7 @@ export default function Schedule ({info}) {
     setEndDate(new Date(date))
     };
       
-    const handleSchedule = () => {
+    const handleSchedule = async () => {
         console.log({
             title: title,
             start: startDate.getTime() / 1000,
@@ -102,7 +123,7 @@ export default function Schedule ({info}) {
         } else {
             alert('please make sure to add a title to your meeting!')
         }
-
+        await getReady();
         handleClose();
     }
 

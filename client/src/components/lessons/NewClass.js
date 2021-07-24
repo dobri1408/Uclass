@@ -16,7 +16,7 @@ import {v4 as uuidV4} from 'uuid';
 import firebase from "firebase/app";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {data, refresh} from '../../store/data';
+import {data, change} from '../../store/data';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -40,9 +40,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
+const getReady = async () => {
+  await auth.onAuthStateChanged((user)=>{
+    if(user){
+      db.collection('users').doc(user.uid).get().then((snap)=>{
+        if(snap.exists) {
+          db.collection('meetings').get().then((s)=>{
+            data.dispatch(change({
+              userData: snap.data(),
+              meetingsData: s.docs.map(e=>e.data()),
+              meetingsIDs: s.docs.map(e=>e.id)
+            }))
+          })
+        }
+      
+      })
+    }
+  })
+}
 
 const NewClass = (props) => {
   const classes = useStyles();
+  const forceUpdate = useForceUpdate();
   const [open, setOpen] = useState(false);
   const [numbers, setNumbers] = useState([0]);
   const [className, setClassName] = useState(''); //sent to firestore
@@ -104,7 +128,8 @@ const NewClass = (props) => {
     })
     setPostId(prevPostId => uuidV4());
     // await data.dispatch(refresh());
-
+    await getReady();
+    forceUpdate();
   }
 
 

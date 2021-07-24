@@ -35,7 +35,6 @@ function App() {
   return (
     <Provider store={store}>
         <PersistGate persistor={persistor}>
-
       <AuthProvider>
       <Router>
       <Switch>

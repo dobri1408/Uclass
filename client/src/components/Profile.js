@@ -9,67 +9,45 @@ import Grid from '@material-ui/core/Grid';
 // import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { data } from '../store/data';
-import {useHistory} from 'react-router-dom';
+
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
 
 export default function Profile(props) {
-  let history = useHistory();
+  const forceUpdate = useForceUpdate();
+
 
   return (
     <>
       <NavbarProf/>
-      <Button variant='contained' id='getData' onClick={()=>console.log(data.getState())}>
-        console
-      </Button>
+      {/* <Button variant='contained' id='getData' onClick={()=>forceUpdate()}>
+        click once to make me work!
+      </Button> */}
+      {/* <Button variant='contained' id='getData' onClick={()=>console.log(data.getState())}>
+        getState()
+      </Button> */}
       {
-        data.getState() !== undefined ?
+        ('userData' in data.getState()) ?
         <>
-
-
-          <Grid container style={{marginTop: 25}}>
-            <Grid item xs={1}>
-            </Grid>
-            <Grid item xs={10}>
-          {/* <Card>
-            <CardHeader
-              // avatar={
-              //   <Avatar style={{color: 'red'}}>
-              //     R
-              //   </Avatar>
-              // }
-            />
-            <CardContent style={{backgroundColor: '#345F65'}}>
-              <Typography>
-                ceva
-              </Typography>
-            </CardContent>
-          </Card> */}
-
-            </Grid>
-            <Grid item xs={1}>
-            </Grid>
-          </Grid>
-
-          <h1>first name {data.getState().userData.firstName}</h1>
-          <h1>last name {data.getState().userData.lastName}</h1>
-          <h1>email {data.getState().userData.email}</h1>
-          <h1>phone no. {data.getState().userData.phone}</h1>
-          
-          <img src={data.getState().userData.profilePhoto} alt='nu ai poza' heigth="300" width="300"/>
-
-
+          <h1>first Name: {data.getState().userData.firstName}</h1>
+          <h1>last Name: {data.getState().userData.lastName}</h1>
+          <h1>Phone: {data.getState().userData.phone}</h1>
+          <img src={data.getState().userData.profilePhoto} alt='https://cevaRandom.com'/>
         </>:
         <>
           <Grid container spacing={0}>
             <Grid item xs={6}>
             </Grid>
-
               <CircularProgress style={{
                 width: 500, 
                 height: 500, 
                 marginTop: 100, 
                 color: '#D99152', 
                 marginLeft: -250
-              }}/>
+              }} onMouseMove={forceUpdate}/>
             <Grid item xs={6}>
             </Grid>
           </Grid>
@@ -77,7 +55,10 @@ export default function Profile(props) {
         </>
       }
 
+      
+
     </>
   )
+
 
 }

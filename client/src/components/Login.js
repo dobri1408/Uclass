@@ -14,8 +14,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { OutlinedInput } from "@material-ui/core";
 import ErrorIcon from '@material-ui/icons/Error';
-import {data, refresh} from '../store/data';
-
+import {data, change} from '../store/data';
+import {auth, db} from './firebase/firebase';
 
 const useStyles = makeStyles((theme) => ({
   typoRight: {
@@ -45,18 +45,35 @@ export default function Login (props) {
   const [error, setError] = useState("");
   const [visible, setVisible] = useState(false);
 
+  const getReady = async () => {
+    await auth.onAuthStateChanged((user)=>{
+      if(user){
+        db.collection('users').doc(user.uid).get().then((snap)=>{
+          if(snap.exists) {
+            db.collection('meetings').get().then((s)=>{
+              data.dispatch(change({
+                userData: snap.data(),
+                meetingsData: s.docs.map(e=>e.data()),
+                meetingsIDs: s.docs.map(e=>e.id)
+              }))
+            })
+          }
+        
+        })
+      }
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       login(emailRef.current, passwordRef.current).then(async ()=>{
       localStorage.clear();
-      await data.dispatch(refresh());
-
+      await getReady();
       history.push('/profile');
       })
     } catch {
-      setError('1')
+      setError("Nu am putut sa te conectam, mai incearca o data")
     }
 
   }

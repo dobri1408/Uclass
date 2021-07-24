@@ -43,6 +43,13 @@ export const set = () => {
     }
 }
 
+export const change = (something) => {
+  return {
+      type: 'CHANGE',
+      obj: something
+  }
+}
+
 //REDUCER
 
 const persistConfig = {
@@ -57,7 +64,8 @@ const reducer = (state={}, action) => {
             return obj;
         case "REFRESH":
             return obj
-            
+        case "CHANGE":
+            return action.obj;
         default:
             return null;
     }

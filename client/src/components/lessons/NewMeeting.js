@@ -11,6 +11,26 @@ import { makeStyles } from '@material-ui/core/styles';
 import { auth, db } from '../firebase/firebase';
 import firebase from "firebase/app";
 import { Typography } from '@material-ui/core';
+import { data, change } from '../../store/data';
+
+const getReady = async () => {
+    await auth.onAuthStateChanged((user)=>{
+      if(user){
+        db.collection('users').doc(user.uid).get().then((snap)=>{
+          if(snap.exists) {
+            db.collection('meetings').get().then((s)=>{
+              data.dispatch(change({
+                userData: snap.data(),
+                meetingsData: s.docs.map(e=>e.data()),
+                meetingsIDs: s.docs.map(e=>e.id)
+              }))
+            })
+          }
+        
+        })
+      }
+    })
+  }
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -98,16 +118,16 @@ export default function NewMeeting ({info}) {
     setEndDate(new Date(date))
     };
       
-    const handleSchedule = () => {
-        console.log({
-            title: title,
-            start: startDate.getTime() / 1000,
-            end: endDate.getTime() / 1000,
-            hash: currentClassHash.current
-        })
+    const handleSchedule = async () => {
+        // console.log({
+        //     title: title,
+        //     start: startDate.getTime() / 1000,
+        //     end: endDate.getTime() / 1000,
+        //     hash: currentClassHash.current
+        // })
 
         if(title !== '') {
-            db.collection('meetings').doc(currentClassHash.current).update({
+            await db.collection('meetings').doc(currentClassHash.current).update({
                 titles: firebase.firestore.FieldValue.arrayUnion({
                     title: title,
                     start: startDate.getTime() / 1000,
@@ -115,10 +135,12 @@ export default function NewMeeting ({info}) {
                     timestamp: Date.now() / 1000 | 0
                 })
               })
+            await getReady();
             alert('succes!')
         } else {
             alert('please make sure to add a title to your meeting!')
         }
+        
 
         handleClose();
     }

@@ -13,11 +13,19 @@ import CardContent from '@material-ui/core/CardContent';
 // import Schedule from './Schedule';
 // import NewMeeting from './NewMeeting';
 import { data, refresh } from '../../store/data';
-
-
+import IconButton from '@material-ui/core/IconButton';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import Navbar from './Navbar';
 
+
+function useForceUpdate(){
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+  }
+
+
 export default function Classroom (props) {
+    const forceUpdate = useForceUpdate();
     const currentClassName = useRef('');
     const currentClassInfo = useRef([]);
     const currentClassHash = useRef('');
@@ -80,24 +88,29 @@ export default function Classroom (props) {
         //     } 
         // })
     // }
-    useEffect((state, meetingsData, userData)=>{
-
+    const p = () => {
         data.getState().meetingsData.forEach((element, index) => {
             if(element.className === currentClassName.current) {
-                setTitles(element.titles);
+                setTitles(element.titles); 
                 currentClassInfo.current = element;
                 currentClassHash.current = data.getState().userData.meetings[index]
             }
         })
+    }
+    useEffect((state, meetingsData, userData)=>{
+        p();
     },[]);
 
 
     return (
         <>
             <NavbarProf feed={{title: state.name}} change={setTitles}/>
-            <Button variant='contained' onClick={()=>console.log(titles)}>
+            <IconButton onClick={()=>{forceUpdate();p();forceUpdate()}} style={{marginTop: 10, marginLeft: 10}}>
+                <RefreshIcon style={{transform:'scale(1.5)'}}/>
+            </IconButton>
+            {/* <Button variant='contained' onClick={()=>console.log(data.getState())}>
                 ceva2
-            </Button>
+            </Button> */}
             
 
             <Grid container style={{marginTop:30}}>

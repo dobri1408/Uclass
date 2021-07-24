@@ -572,7 +572,6 @@ firstNameUser.current = snap.data().firstName;
             })}
             onClick={()=>{
                 handleExpandClick();
-                console.log(props.hash)
             }
             }
             aria-expanded={expanded}

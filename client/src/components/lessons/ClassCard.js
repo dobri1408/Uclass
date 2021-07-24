@@ -13,7 +13,8 @@ import { deepOrange, deepPurple, red } from '@material-ui/core/colors';
 import {Link} from 'react-router-dom';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles';
-
+import {db, auth} from '../firebase/firebase';
+import {data, change} from '../../store/data';
 
 
 const useStyles = makeStyles({
@@ -25,6 +26,25 @@ const useStyles = makeStyles({
       }
 });
 
+
+const getReady = async () => {
+    await auth.onAuthStateChanged((user)=>{
+      if(user){
+        db.collection('users').doc(user.uid).get().then((snap)=>{
+          if(snap.exists) {
+            db.collection('meetings').get().then((s)=>{
+              data.dispatch(change({
+                userData: snap.data(),
+                meetingsData: s.docs.map(e=>e.data()),
+                meetingsIDs: s.docs.map(e=>e.id)
+              }))
+            })
+          }
+        
+        })
+      }
+    })
+  }
 
 export default function ClassCard (props) {
     const colors = [deepOrange[500],deepPurple[500],red[500]]

@@ -27,30 +27,35 @@ const TeacherTimetable = (props) => {
         const yyyy = today.getFullYear();
         setCurrentDate(yyyy + '-' + mm + '-' + dd);
 
+
         data.getState().meetingsData.forEach((element, index) => {
-            if(element.titles !== []) {
-                element.titles.forEach((e)=>{
-                    final.current.push({
-                        title: e.title,
-                        startDate: new Date(e.start * 1000),
-                        endDate: new Date(e.end * 1000),
-                        id: index,
-                        location: 'Room 1'
+            if(data.getState().userData.meetings.includes(data.getState().meetingsIDs[index])) {
+                if(element.titles !== []) {
+                    element.titles.forEach((e)=>{
+                        final.current.push({
+                            title: e.title,
+                            startDate: new Date(e.start * 1000),
+                            endDate: new Date(e.end * 1000),
+                            id: index,
+                            location: 'Room 1'
+                        })
                     })
+                }
+    
+                [...final.current].forEach(e=>{
+                  if(!rData.current.includes(e)) {
+                    rData.current = [...rData.current, e];
+                  }
                 })
             }
 
-            [...final.current].forEach(e=>{
-              if(!rData.current.includes(e)) {
-                rData.current.push(e);
-              }
-            })
+            // rData.current = [...rData.current, ...final.current];
+
 
             // rData.includes()
-            // rData.current = [...rData.current, ...final.current];
             // if( readyData !== [] ) setReadyData(prevReadyData => [...readyData, ...final.current])
             // else setReadyData(prevReadyData => [...final.current]).
-            // setReadyData(rData.current);
+            setReadyData(rData.current);
         })
         
            
@@ -60,9 +65,9 @@ const TeacherTimetable = (props) => {
     return (
         <div>
             <NavbarProf/>
-            <Button variant='contained' onClick={()=>console.log(readyData)}>
+            {/* <Button variant='contained' onClick={()=>console.log(readyData)}>
                 cv
-            </Button>
+            </Button> */}
             {
                 readyData !== [] ?
                 <Paper style={{marginTop: 25}}>
