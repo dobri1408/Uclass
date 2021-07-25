@@ -73,7 +73,7 @@ const reducer = (state={}, action) => {
 
 const pReducer = persistReducer(persistConfig, reducer);
 
-export const data = createStore(pReducer);
+export const data = createStore(pReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export const persistor = persistStore(data);
 
 // persistor.dispatch(refresh());

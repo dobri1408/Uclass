@@ -7,6 +7,7 @@ import Image1 from "./img1.png";
 import Image3 from './gagica.jpg';
 import Image4 from './comunitate.jpg';
 // import {Button} from 'react-bootstrap';
+
 function HeroSection({
   lightBg,
   topLine,
@@ -19,6 +20,7 @@ function HeroSection({
   alt,
   imgStart
 }) {
+  
 function  afiseazaimagine (){
     if(img === 1)
 return (<img src={Image1} alt={alt} className='home__hero-img' />)

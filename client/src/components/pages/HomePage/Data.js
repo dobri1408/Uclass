@@ -130,3 +130,44 @@ export const homeObjOne = {
     img: 4,
     alt: 'Vault'
   };
+
+
+
+
+  export const data = [
+    {
+      title: 'ceva1',
+      text: 'Uclass este o platformă revoluționară. Noi încercăm să ajutăm profesorii și elevii prin a oferi un singur site care să le ofere instrumentele necesare. Te invităm să faci un tur al platformei!',
+      img: 'https://i.ibb.co/K7ZzvgN/3.png'
+    },
+    {
+      title: 'ceva2',
+      text: 'Primul dintre aceste instrumente este întâlnirea. Acum poți să începi o întâlnire cu elevii tăi doar la un click distanță din clasă.',
+      img: 'https://i.ibb.co/8486bbx/1.png'
+    },
+    {
+      title: 'ceva3',
+      text: 'Clasa este un instrement care ajuta la a menține totul organizat. Dupa ce ți-ai adăugat elevii în clasa poți să creezi întâlniri cu ei, documente cu vizibilitate în timp real, table, teme și teste.Tot din clasa poți să vezi temele încărcate de elevi, testele rezolvate de acesti si impicit sa le oferi note.',
+      img: 'https://i.ibb.co/K7ZzvgN/3.png'
+    },
+    {
+      title: 'ceva4',
+      text: 'Pentru un test elevul va avea abilitatea de a scrie, desena sau sa incarece imagini. Pentru a impiedica din abilitatea de a copia am introdus un nou sistem. Atunci cand elevul vrea sa iasa din pagina cu testul, profesorul va primi o notificare.',
+      img: 'https://i.ibb.co/hK2Zz8p/4.png'
+    },
+    {
+      title: 'ceva5',
+      text: 'Documentele in timp real au abilitatea de a lasa, atat profesorul, cat si elevul sa scrie sau sa insereze imagini. Pentru a structura informatia scrisa iti recomandam sa folosesti cate un document nou pentru fiecare lectie. Acestea pot fi create din clasa.',
+      img: 'https://i.ibb.co/8486bbx/1.png'
+    },
+    {
+      title: 'ceva6',
+      text: 'Tabla este revoluționară. Este în timp real, astfel atunci când desenezi sau scri, elevul vede în același timp. Totodata, o linie deja desenata poate fi mutatată în altă parte a tablei pentru a-ți conferi confortul de a așeza elementele într-un mod organizat. În cadrul tablei poți desena, scrie sau insera imagini, toate la un click distanță.',
+      img: 'https://i.ibb.co/hK2Zz8p/4.png'
+    },
+    {
+      title: 'ceva7',
+      text: 'Îți recomandăm să urmărești următorul videoclip pentru a înțelge mai bine instrumentele oferite de Uclass și de a vedea cum acestea funcționează în practică!',
+      img: 'https://i.ibb.co/K7ZzvgN/3.png'
+    }
+  ]
