@@ -693,7 +693,8 @@ firstNameUser.current = snap.data().firstName;
                             <CardHeader
                                 action={
                                     <IconButton
-                                    onClick={()=>window.open(`/board/${props.info.timestamp}$1`)}
+                                 onClick={()=>window.open(`http://localhost:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                
                                     >
                                         <CreateIcon/>
                                     </IconButton>
