@@ -1,10 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
-import NavbarProf from './NavbarProf';
+import NavbarStudent from './NavbarStudent'; 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import {v4 as uuidV4} from 'uuid';
+// import Typography from '@material-ui/core/Typography';
+// import Card from '@material-ui/core/Card';
+// import CardContent from '@material-ui/core/CardContent';
+// import CardHeader from '@material-ui/core/CardContent';
+// import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import { data } from '../store/data';
+import { data } from '../../store/data';
 
 function useForceUpdate(){
   const [value, setValue] = useState(0); // integer state
@@ -18,9 +22,12 @@ export default function Profile(props) {
 
   return (
     <>
-      <NavbarProf/>
-      <Button variant='contained' id='getData' onClick={()=>console.log(uuidV4().substring(0,8))}>
-        click!
+      <NavbarStudent/>
+      {/* <Button variant='contained' id='getData' onClick={()=>forceUpdate()}>
+        click once to make me work!
+      </Button> */}
+      <Button variant='contained' id='getData' onClick={()=>console.log(data.getState())}>
+        getState()
       </Button>
       {
         ('userData' in data.getState()) ?
@@ -28,7 +35,6 @@ export default function Profile(props) {
           <h1>first Name: {data.getState().userData.firstName}</h1>
           <h1>last Name: {data.getState().userData.lastName}</h1>
           <h1>Phone: {data.getState().userData.phone}</h1>
-          <h1>Type: {data.getState().userData.type}</h1>
           <img src={data.getState().userData.profilePhoto} alt='https://cevaRandom.com'/>
         </>:
         <>

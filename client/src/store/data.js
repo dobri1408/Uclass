@@ -5,37 +5,9 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
-let meetingsData = [];
-let obj = {};
-export const getData = async () => {
-    await auth.onAuthStateChanged((user)=>{
-      if(user){
-        db.collection('users').doc(user.uid).get().then((snap)=>{
-          if(snap.exists) {
-            snap.data().meetings.forEach((element, index)=>{
-              db.collection('meetings').doc(element).get().then((s)=>{
-                if(meetingsData.length < snap.data().meetings.length) {meetingsData.push(s.data())}
-              })
-            })
-          }
-        obj = {
-            userData: snap.data(),
-            meetingsData: meetingsData
-        }
-  
-        })
-      }
-    })
-  }
 
 //ACTIONS
 
-export const refresh = () => {
-    getData();
-    return {
-        type: 'REFRESH'
-    }
-}
 
 export const set = () => {
     return {
@@ -61,9 +33,7 @@ const persistConfig = {
 const reducer = (state={}, action) => {
     switch(action.type) {
         case "SET":
-            return obj;
-        case "REFRESH":
-            return obj
+            return {};
         case "CHANGE":
             return action.obj;
         default:
@@ -75,11 +45,4 @@ const pReducer = persistReducer(persistConfig, reducer);
 
 export const data = createStore(pReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export const persistor = persistStore(data);
-
-// persistor.dispatch(refresh());
-data.dispatch(refresh());
-
-// export const getNewData = () => {
-//   persistor.dispatch(refresh());
-//   data.dispatch(refresh());
-// }
+data.dispatch(set({}));

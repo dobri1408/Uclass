@@ -74,6 +74,8 @@ const NewClass = (props) => {
   const [students, setStudents] = useState(['']); //sent to firestore
   const [uid, setUid] = useState('');
   const [postId, setPostId] = useState('');
+  const [code, setCode] = useState('');
+
 
   useEffect(()=>{
     const getUid = async () => {      
@@ -84,14 +86,10 @@ const NewClass = (props) => {
       });
     }
     getUid();
-    setPostId(prevPostId => uuidV4())
+    setPostId(prevPostId => uuidV4());
+    setCode(prevCode => uuidV4().substring(0,8));
   },[])
 
-  // useEffect(()=>{
-  //   refreshPage();
-  // },[postId])
-
-  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -113,9 +111,12 @@ const NewClass = (props) => {
     await db.collection('meetings').doc(postId).set({
       className, students, subject,
       homework: [],
-      titles: []
+      titles: [],
+      code: code
     })
-
+    await db.collection('codes').doc(code).set({
+      meetingId: postId
+    })
     // await db.collection('users').where('uid','==',uid).where(db.FieldPath.documentId(), '==', id)
   }
 

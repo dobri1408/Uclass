@@ -481,41 +481,41 @@ export default function ScheduledMeeting(props) {
     const [documentsExpand, setDocumentsExpand] = useState(false);
     const [boardExpand, setBoardExpand] = useState(false);
     const firstNameUser = useRef("");
-
-const userId = useRef("");
+    const userId = useRef("");
     const hiddenFileInput = useRef(null);
-  auth.onAuthStateChanged((user) => {
-    if(user) {
+//   auth.onAuthStateChanged((user) => {
+//     if(user) {
  
-        userId.current=user.uid;
-        var docRef = db.collection('users').doc(userId.current);
-docRef.get().then((snap) => {
-firstNameUser.current = snap.data().firstName;
-})
-    }
-})
+//         userId.current=user.uid;
+//         var docRef = db.collection('users').doc(userId.current);
+// docRef.get().then((snap) => {
+// firstNameUser.current = snap.data().firstName;
+// })
+//     }
+// })
 
 
     const onFileChange = async (e) => {
         const file = e.target.files[0];
         const storageRef = app.storage().ref().child('homework')
         const fileRef = storageRef.child(file.name)
-        await fileRef.put(file);
-        let url = await fileRef.getDownloadURL();
-        auth.onAuthStateChanged((user)=>{
-            if(user) {
-                db.collection('meetings').doc(props.hash).update({
-                    homework: firebase.firestore.FieldValue.arrayUnion({
-                        link: url,
-                        timestamp: Date.now() / 1000 | 0,
-                        fileName: file.name,
-                        title: props.info.title
-                    })
+        
+        if(props.classInfo.homework.filter(e=>e.fileName===file.name).length===0) {
+            await fileRef.put(file);
+            let url = await fileRef.getDownloadURL();
+            db.collection('meetings').doc(props.hash).update({
+                homework: firebase.firestore.FieldValue.arrayUnion({
+                    link: url,
+                    timestamp: Date.now() / 1000 | 0,
+                    fileName: file.name,
+                    title: props.info.title
                 })
-            }
-        });
-        handleExpandClick();
-        alert(`you uploaded ${file.name}`);
+            })
+            handleExpandClick();
+            alert(`you uploaded ${file.name}`);
+        } else {
+            alert("file with this name already uploaded!")
+        }
     }
 
     const handleClick = async (e) => {
@@ -751,7 +751,8 @@ firstNameUser.current = snap.data().firstName;
                                 <CardHeader
                                     action={
                                         <IconButton
-                                        onClick={()=>window.open(`${element.link}`)}
+                                        // onClick={()=>window.open(`${element.link}`)}
+                                        onClick={()=>console.log(props)}
                                         // aria-expanded={meetingExpand}
                                         aria-label="download"
                                         >

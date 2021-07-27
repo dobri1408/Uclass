@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Ask from './components/Ask.js';
 import Home from './components/pages/HomePage/Home';
 import Services from './components/pages/Services/Services';
@@ -29,6 +28,13 @@ import {store} from './store/store'
 import { PersistGate } from "redux-persist/integration/react";
 import {persistor} from './store/data';
 import BoardAPI from './components/BoardAPI';
+import StudentLogin from './components/Student/LoginStudent';
+import LoginStudent from './components/Student/LoginStudent';
+import ProfileStudent from './components/Student/ProfileStudent';
+import ClassesStudent from './components/Student/ClassesStudent.js';
+import ClassroomStudent from './components/Student/ClassroomStudent.js';
+
+
 
 function App() {
 
@@ -49,6 +55,8 @@ function App() {
 {/*-------------------------------------------------------------------------------------- */}
         <Route path='/signelev' component={SignUpElev} />  
 {/*-------------------------------------------------------------------------------------- */}
+        <Route path='/studentlogin' component={LoginStudent} />  
+{/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/teachertimetable'>
           <TeacherTimetable/>
         </PrivateRoute>
@@ -68,12 +76,21 @@ function App() {
         <PrivateRoute path='/classrooms/:id'>
           <Classroom/>
         </PrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <PrivateRoute path='/see-classrooms/:id'>
+          <ClassroomStudent/>
+        </PrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path ='/boardAPI'>
                 <BoardAPI />
         </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}s  
+{/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/profile'>
           <Profile/>
+        </PrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <PrivateRoute path='/student-profile'>
+                <ProfileStudent/>
         </PrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <Route path = "/" exact>
@@ -97,6 +114,10 @@ function App() {
 {/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/classes'>
           <Class/>
+        </PrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <PrivateRoute path='/student-classes'>
+          <ClassesStudent/>
         </PrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />

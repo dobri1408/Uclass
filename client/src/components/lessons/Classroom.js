@@ -108,11 +108,9 @@ export default function Classroom (props) {
             <IconButton onClick={()=>{forceUpdate();p();forceUpdate()}} style={{marginTop: 10, marginLeft: 10}}>
                 <RefreshIcon style={{transform:'scale(1.5)'}}/>
             </IconButton>
-            {/* <Button variant='contained' onClick={()=>console.log(data.getState())}>
-                ceva2
-            </Button> */}
-            
-
+            <Button variant="contained" onClick={()=>console.log(currentClassHash.current)}>
+                show hash
+            </Button>
             <Grid container style={{marginTop:30}}>
                 <Grid item xs={1}>
                 </Grid>

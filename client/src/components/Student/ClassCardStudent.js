@@ -7,16 +7,16 @@ import {
     Typography,
     CardActions,
     Avatar,
+    IconButton
 } from '@material-ui/core';
-import Students from './Students';
-import ClassCode from './ClassCode';
 import { deepOrange, deepPurple, red } from '@material-ui/core/colors';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
 import {Link} from 'react-router-dom';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles';
 import {db, auth} from '../firebase/firebase';
 import {data, change} from '../../store/data';
-import AcUnitIcon from '@material-ui/icons/AcUnit';
+
 
 const useStyles = makeStyles({
     main: {
@@ -70,7 +70,7 @@ export default function ClassCard (props) {
 
                     <Link
                         to={{
-                            pathname: `classrooms/${props.className}`,
+                            pathname: `see-classrooms/${props.className}`,
                             state: {name: props.className}
                         }}
                         style={{ textDecoration: 'none' }}
@@ -83,26 +83,13 @@ export default function ClassCard (props) {
                             <Typography style={{color: 'white', fontSize: 40, fontWeight: 600}}>
                                 Click me to go to the class!
                             </Typography>
-                            <Typography style={{color: 'white', fontSize: 15, fontWeight: 600}}>
-                                Below you can see the students of this class
-                            </Typography>
                         </CardContent>
                     </CardActionArea>
                     </Link>
                         <CardActions style={{backgroundColor: '#345F65'}}>
-                            {/* <Link
-                                to={{
-                                    pathname: `classrooms/${props.className}`,
-                                    state: {name: props.className}
-                                }}
-                            >
-                                <IconButton>
-                                    <LaunchIcon/>
-                                </IconButton>
-                            </Link> */}
-                            {/* <Schedule info={props}/> */}
-                            <ClassCode className={props.className}/>
-                            <Students students={props.students}/>
+                            <IconButton onClick={()=>alert('o sa dispar de aici!')}>
+                                <AcUnitIcon style={{color: "white"}}/>
+                            </IconButton>
                         </CardActions>
 
 

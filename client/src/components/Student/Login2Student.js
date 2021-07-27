@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import { Link, useHistory } from "react-router-dom"
-import {useAuth} from './contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -18,8 +18,8 @@ import ErrorIcon from '@material-ui/icons/Error';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import {auth, db} from './firebase/firebase';
-import {data, change} from '../store/data';
+import {auth, db} from '../firebase/firebase';
+import {data, change, persistor} from '../../store/data';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -74,6 +74,7 @@ export default function Login2() {
     const [noUser, setNoUser] = useState(false);
     const [wrongPass, setWrongPass] = useState(false); 
     const classes = useStyles();
+    const { login, logout }  = useAuth();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -111,41 +112,39 @@ export default function Login2() {
     }
 
     let history = useHistory();
-    const { login, logout } = useAuth()
     const emailRef = useRef();
     const passwordRef = useRef();
     const [visible, setVisible] = useState(false);
 
-
-    const getReady = async () => {
-        await auth.onAuthStateChanged((user)=>{
+    const getReadyStudent = async () => {
+      await auth.onAuthStateChanged((user)=>{
         if(user){
-            db.collection('users').doc(user.uid).get().then((snap)=>{
-            if(snap.exists) {
-                db.collection('meetings').get().then((s)=>{
+          db.collection("students").doc(user.uid).get().then((snap)=>{
+            if(snap.exists){
+              db.collection("meetings").get().then((s)=>{
                 data.dispatch(change({
-                    userData: snap.data(),
-                    meetingsData: s.docs.map(e=>e.data()),
-                    meetingsIDs: s.docs.map(e=>e.id)
+                  userData: snap.data(),
+                  meetingsData: s.docs.map(e=>e.data()),
+                  meetingsIDs: s.docs.map(e=>e.id)
                 }))
-                })
+              })
             }
-            
-            })
+          })
         }
-        })
+      })
     }
+
 
     const handleSubmit = async (e) => {
       e.preventDefault()
       try {
         db.collection('type').doc(emailRef.current).get().then(s=>{
           if(s.exists){
-            if(s.data().type==='teacher') {
+            if(s.data().type==='student') {
               login(emailRef.current, passwordRef.current).then(async ()=>{
                 localStorage.clear();
-                await getReady();
-                history.push('/profile');
+                await getReadyStudent();
+                history.push('/student-profile');
                 }).catch(e=>{
                     if(e.code === 'auth/user-not-found') handleClickNoUser();
                     else handleClickWrongPass()
@@ -153,7 +152,7 @@ export default function Login2() {
             }
             else{
               logout().then(()=>{
-                alert('Hmm...You seem to be a student!')
+                alert('Hmm...You seem to be a teacher!')
               })
             }
 
@@ -169,11 +168,14 @@ export default function Login2() {
 
 
 
+
+
+
     return (
         <>
         <Button color="inherit" className={classes.button} onClick={handleClickOpen}>
             <Typography className={classes.typo}>
-                LOGIN
+                LOGIN AS STUDENT
             </Typography>
         </Button>
 
@@ -214,7 +216,7 @@ export default function Login2() {
             <Card style={{width: 500, backgroundColor: '#2A333A', boxShadow: 'none', borderRadius: 0}}>
               <CardContent style={{backgroundColor: '#2A333A', borderRadius: 50}}>
                 <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30, paddingBottom: 20}}>
-                  🧑‍🏫 Teacher login! 
+                🧑‍🎓 STUDENT LOGIN
                 </Typography>
                 <form onSubmit={handleSubmit}>
                 <Card style={{marginBottom: 20}}>

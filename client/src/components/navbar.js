@@ -10,18 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Login2 from './Login2';
-// const customStyles = {
-//   content : {
+import Login2Student from './Student/Login2Student';
 
-//     top                   : '20%',
-//     left                  : '20%',
-//     right                 : '40%',
-//     bottom                : 'auto',
-  
-//     transform             : 'translate(35%, 20%)'
-    
-//   }
-// };
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,14 +76,8 @@ return(
                   UCLASS BUSINESS
                 </Typography>
               </Button>
-             
-
-              {/* <Button color="inherit" className={classes.button} onClick={()=>history.push('/login')}>
-                <Typography className={classes.typo}>
-                  LOGIN
-                </Typography>
-              </Button> */}
               <Login2/>
+              <Login2Student/>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/ask')}>
                 <Typography className={classes.typo}>
                   REGISTER

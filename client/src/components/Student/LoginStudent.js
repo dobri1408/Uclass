@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import {useAuth} from './contexts/AuthContext';
+import {useAuth} from '../contexts/AuthContext';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -14,8 +14,8 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { OutlinedInput } from "@material-ui/core";
 import ErrorIcon from '@material-ui/icons/Error';
-import {data, change} from '../store/data';
-import {auth, db} from './firebase/firebase';
+import {data, change} from '../../store/data';
+import {auth, db} from '../firebase/firebase';
 
 const useStyles = makeStyles((theme) => ({
   typoRight: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Login (props) {
+export default function LoginStudent (props) {
   let history = useHistory();
   const { login } = useAuth()
   const classes = useStyles();
@@ -64,26 +64,6 @@ export default function Login (props) {
     })
   }
 
-
-  const getReadyStudent = async () => {
-    await auth.onAuthStateChanged((user)=>{
-      if(user){
-        db.collection("students").doc(user.uid).get().then((snap)=>{
-          if(snap.exists){
-            db.collection("meetings").get().then((s)=>{
-              data.dispatch(change({
-                userData: snap.data(),
-                meetingsData: s.docs.map(e=>e.data()),
-                meetingsIDs: s.docs.map(e=>e.id)
-              }))
-            })
-          }
-        })
-      }
-    })
-  }
-
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -107,7 +87,7 @@ export default function Login (props) {
             <Card style={{marginTop: 20}}>
               <CardContent style={{backgroundColor: '#2A333A'}}>
                 <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30, paddingBottom: 20}}>
-                  Login page
+                  Are you a student? Log in here! 
                 </Typography>
                 {
                   error !== '' &&
