@@ -69,10 +69,10 @@ const timeConverter = (UNIX_timestamp) =>{
 }
 
 export default function Profile(props) {
-  const forceUpdate = useForceUpdate();
+  // const forceUpdate = useForceUpdate();
   const [feed, setFeed] = useState([]);
   const auxFeed = useRef([]);
-  const history = useHistory();
+  // const history = useHistory();
   const classes = useStyles();
 
   const createReadyArray = () => {
@@ -104,13 +104,7 @@ export default function Profile(props) {
   return (
     <>
       <NavbarProf/>
-      {/* <Button variant='contained' onClick={createReadyArray}>
-        1
-      </Button>
-      <Button variant='contained' onClick={forceUpdate}>
-        2
-      </Button>
-      <Button variant='contained' id='getData' onClick={()=>console.log(Date.now() / 1000 | 0)}>
+      {/* <Button variant='contained' id='getData' onClick={()=>console.log(Date.now() / 1000 | 0)}>
         click!
       </Button> */}
 
@@ -119,9 +113,9 @@ export default function Profile(props) {
         <>
           <Grid container >
             <Grid item xs={3}>
-              <Card style={{backgroundColor: '#2a333a', height: 0.8*window.innerHeight, borderRadius: 0}}>
+              <Card style={{backgroundColor: '#d99152', height: 0.8*window.innerHeight, borderRadius: 0}}>
                 <CardContent>
-                  <Card style={{backgroundColor: 'transparent', height: 0.34*window.innerHeight, borderRadius: 0, boxShadow: 'none'}}>
+                  <Card style={{backgroundColor: '#345f65', height: 0.34*window.innerHeight, borderRadius: 0, boxShadow: 'none'}}>
                     <CardContent>
                       {
                         data.getState().userData.profilePhoto === "" ?
@@ -132,7 +126,10 @@ export default function Profile(props) {
                             borderRadius: '50%',
                             width: 300,
                             height: 300,
-                            display: 'block'
+                            display: 'block',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            transform: 'scale(2)'
                           }}
                         />:
                         <img 
@@ -142,7 +139,9 @@ export default function Profile(props) {
                             borderRadius: '50%',
                             width: 300,
                             height: 300,
-                            display: 'block'
+                            display: 'block',
+                            marginLeft: 'auto',
+                            marginRight: 'auto'
                           }}
                         />
                       }
@@ -238,7 +237,9 @@ export default function Profile(props) {
             <Grid item xs={12}>
               <Card style={{backgroundColor: '#2a333a', height: 0.1*window.innerHeight, borderRadius: 0, boxShadow: 'none'}}>
                 <CardContent>
-
+                  <Typography style={{color: 'white', textAlign: 'right', fontSize: 20, fontWeight: 500, paddingTop: 40}}>
+                    Uclass teacher account
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
