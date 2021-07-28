@@ -9,7 +9,8 @@ import SignUpElev from './components/SignUpElev';
 import { AuthProvider } from './components/contexts/AuthContext';
 import Profile from './components/Profile';
 import Login from './components/Login';
-import PrivateRoute from './components/PrivateRoute';
+import UnConnectedPrivateRoute from './components/UnConnectedPrivateRoute'
+import ConnectedPrivateRoute from './components/ConnectedPrivateRoute';
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
 import { Provider } from 'react-redux';
@@ -45,95 +46,62 @@ function App() {
       <Router>
       <Switch>
 {/*-------------------------------------------------------------------------------------- */}
-        <Route path='/' exact component={Home} />
+        <UnConnectedPrivateRoute path='/' exact comp={Home} />
 {/*-------------------------------------------------------------------------------------- */}
-        <Route path='/services' component={Services} />
+        <UnConnectedPrivateRoute path='/signprofesor' comp={SignUpProf} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/products' component={Products} />
+        <UnConnectedPrivateRoute path='/signelev' comp={SignUpElev} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <Route path='/signprofesor' component={SignUpProf} />  
+        <UnConnectedPrivateRoute path='/studentlogin' comp={LoginStudent} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <Route path='/signelev' component={SignUpElev} />  
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path='/studentlogin' component={LoginStudent} />  
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/teachertimetable'>
-          <TeacherTimetable/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path ='/startmeeting'>
-          <StartMeeting/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path ='/room'>
-          <RoomPage/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path ='/join-room'>
-          <JoinRoom/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/classrooms/:id'>
-          <Classroom/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/see-classrooms/:id'>
-          <ClassroomStudent/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path ='/boardAPI'>
-                <BoardAPI />
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/profile'>
-          <Profile/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/student-profile'>
-                <ProfileStudent/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path = "/" exact>
-          <Redirect to ={`/documents/${uuidV4()}`}/>
-        </Route>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path= "/documents/:id" >
-          <TextEditor/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path='/login'>
-          <Login/>
-        </Route> 
-{/*-------------------------------------------------------------------------------------- */}
-          <Route path="/ask" component={Ask} />
+        <ConnectedPrivateRoute path='/teachertimetable' comp={TeacherTimetable} /> 
+       
+  
 
 {/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/update-profile' component={UpdateProfile} />  
+        <ConnectedPrivateRoute path='/classrooms/:id' comp = {Classroom}>
+        </ConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
-        <Route path="/forgot-password" component={Forgot}/>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/classes'>
-          <Class/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/student-classes'>
-          <ClassesStudent/>
-        </PrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <PrivateRoute path='/inregistrareclasa' component={ClassRegister} />
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path='/fileupload' component={FileUpload} />
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path='/texteditor' component={TextEditor} />
+        <ConnectedPrivateRoute path='/see-classrooms/:id' comp = {ClassroomStudent}>
+        </ConnectedPrivateRoute>
 
-{/*-------------------------------------------------------------------------------------- */}       
-        <Route exact path='/board/:id'>
-          <Container/>
-        </Route>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/profile' comp = {Profile}>
+       
+        </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/student-profile' comp = {ProfileStudent}>
+               
+        </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path= "/documents/:id"  comp = {TextEditor}>
+        
+        </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <UnConnectedPrivateRoute path='/login' comp = {Login}>
+     
+        </UnConnectedPrivateRoute> 
+{/*-------------------------------------------------------------------------------------- */}
+          <UnConnectedPrivateRoute path="/ask" comp={Ask} />
+
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/update-profile' comp={UpdateProfile} />  
+{/*-------------------------------------------------------------------------------------- */}
+        <UnConnectedPrivateRoute path="/forgot-password" comp={Forgot}/>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/classes' comp={Class}>
+         
+        </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/student-classes' comp = {ClassesStudent}>
+     
+        </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+        <ConnectedPrivateRoute path='/inregistrareclasa' comp={ClassRegister} />
+
+
 {/*-------------------------------------------------------------------------------------- */} 
-        <Route path='/classes' component={Class} />
-{/*-------------------------------------------------------------------------------------- */}
-        <Route path='/board' component={Container}/>
+        <ConnectedPrivateRoute path='/classes' comp={Class} />
 {/*-------------------------------------------------------------------------------------- */}
       </Switch>
       </Router>
