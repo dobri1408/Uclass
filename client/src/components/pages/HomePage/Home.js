@@ -1,12 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
-// import HeroSection from '../../HeroSection';
-// import { homeObjOne,homeIntalnire,homeClasa,homeTest,homeDocument,homeTabla,homeVideo, data } from './Data';
 import {data} from './Data';
 import Navbar from '../../navbar'
-// import Footer from '../Footer/Footer';
-// import './Home.scss'
-// import AliceCarousel from 'react-alice-carousel';
-
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -25,7 +19,7 @@ import madeeasy from './madeeasy.svg';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { useHistory } from 'react-router-dom';
-
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -62,66 +56,55 @@ function Home() {
   const history = useHistory();
   const [current, setCurrent] = useState(0);
 
-  // useEffect(()=>{
-  //   setInterval(()=>{
-  //     setCurrent(current+1);
-  //   }, 1000)
-  // })
-
   return (
     <div>
+    <Element name='slide1'>
       <Navbar/> 
-      {/* <AliceCarousel
-              duration={4000}
-              autoPlay={true}
-              startIndex = {1}
-              fadeOutAnimation={true}
-              mouseDragEnabled={true}
-              playButtonEnabled={true}
-        
-              autoPlayInterval={20000}
-              autoPlayDirection="rtl"
-              autoPlayActionDisabled={true}
-        
-      >
-      <HeroSection {...homeObjOne} />
-      <HeroSection {...homeIntalnire} />
-      <HeroSection {...homeClasa} />
-      <HeroSection {...homeTest} />
-      <HeroSection {...homeDocument} />
-      <HeroSection {...homeTabla} />
-      <HeroSection {...homeVideo} />
-    </AliceCarousel> */}
+      <img src={madeeasy} alt="not found :("  style={{transform:'scale(0.9)', position: 'absolute', marginLeft: 600, marginTop: -100 }}/>
+      <Card style={{width: '100%', backgroundColor: '#345F65', boxShadow: 'none', borderRadius: 0, height: 900}} >
+        <Grid container>
+          <Grid item xs={4}>
+            <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 200}}>
+              Uclass
+            </Typography>
 
-    <img src={madeeasy} alt="not found :("  style={{transform:'scale(0.9)', position: 'absolute', marginLeft: 600, marginTop: -100 }}/>
-    <Card style={{width: '100%', backgroundColor: '#345F65', boxShadow: 'none', borderRadius: 0, height: 900}} >
-      <Grid container>
-        <Grid item xs={4}>
-          <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 200}}>
-            Uclass
-          </Typography>
+            <Link to="slide2" smooth={true} duration={600} style={{color: 'white'}}>
+              <Button color="inherit" className={classes.button}>
+                <Typography style={{fontWeight: 600, fontSize: 30}}>
+                  What is Uclass?
+                </Typography>
+              </Button>
+            </Link>
 
-          <Link to="slide2" smooth={true} duration={600} style={{color: 'white'}}>
-            <Button color="inherit" className={classes.button}>
-              <Typography style={{fontWeight: 600, fontSize: 30}}>
-                What is Uclass?
-              </Typography>
-            </Button>
-          </Link>
-
+          </Grid>
+          <Grid item xs={8}>
+          </Grid>
         </Grid>
-        <Grid item xs={8}>
-        </Grid>
-      </Grid>
-    </Card>
+      </Card>
+    </Element>
 
 
 
     <Element name='slide2'>
     <Card style={{boxShadow: 'none', borderRadius: 0, backgroundColor: '#2A333A', height: 1000}}>
+      <Link to="slide1" smooth={true} duration={700}>
+      <IconButton 
+        disableRipple
+        onClick={()=>console.log('asd')}
+        style={{
+          position: "absolute",
+          transform: "scale(2)",
+          right: "3%",
+          top: "5%",
+          marginTop: 1000,
+          backgroundColor: "transparent"
+        }}
+      >
+        <ArrowUpwardIcon style={{color: 'white'}}/>
+      </IconButton>
+      </Link>
       <CardContent style={{height: 550}}>
         <Container>
-
 
         <Grid
           container
@@ -140,7 +123,7 @@ function Home() {
           <Grid item xs={6} >
             <img src={data[current].img} alt="https://ceva.com" style={{width: 600, float: 'right'}}/>
             <div style={{marginTop: 800}}>
-
+              
             </div>
           </Grid>
         </Grid>
@@ -199,6 +182,22 @@ function Home() {
     </Element>
 
     <Element name="slide3">
+      <Link to="slide1" smooth={true} duration={700}>
+        <IconButton 
+          disableRipple
+          onClick={()=>console.log('asd')}
+          style={{
+            position: "absolute",
+            transform: "scale(2)",
+            right: "3%",
+            top: "5%",
+            marginTop: 2000,
+            backgroundColor: "transparent"
+          }}
+        >
+        <ArrowUpwardIcon style={{color: 'black'}}/>
+      </IconButton>
+      </Link>
       <Card style={{height: 1000, boxShadow: 'none', borderRadius: 0, backgroundColor: '#F2F2F2'}}>
         <CardContent>
           <Typography style={{color: 'black', fontSize: 50, fontWeight: 600, textAlign: 'center'}}>
