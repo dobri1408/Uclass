@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     backgroundColor: '#345F65',
+    marginLeft: 10,
     '&:hover': {
       backgroundColor: '#2A333A',
     }
@@ -89,6 +90,12 @@ function NavbarProf(props) {
               <Typography variant="h6" className={classes.title}>
               </Typography>
                 
+              <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-timetable')}>
+                <Typography className={classes.typo}>
+                  ORAR
+                </Typography>
+              </Button>
+
               <RegisterClassStudent/>
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-classes')}>

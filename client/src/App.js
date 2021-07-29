@@ -36,7 +36,7 @@ import LoginStudent from './components/Student/LoginStudent';
 import ProfileStudent from './components/Student/ProfileStudent';
 import ClassesStudent from './components/Student/ClassesStudent.js';
 import ClassroomStudent from './components/Student/ClassroomStudent.js';
-
+import TimetableStudent from './components/Student/TimetableStudent.js';
 
 
 function App() {

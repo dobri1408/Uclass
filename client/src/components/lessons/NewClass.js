@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,7 +9,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CloseIcon from '@material-ui/icons/Close';
 import { db, auth } from '../firebase/firebase';
 import {v4 as uuidV4} from 'uuid';
@@ -40,52 +39,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function useForceUpdate(){
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
-}
-
-const getReady = async () => {
-  await auth.onAuthStateChanged((user)=>{
-    if(user){
-      db.collection('users').doc(user.uid).get().then((snap)=>{
-        if(snap.exists) {
-          db.collection('meetings').get().then((s)=>{
-            data.dispatch(change({
-              userData: snap.data(),
-              meetingsData: s.docs.map(e=>e.data()),
-              meetingsIDs: s.docs.map(e=>e.id)
-            }))
-          })
-        }
-      
-      })
-    }
-  })
-}
 
 const NewClass = (props) => {
   const classes = useStyles();
-  const forceUpdate = useForceUpdate();
   const [open, setOpen] = useState(false);
   const [numbers, setNumbers] = useState([0]);
   const [className, setClassName] = useState(''); //sent to firestore
   const [subject, setSubject] = useState(''); //sent to firestore
   const [students, setStudents] = useState(['']); //sent to firestore
-  const [uid, setUid] = useState('');
   const [postId, setPostId] = useState('');
   const [code, setCode] = useState('');
-
+  const redux = useRef({});
 
   useEffect(()=>{
-    const getUid = async () => {      
-      await auth.onAuthStateChanged((user)=>{
-        if(user) {
-          setUid(prevUid => user.uid)
-        }
-      });
-    }
-    getUid();
     setPostId(prevPostId => uuidV4());
     setCode(prevCode => uuidV4().substring(0,8));
   },[])
@@ -105,9 +71,6 @@ const NewClass = (props) => {
   }
 
   const postData = async (className, students, subject) => {
-    // await db.collection('meetings').add({
-    //   className, students, subject
-    // })
     await db.collection('meetings').doc(postId).set({
       className, students, subject,
       homework: [],
@@ -117,20 +80,48 @@ const NewClass = (props) => {
     await db.collection('codes').doc(code).set({
       meetingId: postId
     })
-    // await db.collection('users').where('uid','==',uid).where(db.FieldPath.documentId(), '==', id)
   }
 
   const handleDataPost = async () => {
-    postData(className,students,subject);
-    handleClose();
-    alert('The new class was added successfully!');
-    db.collection('users').doc(uid).update({
-      meetings: firebase.firestore.FieldValue.arrayUnion(postId)
-    })
+    redux.current = data.getState();
+    postData(className,students,subject).then(()=>{
+        const f = async () => {
+          await auth.onAuthStateChanged((user)=>{
+            db.collection('users').doc(user.uid).update({
+              meetings: firebase.firestore.FieldValue.arrayUnion(postId)
+            }).then(()=>{
+              data.dispatch(change({
+                userData: {
+                  ...redux.current.userData,
+                  meetings: [...redux.current.userData.meetings, postId]
+                },
+                meetingsData: [
+                  ...redux.current.meetingsData,
+                  {
+                    className: className,
+                    code: code,
+                    homework: [],
+                    students: students,
+                    subject: subject,
+                    titles: []
+                  }
+                ],
+                meetingsIDs: [
+                  ...redux.current.meetingsIDs, postId
+                ]
+              }))
+              handleClose();
+            })
+          })
+        }
+        f().then(()=>{            
+          alert('The new class was added successfully!');
+          props.setAux(props.aux+1);
+        })
+    });
+
     setPostId(prevPostId => uuidV4());
-    // await data.dispatch(refresh());
-    await getReady();
-    forceUpdate();
+    setCode(prevCode => uuidV4().substring(0,8))
   }
 
 
@@ -219,13 +210,7 @@ const NewClass = (props) => {
           <Button color="primary" variant="contained" onClick={()=>{setNumbers(prevNumbers=>[...prevNumbers,prevNumbers[prevNumbers.length-1]+1]); setStudents(prevStudents=>[...prevStudents,''])}}>
             Add a new student
           </Button>
-          {/* <Button color="primary" variant="contained" onClick={()=>console.log(students)}>
-            console log
-          </Button> */}
-          {/* <Button onClick={handleClose} color="primary" variant="contained">
-            Cancel
-          </Button> */}
-          <Button onClick={()=>handleDataPost()} color="primary" variant="contained">
+          <Button onClick={async ()=>{await handleDataPost()}} color="primary" variant="contained">
             Add
           </Button>
         </DialogActions>
