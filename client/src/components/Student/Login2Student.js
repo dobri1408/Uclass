@@ -138,13 +138,13 @@ export default function Login2() {
     const handleSubmit = async (e) => {
       e.preventDefault()
       try {
+       
         db.collection('type').doc(emailRef.current).get().then(s=>{
           if(s.exists){
             if(s.data().type==='student') {
               login(emailRef.current, passwordRef.current).then(async ()=>{
                 localStorage.clear();
-                await getReadyStudent();
-                history.push('/student-profile');
+               history.push('/student-profile');
                 }).catch(e=>{
                     if(e.code === 'auth/user-not-found') handleClickNoUser();
                     else handleClickWrongPass()

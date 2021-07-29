@@ -7,14 +7,16 @@ import { BrowserRouter as Router, Switch, Route,Redirect } from 'react-router-do
 import SignUpProf from './components/SignUpProf';
 import SignUpElev from './components/SignUpElev';
 import { AuthProvider } from './components/contexts/AuthContext';
+import SimpleRoute from './components/SimpleRoute'
 import Profile from './components/Profile';
 import Login from './components/Login';
 import UnConnectedPrivateRoute from './components/UnConnectedPrivateRoute'
-import ConnectedPrivateRoute from './components/ConnectedPrivateRoute';
+import ConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
+import TeacherConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
+import StudentConnectedPrivateRoute from './components/StudentConnectedPrivateRoute'
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
 import { Provider } from 'react-redux';
-import ClassRegister from './components/ClassRegister';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
 import {v4 as uuidV4} from 'uuid';
@@ -40,68 +42,65 @@ import ClassroomStudent from './components/Student/ClassroomStudent.js';
 function App() {
 
   return (
-    <Provider store={store}>
+<Provider store={store}>
         <PersistGate persistor={persistor}>
       <AuthProvider>
       <Router>
       <Switch>
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path='/' exact comp={Home} />
+        <SimpleRoute path='/' exact comp={Home} />
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path='/signprofesor' comp={SignUpProf} />  
+        <SimpleRoute path='/signprofesor' comp={SignUpProf} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path='/signelev' comp={SignUpElev} />  
+        <SimpleRoute path='/signelev' comp={SignUpElev} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path='/studentlogin' comp={LoginStudent} />  
+        <SimpleRoute path='/studentlogin' comp={LoginStudent} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/teachertimetable' comp={TeacherTimetable} /> 
+        <TeacherConnectedPrivateRoute path='/teachertimetable' comp={TeacherTimetable} /> 
        
   
 
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/classrooms/:id' comp = {Classroom}>
-        </ConnectedPrivateRoute>
+        <TeacherConnectedPrivateRoute path='/classrooms/:id' comp = {Classroom}>
+        </TeacherConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/see-classrooms/:id' comp = {ClassroomStudent}>
-        </ConnectedPrivateRoute>
-
+        <StudentConnectedPrivateRoute path='/see-classrooms/:id' comp = {ClassroomStudent}>
+        </StudentConnectedPrivateRoute>
+!!! doar elev !!!
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/profile' comp = {Profile}>
+        <TeacherConnectedPrivateRoute path='/profile' comp = {Profile}>
        
-        </ConnectedPrivateRoute>
+        </TeacherConnectedPrivateRoute>
+!!! doar prof !!!
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/student-profile' comp = {ProfileStudent}>
+        <StudentConnectedPrivateRoute path='/student-profile' comp = {ProfileStudent}>
                
-        </ConnectedPrivateRoute>
+        </StudentConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <ConnectedPrivateRoute path= "/documents/:id"  comp = {TextEditor}>
         
         </ConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path='/login' comp = {Login}>
+        <SimpleRoute path='/login' comp = {Login}>
      
-        </UnConnectedPrivateRoute> 
+        </SimpleRoute> 
 {/*-------------------------------------------------------------------------------------- */}
-          <UnConnectedPrivateRoute path="/ask" comp={Ask} />
+          <SimpleRoute path="/ask" comp={Ask} />
 
 {/*-------------------------------------------------------------------------------------- */}
         <ConnectedPrivateRoute path='/update-profile' comp={UpdateProfile} />  
 {/*-------------------------------------------------------------------------------------- */}
-        <UnConnectedPrivateRoute path="/forgot-password" comp={Forgot}/>
+        <SimpleRoute path="/forgot-password" comp={Forgot}/>
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/classes' comp={Class}>
+        <TeacherConnectedPrivateRoute path='/classes' comp={Class}>
          
-        </ConnectedPrivateRoute>
+        </TeacherConnectedPrivateRoute>
+!!! doar profesor !!!
 {/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/student-classes' comp = {ClassesStudent}>
+        <StudentConnectedPrivateRoute path='/student-classes' comp = {ClassesStudent}>
      
-        </ConnectedPrivateRoute>
-{/*-------------------------------------------------------------------------------------- */}
-        <ConnectedPrivateRoute path='/inregistrareclasa' comp={ClassRegister} />
-
-
-{/*-------------------------------------------------------------------------------------- */} 
-        <ConnectedPrivateRoute path='/classes' comp={Class} />
+        </StudentConnectedPrivateRoute>
+!!! doar elev !!!
 {/*-------------------------------------------------------------------------------------- */}
       </Switch>
       </Router>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 // import HeroSection from '../../HeroSection';
 // import { homeObjOne,homeIntalnire,homeClasa,homeTest,homeDocument,homeTabla,homeVideo, data } from './Data';
-import {data} from './Data';
+import {datas } from './Data';
 import Navbar from '../../navbar'
 // import Footer from '../Footer/Footer';
 // import './Home.scss'
@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions'; 
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import { data } from '../../../store/data';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Home() {
+ 
   const classes = useStyles();
   const history = useHistory();
   const [current, setCurrent] = useState(0);
@@ -131,14 +133,14 @@ function Home() {
           >
           <Grid item xs={6} >
             <Typography align='justify' style={{color: 'white', fontSize: 30, fontWeigth: 600, wordWrap: "break-word", width: 600, position: 'absolute'}}>
-              {data[current].text}
+              {datas[current].text}
             </Typography>
             <div style={{marginTop: 800}}>
 
             </div>
           </Grid>
           <Grid item xs={6} >
-            <img src={data[current].img} alt="https://ceva.com" style={{width: 600, float: 'right'}}/>
+            <img src={datas[current].img} alt="https://ceva.com" style={{width: 600, float: 'right'}}/>
             <div style={{marginTop: 800}}>
 
             </div>
@@ -161,7 +163,7 @@ function Home() {
 
       <CardActions>
           {
-            data.map((e,i)=>{return (
+            datas.map((e,i)=>{return (
             <TimelineDot 
               // color={i === current ? "secondary" : "primary"} 
               // variant={i === current ? "default" : "outlined"} 
@@ -185,12 +187,12 @@ function Home() {
             />
           </IconButton>
           <IconButton 
-            onClick={()=>current < data.length-1 ? setCurrent(prevCurrent => prevCurrent + 1) : null} 
-            disabled={current === data.length-1}
+            onClick={()=>current < datas.length-1 ? setCurrent(prevCurrent => prevCurrent + 1) : null} 
+            disabled={current === datas.length-1}
             style={{backgroundColor: '#345F65', marginLeft: 50}}
           >
             <ArrowForwardIcon 
-              style={current === data.length-1 ? {color: '#2A333A'}:{color: '#F2C894'}}
+              style={current === datas.length-1 ? {color: '#2A333A'}:{color: '#F2C894'}}
             />
           </IconButton>
         </div>

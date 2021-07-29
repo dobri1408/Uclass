@@ -1,5 +1,8 @@
 import React, { useContext, useState, useEffect } from "react"
 import { auth } from "../firebase/firebase"
+import {db} from '../firebase/firebase';
+import {LoadingOverlay} from '../JoinRoom/LoadingOverlay'
+import {data, change} from '../../store/data';
 const AuthContext = React.createContext()
 
 export function useAuth() {
@@ -27,11 +30,12 @@ export function AuthProvider({ children }) {
   }
 
 
-  function login(email, password) {
-    return auth.signInWithEmailAndPassword(email, password)
+  async function login(email, password) {
+  
+   localStorage.clear();
+    const user = await auth.signInWithEmailAndPassword(email, password);
     
   }
-
 
   function logout() {
     return auth.signOut();    
@@ -49,15 +53,61 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
   }
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
-        setLoading(false)
-    })
+  useEffect(async () => {
+    setLoading(true);
+    
+    const unsubscribe =  auth.onAuthStateChanged(user => {
 
+      setCurrentUser(user);
+      if(user) {
+      const email = user.email;
+      console.log(email);
+      db.collection('type').doc(email).get().then(s=>{
+        if(s.exists){
+          if(s.data().type==='teacher') {
+      if (user) {
+ db.collection('users').doc(user.uid).get().then((snap) => {
+          if (snap.exists) {
+            db.collection('meetings').get().then((s) => {
+              data.dispatch(change({
+                userData: snap.data(),
+                meetingsData: s.docs.map(e => e.data()),
+                meetingsIDs: s.docs.map(e_1 => e_1.id)
+              }));
+            });
+          }
+    
+        });
+      }
+
+    }
+  else {
+    if (user) {
+      console.log("intru");
+    db.collection("students").doc(user.uid).get().then((snap)=>{
+      if(snap.exists){
+        db.collection("meetings").get().then((s)=>{
+          data.dispatch(change({
+            userData: snap.data(),
+            meetingsData: s.docs.map(e=>e.data()),
+            meetingsIDs: s.docs.map(e=>e.id)
+          }))
+        })
+      }
+    })
+  }
+  }
+        
+    }})
+  }})
+    setLoading(false)
     return unsubscribe
   }, [])
 
+ 
+
+
+  
   const value = {
     currentUser,
     login,
@@ -70,7 +120,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+       {!loading && children}
     </AuthContext.Provider>
   )
 }

@@ -134,7 +134,7 @@ export const homeObjOne = {
 
 
 
-  export const data = [
+  export const datas = [
     {
       title: 'ceva1',
       text: 'Uclass este o platformă revoluționară. Noi încercăm să ajutăm profesorii și elevii prin a oferi un singur site care să le ofere instrumentele necesare. Te invităm să faci un tur al platformei!',

@@ -134,6 +134,7 @@ export default function Login2() {
             })
         }
         })
+        return 1;
     }
 
     const handleSubmit = async (e) => {
@@ -142,9 +143,10 @@ export default function Login2() {
         db.collection('type').doc(emailRef.current).get().then(s=>{
           if(s.exists){
             if(s.data().type==='teacher') {
+              localStorage.clear();
               login(emailRef.current, passwordRef.current).then(async ()=>{
-                localStorage.clear();
-                await getReady();
+      
+              
                 history.push('/profile');
                 }).catch(e=>{
                     if(e.code === 'auth/user-not-found') handleClickNoUser();

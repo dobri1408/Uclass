@@ -1,16 +1,21 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
 import { useAuth } from "./contexts/AuthContext"
-
+import {data} from '../store/data'
 export default function ConnectedPrivateRoute({ comp: Component, ...rest }) {
   const { currentUser } = useAuth();
-console.log(currentUser);
   return (
     <Route
       {...rest}   
       render={props => {
-        return currentUser ? <Component {...props} /> : <Redirect to="/" />
-      }}
+       if(currentUser) {
+      return( 
+        <Component {...props} />)  
+      }
+      else
+     ( <Redirect to="/" />)
+        
+    }}
     ></Route>
   )
 }

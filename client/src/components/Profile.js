@@ -14,8 +14,7 @@ function useForceUpdate(){
 
 export default function Profile(props) {
   const forceUpdate = useForceUpdate();
-
-
+ 
   return (
     <>
       <NavbarProf/>
