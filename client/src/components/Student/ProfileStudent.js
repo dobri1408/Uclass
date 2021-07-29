@@ -3,7 +3,6 @@ import NavbarStudent from './NavbarStudent';
 import UpdateProfileStudent from './UpdateProfileStudent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import {v4 as uuidV4} from 'uuid';
 import Button from '@material-ui/core/Button';
 import { data } from '../../store/data';
 import Card from '@material-ui/core/Card';
@@ -11,52 +10,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Container from '@material-ui/core/Container';
-import {history, useHistory} from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    color: '#FFFFFF',
-    fontSize: 30,
-    fontWeight: 400,
-  },
-  button: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 50,
-    backgroundColor: '#2a333a',
-    width: '100%',
-    marginTop: 100,
-    '&:hover': {
-      backgroundColor: '#f2c894',
-    }
-  },
-  typo: {
-    fontWeight: 600,
-    
-  },
-  icon: {
-    backgroundColor: '#345F65',
-    '&:hover': {
-      backgroundColor: '#2A333A',
-    }
-  }
-}));
 
-function useForceUpdate(){
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => value + 1); // update the state to force render
-}
+
 
 const timeConverter = (UNIX_timestamp) =>{
     var a = new Date(UNIX_timestamp * 1000);
@@ -68,12 +24,19 @@ const timeConverter = (UNIX_timestamp) =>{
     return time;
 }
 
-export default function ProfileStudent(props) {
-  // const forceUpdate = useForceUpdate();
-  const [feed, setFeed] = useState([]);
-  const auxFeed = useRef([]);
-  // const history = useHistory();
 
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
+}
+
+
+
+export default function ProfileStudent(props) {
+  const forceUpdate = useForceUpdate();
+  const [feed, setFeed] = useState([]);
+  const [aux, setAux] = useState(0);
+  const auxFeed = useRef([]);
   const createReadyArray = () => {
     data.getState().meetingsData
     .filter((e,i)=>data.getState().userData.meetings.includes(data.getState().meetingsIDs[i]))
@@ -90,6 +53,10 @@ export default function ProfileStudent(props) {
   }
 
   useEffect(()=>{
+    forceUpdate();
+  },[aux])
+
+  useEffect(()=>{
     if('userData' in data.getState()) {
       data.getState().meetingsData
       .filter((e,i)=>data.getState().userData.meetings.includes(data.getState().meetingsIDs[i]))
@@ -99,14 +66,15 @@ export default function ProfileStudent(props) {
       setFeed(auxFeed.current.filter(e=>e.start>(Date.now() / 1000 | 0)))
     }
   },[])
-
   return (
     <>
       <NavbarStudent/>
       {/* <Button variant='contained' id='getData' onClick={()=>console.log(data.getState())}>
         click!
+      </Button>
+      <Button variant='contained' id='getData' onClick={()=>forceUpdate()}>
+        refresh!
       </Button> */}
-
       {
         ('userData' in data.getState()) ?
         <>
@@ -160,7 +128,7 @@ export default function ProfileStudent(props) {
                       <Typography style={{color: "white", fontSize: 30}}>
                         phone: {data.getState().userData.phone}
                       </Typography>
-                      <UpdateProfileStudent/>
+                      <UpdateProfileStudent setAux={setAux} aux={aux}/>
                     </CardContent>
                   </Card>
                 </CardContent>

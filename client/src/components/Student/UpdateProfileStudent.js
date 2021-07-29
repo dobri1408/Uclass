@@ -11,7 +11,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grow from "@material-ui/core/Grow";
 import Collapse from '@material-ui/core/Collapse';
 import { db, auth } from '../firebase/firebase';
-import { data } from '../../store/data';
+import { data, change } from '../../store/data';
+import {history, useHistory} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -34,9 +36,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function UpdateProfileStudent() {
+
+
+export default function UpdateProfileStudent(props) {
     const classes = useStyles();
+    const history = useHistory();
     const [open, setOpen]= useState(false);
+    const [profileUpdatedOpen, setProfileUpdatedOpen] = useState(false);
     const [showEmail, setShowEmail] = useState(false);
     const [showFirstName, setShowFirstName] = useState(false);
     const [showLastName, setShowLastName] = useState(false);
@@ -45,27 +51,33 @@ export default function UpdateProfileStudent() {
     const firstName = useRef('');
     const lastName = useRef('');
     const phone = useRef('');
+    const redux = useRef({});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
-            email:email.current,
-            firstName: firstName.current,
-            lastName: lastName.current,
-            phone: phone.current
-        })
+        redux.current = data.getState();
         await auth.onAuthStateChanged((user)=>{
             if(user) {
                 db.collection("students").doc(user.uid).update({
                     firstName: showFirstName ? firstName.current : data.getState().userData.firstName,
                     lastName: showLastName ? lastName.current : data.getState().userData.lastName,
                     phone: showPhone ? phone.current : data.getState().userData.phone 
-                }).then(()=>{
+                }).then(async ()=>{
                     setOpen(false);
-                    alert("Details were changed!");
+                    await data.dispatch(change({
+                        meetingsData: redux.current.meetingsData,
+                        meetingsIDs: redux.current.meetingsIDs,
+                        userData: {
+                            ...redux.current.userData,
+                            firstName: showFirstName ? firstName.current : redux.current.userData.firstName,
+                            lastName: showLastName ? lastName.current : redux.current.userData.lastName,
+                            phone: showPhone ? phone.current : redux.current.userData.phone 
+                        }
+                    }));
+                    setProfileUpdatedOpen(true);
                 })
             }
-        })
+        });
     }
 
     return(
@@ -220,6 +232,26 @@ export default function UpdateProfileStudent() {
                                 UPDATE!
                             </Typography>
                         </Button>
+                        <Dialog
+                            open={profileUpdatedOpen}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={()=>{setProfileUpdatedOpen(false);props.setAux(props.aux+1)}}
+                            style={{backgroundColor: 'transparent', boxShadow: 'none'}}
+                        >
+                            <Card style={{width: 500, backgroundColor: '#2A333A', boxShadow: 'none', borderRadius: 0}}>
+                                <CardContent style={{backgroundColor: '#2A333A', borderRadius: 50}}>
+                                    <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30, paddingBottom: 20}}>
+                                        Profile updated!
+                                    </Typography>
+                                    <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={()=>{setProfileUpdatedOpen(false);props.setAux(props.aux+1)}} type='submit'>
+                                        <Typography style={{color: 'white', fontWeight: 600}}>
+                                            GREAT!
+                                        </Typography>
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Dialog>
                         </form>
                     </CardContent>
                 </Card>

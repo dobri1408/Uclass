@@ -71,6 +71,7 @@ const timeConverter = (UNIX_timestamp) =>{
 export default function Profile(props) {
   // const forceUpdate = useForceUpdate();
   const [feed, setFeed] = useState([]);
+  const [aux, setAux] = useState(0);
   const auxFeed = useRef([]);
   // const history = useHistory();
   const classes = useStyles();
@@ -161,10 +162,7 @@ export default function Profile(props) {
                       <Typography style={{color: "white", fontSize: 30}}>
                         phone: {data.getState().userData.phone}
                       </Typography>
-                      <UpdateProfile/>
-                      <Typography style={{color: "black", textAlign: 'center', fontSize: 20}}>
-                        Uclass {data.getState().userData.type} account
-                      </Typography>
+                      <UpdateProfile setAux={setAux} aux={aux}/>
                     </CardContent>
                   </Card>
                 </CardContent>

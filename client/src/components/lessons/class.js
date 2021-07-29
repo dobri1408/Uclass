@@ -1,8 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NavbarProf from '../NavbarProf';
-import {
-  Grid
-} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import ClassCard from './ClassCard';
 import './icons.css';
 import Container from '@material-ui/core/Container';
@@ -18,69 +16,67 @@ function useForceUpdate(){
 }
 
 
+
 export default function Class (props)  {
   const forceUpdate = useForceUpdate();
+  const [aux, setAux] = useState(0);  
 
-  // useEffect(()=>{
-  //   data.getState().userData.meetings.forEach(e=>console.log(e))
-  // })
+  useEffect(()=>{
+    forceUpdate();
+  },[aux])
 
-   return (
-     <div>
-        {/* <NavbarProf classes={{title: 'Welcome, ..'}}/> */}
+  return (
+    <div>
+      {
+        ('meetingsData' in data.getState()) ?
+        <NavbarProf classes={{title: `Welcome, ${data.getState().userData.firstName}`}} aux={aux} setAux={setAux} />:
+        <NavbarProf classes={{title: 'Welcome!'}} aux={aux} setAux={setAux} />
+      }
+      <IconButton onClick={()=>forceUpdate()} style={{marginTop: 10, marginLeft: 10}}>
+        <RefreshIcon style={{transform:'scale(1.5)'}}/>
+      </IconButton>
+      <Button variant="contained" onClick={()=>console.log(data.getState())}>
+        get state
+      </Button>
+      <Container style={{marginTop: "auto"}}>
+      <Grid container spacing={3} style={{marginTop: 25}}>
+
+      {
+        ('meetingsData' in data.getState()) ?
+        <>
         {
-          ('meetingsData' in data.getState()) ?
-          <NavbarProf classes={{title: `Welcome, ${data.getState().userData.firstName}`}}/>:
-          <NavbarProf classes={{title: 'Welcome!'}}/>
+        data.getState().meetingsData
+        .filter((e,i)=>data.getState().userData.meetings.includes(data.getState().meetingsIDs[i]))
+        .map((e,index)=>{
+          return(
+            <ClassCard className={e.className} subject={e.subject} students={e.students} key={index}/>
+          )
+        })
         }
-        <IconButton onClick={()=>forceUpdate()} style={{marginTop: 10, marginLeft: 10}}>
-          <RefreshIcon style={{transform:'scale(1.5)'}}/>
-        </IconButton>
-        {/* <Button variant="contained" onClick={()=>console.log(data.getState())}>
-          click
-        </Button> */}
-        {/* <Button variant="contained" onClick={()=>forceUpdate()}>
-          new state
-        </Button> */}
-        <Container style={{marginTop: "auto"}}>
-        <Grid container spacing={3} style={{marginTop: 25}}>
-
-        {
-          ('meetingsData' in data.getState()) ?
-          <>
-          {
-          data.getState().meetingsData
-          .filter((e,i)=>data.getState().userData.meetings.includes(data.getState().meetingsIDs[i]))
-          .map((e,index)=>{
-            return(
-              <ClassCard className={e.className} subject={e.subject} students={e.students} key={index}/>
-            )
-          })
-          }
-          </>:
-          <>
-          <Grid container spacing={0}>
-            <Grid item xs={6}>
-            </Grid>
-
-              <CircularProgress style={{
-                width: 500, 
-                height: 500, 
-                marginTop: 100, 
-                color: '#D99152', 
-                marginLeft: -250
-              }}/>
-            <Grid item xs={6}>
-            </Grid>
+        </>:
+        <>
+        <Grid container spacing={0}>
+          <Grid item xs={6}>
           </Grid>
-            
-        </>
-        }
 
+            <CircularProgress style={{
+              width: 500, 
+              height: 500, 
+              marginTop: 100, 
+              color: '#D99152', 
+              marginLeft: -250
+            }}/>
+          <Grid item xs={6}>
+          </Grid>
         </Grid>
-        </Container>
-        
-     </div>
-   )
+          
+      </>
+      }
+
+      </Grid>
+      </Container>
+      
+    </div>
+  )
 }
 

@@ -95,88 +95,17 @@ function NavbarProf(props) {
     }
 },[]);
 window.addEventListener('resize',showButton);
-
-// async function handleLogout() {
-
-//   try {
-//     await logout();
-//     history.push('/')
-//   } catch (err) {
-//     console.log(err)
-//   }
-
-// }
   return (
     <>
-     
-        {/* <nav className='navbar'>
-          <div className='navbar-container container'>
-          <ul className='nav-item'>
-             <img src={Image5} className='pula' alt=""/>
-              </ul>
-            <div className='menu-icon' onClick={handleClick}>
-              {click ? <FaTimes /> : <FaBars />}
-            </div>
-            <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-              <li className='nav-item'>
-                <Link to='/teachertimetable' className='nav-links' onClick={closeMobileMenu}>
-                  Orar
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='/classes'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                Clasele Mele
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='/startmeeting'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Intalnire
-                </Link>
-              </li>
-           
-              <li className='nav-item'>
-                <Link
-                  to='/profile'
-                  className='nav-links'
-                  onClick={closeMobileMenu}
-                >
-                  Profil
-                </Link>
-              </li>
-              <li className='nav-btn'>
-              <Button onClick={handleLogout}>Deconecteaza-te</Button>
-              </li>
-             </ul>
-          </div>
-        </nav>
-        <br/> */}
-
         <div className={classes.root}>
           <AppBar position="static" style={{backgroundColor: '#2A333A'}}>
             <Toolbar>
               <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>history.push('/profile')}>
                 <img src={Image5}  alt="" style={{width: 100}}/>
-              </IconButton>
-              {/* <Button onClick={()=>console.log(props.feed === undefined)}>
-                click
-              </Button> */}
-              
+              </IconButton>              
               {
                 props.feed !== undefined &&
                 <>
-                  {/* <Button color="inherit" className={classes.button} onClick={()=>console.log('new meeting added!')}>
-                    <Typography className={classes.typo}>
-                      new meeting
-                    </Typography>
-                  </Button> */}
                   <NewMeeting info={{className: props.feed.title}} />
                   <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
@@ -187,13 +116,7 @@ window.addEventListener('resize',showButton);
                           </Typography>
                         </>
                       }
-                    />
-                    {/* <CardContent>
-                      <Typography variant="h6" className={classes.title}>
-                        {props.feed.title}
-                      </Typography>
-                    </CardContent> */}
-                    
+                    />                    
                   </Card>
                 </>
               }
@@ -201,12 +124,7 @@ window.addEventListener('resize',showButton);
               {
                 props.classes !== undefined &&
                 <>
-                  {/* <Button color="inherit" className={classes.button} onClick={()=>console.log('new meeting added!')}>
-                    <Typography className={classes.typo}>
-                      new meeting
-                    </Typography>
-                  </Button> */}
-                  <NewClass />
+                  <NewClass aux={props.aux} setAux={props.setAux}/>
                   <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
                       title={
