@@ -10,7 +10,6 @@ import {
   Appointments,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Button from '@material-ui/core/Button';
 import { data } from '../../store/data';
 
 
@@ -48,13 +47,6 @@ const TeacherTimetable = (props) => {
                   }
                 })
             }
-
-            // rData.current = [...rData.current, ...final.current];
-
-
-            // rData.includes()
-            // if( readyData !== [] ) setReadyData(prevReadyData => [...readyData, ...final.current])
-            // else setReadyData(prevReadyData => [...final.current]).
             setReadyData(rData.current);
         })
         
@@ -65,15 +57,12 @@ const TeacherTimetable = (props) => {
     return (
         <div>
             <NavbarProf/>
-            {/* <Button variant='contained' onClick={()=>console.log(readyData)}>
-                cv
-            </Button> */}
             {
                 readyData !== [] ?
-                <Paper style={{marginTop: 25}}>
+                <Paper style={{borderRadius: 0, backgroundColor: '#f2f2f2'}}>
                     <Scheduler
                     data={readyData}
-                    height={660}
+                    height={1000}
                     >
                     <ViewState
                         currentDate={currentDate}
