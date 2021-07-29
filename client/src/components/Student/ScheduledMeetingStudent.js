@@ -21,7 +21,8 @@ import firebase from "firebase/app";
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
 import {useAuth } from '../contexts/AuthContext'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import {data} from '../../store/data'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,7 +155,7 @@ export default function ScheduledMeetingStudent(props) {
                         <CardActions>
                             {
                                 props.info.start > (Date.now() / 1000 | 0) &&
-                                <IconButton onClick={()=>window.open(`https://192.168.0.87/${props.info.timestamp}name${firstNameUser.current}`)}>
+                                <IconButton onClick={()=>window.open(`https://164.90.202.151/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
                             }
@@ -228,7 +229,7 @@ export default function ScheduledMeetingStudent(props) {
                             <CardHeader
                                 action={
                                     <IconButton
-                                    onClick={()=>window.open(`/board/${props.info.timestamp}$1`)}
+                                    onClick={()=>window.open(`http://localhost:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
                                     >
                                         <CreateIcon/>
                                     </IconButton>

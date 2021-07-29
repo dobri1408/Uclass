@@ -443,6 +443,7 @@ import AddIcon from '@material-ui/icons/Add';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import app from '../firebase/firebase';
 import { auth, db } from '../firebase/firebase'; 
+import{data, change} from '../../store/data'
 import firebase from "firebase/app";
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
@@ -619,7 +620,7 @@ export default function ScheduledMeeting(props) {
                         <CardActions>
                             {
                                 props.info.start > (Date.now() / 1000 | 0) &&
-                                <IconButton onClick={()=>window.open(`https://192.168.0.87/${props.info.timestamp}name${firstNameUser.current}`)}>
+                                <IconButton onClick={()=>window.open(`https://164.90.202.151/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
                             }
