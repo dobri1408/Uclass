@@ -58,15 +58,15 @@ const TimetableStudent = (props) => {
     return (
         <div>
             <NavbarStudent/>
-            <Button variant="contained" onClick={()=>console.log(data.getState())}>
+            {/* <Button variant="contained" onClick={()=>console.log(data.getState())}>
                 getState!
-            </Button>
+            </Button> */}
             {
                 readyData !== [] ?
-                <Paper style={{marginTop: 25}}>
+                <Paper style={{backgroundColor: '#f2f2f2', borderRadius: 0}}>
                     <Scheduler
                     data={readyData}
-                    height={660}
+                    height={1000}
                     >
                     <ViewState
                         currentDate={currentDate}
@@ -76,8 +76,8 @@ const TimetableStudent = (props) => {
                         startDayHour={7}
                         endDayHour={22}
                     />
-                    <Toolbar />
-                    <DateNavigator />
+                    <Toolbar/>
+                    <DateNavigator/>
                         <TodayButton/>
                     <Appointments />
                     </Scheduler>

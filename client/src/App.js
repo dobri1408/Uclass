@@ -57,8 +57,8 @@ function App() {
         <SimpleRoute path='/studentlogin' comp={LoginStudent} />  
 {/*-------------------------------------------------------------------------------------- */}
         <TeacherConnectedPrivateRoute path='/teachertimetable' comp={TeacherTimetable} /> 
-       
-  
+{/*-------------------------------------------------------------------------------------- */}
+        <StudentConnectedPrivateRoute path='/student-timetable' comp={TimetableStudent} />
 
 {/*-------------------------------------------------------------------------------------- */}
         <TeacherConnectedPrivateRoute path='/classrooms/:id' comp = {Classroom}>
