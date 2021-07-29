@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {datas} from './Data';
 import Navbar from '../../navbar'
 import Grid from '@material-ui/core/Grid';
+import Logo from '../../LOGO UCLASS ALB full.png'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions'; 
@@ -67,7 +68,7 @@ function Home() {
         <Grid container>
           <Grid item xs={4}>
             <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 200}}>
-              Uclass
+          <img src={Logo} alt = 'Uclass' height='250px' width='300px'/>
             </Typography>
 
             <Link to="slide2" smooth={true} duration={600} style={{color: 'white'}}>
@@ -234,7 +235,7 @@ function Home() {
                   </Typography>
                   <CardActionArea disableRipple className={classes.emoji} onClick={()=>history.push('/signprofesor')}>
                     <Typography style={{fontSize: 170, textAlign: 'center'}}>
-                      🏫
+                    🧑‍🏫
                     </Typography>
                   </CardActionArea>
                   <Typography style={{fontSize: 20, color: 'white', textAlign: 'center'}}>

@@ -175,7 +175,7 @@ export default function Login2() {
         <>
         <Button color="inherit" className={classes.button} onClick={handleClickOpen}>
             <Typography className={classes.typo}>
-                LOGIN
+                LOGIN AS TEACHER
             </Typography>
         </Button>
 
