@@ -68,7 +68,7 @@ return(
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>
                 <Typography style={{fontWeight: 600}}>
-                  ACASA
+                  HOME
                 </Typography>
               </Button>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>

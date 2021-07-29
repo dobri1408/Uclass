@@ -148,19 +148,19 @@ window.addEventListener('resize',showButton);
               
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/teachertimetable')}>
                 <Typography style={{fontWeight: 600}}>
-                  Orar
+                  Timetable
                 </Typography>
               </Button>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/classes')}>
                 <Typography style={{fontWeight: 600}}>
-                  Clasele Mele
+                  My classes
                 </Typography>
               </Button>
              
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/profile')}>
                 <Typography className={classes.typo}>
-                  Profil
+                  Profile
                 </Typography>
               </Button>
               

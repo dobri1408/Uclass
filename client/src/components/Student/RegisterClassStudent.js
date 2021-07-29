@@ -55,7 +55,7 @@ export default function RegisterClassStudent() {
         <div>
             <Button color="inherit" className={classes.button} onClick={handleClickOpen}>
                 <Typography style={{fontWeight: 600}}>
-                    Inregistrare clasa
+                    Register Class
                 </Typography>
             </Button>
             <Dialog

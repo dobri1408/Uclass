@@ -92,7 +92,7 @@ function NavbarProf(props) {
                 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-timetable')}>
                 <Typography className={classes.typo}>
-                  ORAR
+                  Timetable
                 </Typography>
               </Button>
 
@@ -100,13 +100,13 @@ function NavbarProf(props) {
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-classes')}>
                 <Typography className={classes.typo}>
-                  CLASELE MELE
+                  My classes
                 </Typography>
               </Button>
 
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-profile')}>
                 <Typography className={classes.typo}>
-                  Profil
+                  Profile
                 </Typography>
               </Button>
               

@@ -120,13 +120,13 @@ export default function ProfileStudent(props) {
                         Welcome, {data.getState().userData.firstName}!
                       </Typography>
                       <Typography style={{color: "white", fontSize: 30}}>
-                        first: {data.getState().userData.firstName}
+                        First Name: {data.getState().userData.firstName}
                       </Typography>
                       <Typography style={{color: "white", fontSize: 30}}>
-                        last: {data.getState().userData.lastName}
+                        Last Name: {data.getState().userData.lastName}
                       </Typography>
                       <Typography style={{color: "white", fontSize: 30}}>
-                        phone: {data.getState().userData.phone}
+                        Phone: {data.getState().userData.phone}
                       </Typography>
                       <UpdateProfileStudent setAux={setAux} aux={aux}/>
                     </CardContent>

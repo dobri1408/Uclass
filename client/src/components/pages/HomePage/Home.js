@@ -67,8 +67,8 @@ function Home() {
       <Card style={{width: '100%', backgroundColor: '#345F65', boxShadow: 'none', borderRadius: 0, height: 900}} >
         <Grid container>
           <Grid item xs={4}>
-            <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 200}}>
-          <img src={Logo} alt = 'Uclass' height='250px' width='300px'/>
+            <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 250}}>
+          <img src={Logo} alt = 'Uclass' height='240px' width='350px'/>
             </Typography>
 
             <Link to="slide2" smooth={true} duration={600} style={{color: 'white'}}>
@@ -265,7 +265,7 @@ function Home() {
                       📷 You can message us on instagram <span className={classes.link} onClick={()=>window.open('https://www.instagram.com/uclass.ro')}>@uclass.ro</span>
                     </Typography>
                     <Typography style={{color: 'white', fontSize: 30, fontWeight: 600, paddingTop: 50}}>
-                      ☁️ You can find us on facebook <span className={classes.link} onClick={()=>window.open('mailto:contact@uclass.ro')}>Uclass page</span>
+                      ☁️ You can find us on facebook <span className={classes.link} onClick={()=>window.open('https://www.facebook.com/uclass.ro')}>Uclass page</span>
                     </Typography>
                   </CardContent>
                 </Card>
