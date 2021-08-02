@@ -13,19 +13,19 @@ import { data } from '../../store/data';
 const ClassroomStudent = (props) => {
     const {state} = useLocation();
     const currentClassName = useRef('');
-    currentClassName.current = state.name;
+    
     const currentClassInfo = useRef([]);
     const currentClassHash = useRef('');
     const [titles, setTitles] = useState([])
-    const [currentButton, setCurrentButton] = useState('activity');
-
-
+    const [currentButton, setCurrentButton] = useState('activity');  
+    currentClassName.current = state.name;
     const p = () => {
         data.getState().meetingsData.forEach((element, index) => {
             if(element.className === currentClassName.current) {
                 setTitles(element.titles); 
                 currentClassInfo.current = element;
-                currentClassHash.current = data.getState().userData.meetings[index]
+                currentClassHash.current = data.getState().meetingsIDs[index]
+                console.log("muie vadim" +currentClassHash.current);
             }
         })
     }

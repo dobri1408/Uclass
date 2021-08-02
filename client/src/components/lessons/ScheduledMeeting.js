@@ -480,7 +480,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ScheduledMeeting(props) {
     const classes = useStyles();
-    const [showSave,setShowSave] = useState(false);
+
     const [expanded, setExpanded] = useState(false);
     const [meetingExpand, setMeetingExpand] = useState(false);
     const [documentsExpand, setDocumentsExpand] = useState(false);
@@ -501,13 +501,7 @@ export default function ScheduledMeeting(props) {
 // })
 //     }
 // })
-useEffect(() => {
-    var TextField = document.getElementById('about');
-    if(TextField) {
-        console.log("intru");
-        TextField.value = "get the value from firebase redux"
-    }
-},[])
+
 
     const onFileChange = async (e) => {
         const file = e.target.files[0];
@@ -579,11 +573,6 @@ useEffect(() => {
         return time;
       }
 
-const handleSave = () => {
-console.log(props.hash);
-//update in firebase / redux 
-setShowSave(false);
-}
   return (
     <>  
         
@@ -627,13 +616,7 @@ setShowSave(false);
                 {/* <Navbar/> */}
                 <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
                 <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
-                <h2>About Lesson:</h2>
-                <TextField ref = {textRef} id="about" multiline rows={5} style={{backgroundColor:"#D99152", width:"100%"}} 
-                onChange={(e) => {setShowSave(true); textRef.current = e.target.value;}}/>
-               {
-                  showSave ? <button onClick={handleSave}>Save the content</button> :<p>Saved</p>
-                }
-                
+               
                 <CardHeader
                     action={
                         <IconButton
@@ -784,10 +767,13 @@ setShowSave(false);
                 />
                 </div>
                 </Card> 
+               <h1>Your tasks:</h1>
                 {
+         
+                
                     props.classInfo.homework.length !== 0 &&
                     props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
-
+if(!element.fileName.includes('student&'))
                         return(
 
                             <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
@@ -795,9 +781,8 @@ setShowSave(false);
                                 <CardHeader
                                     action={
                                         <IconButton
-                                        // onClick={()=>window.open(`${element.link}`)}
-                                        onClick={()=>console.log(props)}
-                                        // aria-expanded={meetingExpand}
+                                         onClick={()=>window.open(`${element.link}`)}
+                                      // aria-expanded={meetingExpand}
                                         aria-label="download"
                                         >
                                             <GetAppIcon/>
@@ -812,7 +797,58 @@ setShowSave(false);
 
                     })
                 }
+                <h1>Students's Answers</h1>
+                {
+                    props.classInfo.homework.length !== 0 &&
+                    props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+if(element.fileName.includes('student')) {
+    var firstNameOfStudent = new String();
+    var lastNameOfStudent = new String();
+    var i = 0;
+     for ( ; i<element.fileName.length; i++) {
+            if(element.fileName.charAt(i)==='&')
+                break;
 
+    }
+    ++i;
+
+    for ( ; i <element.fileName.length; i++) {
+        if(element.fileName.charAt(i)==='*')
+            break;
+        firstNameOfStudent += new String(element.fileName.charAt(i));
+    }
+    ++i;
+    for ( ; i <element.fileName.length; i++) {
+        if(element.fileName.charAt(i)==='$')
+            break;
+        lastNameOfStudent += new String(element.fileName.charAt(i));
+    }
+    
+
+                        return(
+                        
+                            <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                                <div style={{padding: 25, paddingTop: 10, paddingBottom: 25}}>
+                                <CardHeader
+                                    action={
+                                        <IconButton
+                                         onClick={()=>window.open(`${element.link}`)}
+                                      // aria-expanded={meetingExpand}
+                                        aria-label="download"
+                                        >
+                                            <GetAppIcon/>
+                                        </IconButton>
+                                    }
+                                    style={{backgroundColor: '#F2C894'}}
+                                    title={firstNameOfStudent +" " + lastNameOfStudent +"'s homework"}
+                                />
+                                </div>
+                            </Card>
+                        )
+                                }
+                    })
+                
+                }
 
             </Collapse>
         }

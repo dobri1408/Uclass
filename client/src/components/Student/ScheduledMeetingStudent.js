@@ -60,10 +60,15 @@ export default function ScheduledMeetingStudent(props) {
     const firstNameUser = useRef("");
     const userId = useRef("");
     const hiddenFileInput = useRef(null);
-
+    const homeworkLink = useRef('');
+    const redux = useRef({});
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+    const handleClick = async (e) => {
+        hiddenFileInput.current.click();
+        e.preventDefault();
     };
 
     const handleMeetingExpandClick = () => {
@@ -76,13 +81,7 @@ export default function ScheduledMeetingStudent(props) {
     const handleDocumentsExpandClick = () => {
         setDocumentsExpand(!documentsExpand);
     }
-    useEffect(() => {
-        var TextField = document.getElementById('about');
-        if(TextField) {
-            console.log("intru");
-            TextField.value = "get the value from firebase redux"
-        }
-    },[])
+
     
     function addZero(i) {
         if (i < 10) {
@@ -90,6 +89,42 @@ export default function ScheduledMeetingStudent(props) {
         }
         return i;
       }
+
+    const onFileChange = async (e) => {
+        const file = e.target.files[0];
+        
+        const storageRef = app.storage().ref().child('homework')
+        const fileRef = storageRef.child(file.name)
+        redux.current = data.getState();
+
+        if(props.classInfo.homework.filter(e=>e.fileName===file.name).length===0) {
+            console.log("intru");
+            fileRef.put(file).then(() => {
+                fileRef.getDownloadURL().then(async (e) => {
+                    homeworkLink.current = e;
+                    console.log("muie" + homeworkLink.current);
+                    console.log(props.hash)
+                    db.collection('meetings').doc(props.hash).update({
+                        homework: firebase.firestore.FieldValue.arrayUnion({
+                            link: homeworkLink.current,
+                            timestamp: Date.now() / 1000 | 0,
+                            fileName: "student" +"&"+ data.getState().userData.firstName+ "*"+ data.getState().userData.lastName+ "$"+file.name,
+                            title: props.info.title
+                        })
+                    }).then(()=>{
+                        // data.change({
+
+                        // });
+                    })
+                })
+            });
+            handleExpandClick();
+            alert(`you uploaded ${file.name}`);
+        } else {
+            alert("file with this name already uploaded!")
+        }
+    }
+
     const timeConverter = (UNIX_timestamp) =>{
         var a = new Date(UNIX_timestamp * 1000);
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -144,9 +179,7 @@ export default function ScheduledMeetingStudent(props) {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 {/* <Navbar/> */}
                 <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
-                <h2>About Lesson:</h2>
-                <TextField id="about" multiline rows={5} style={{backgroundColor:"#D99152", width:"100%"}} disabled={true}/>
-           
+              
                 <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
                 <CardHeader
                     action={
@@ -285,11 +318,12 @@ export default function ScheduledMeetingStudent(props) {
                         />
                         </div>
                     }
-                </Card> 
+                </Card>   <h2>The homework:</h2>
                 {
+                  
                     props.classInfo.homework.length !== 0 &&
                     props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
-
+                        if(!element.fileName.includes("student"))
                         return(
 
                             <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
@@ -297,8 +331,7 @@ export default function ScheduledMeetingStudent(props) {
                                 <CardHeader
                                     action={
                                         <IconButton
-                                       //  onClick={()=>window.open(`${element.link}`)}
-                                        onClick={()=>console.log(props)}
+                                         onClick={()=>window.open(`${element.link}`)}
                                         // aria-expanded={meetingExpand}
                                         aria-label="download"
                                         >
@@ -314,7 +347,71 @@ export default function ScheduledMeetingStudent(props) {
 
                     })
                 }
+    <h1>Solve</h1>
+    {
+                  
+                  props.classInfo.homework.length !== 0 &&
+                  props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+                      if(element.fileName.includes("student") && element.fileName.includes(data.getState().userData.firstName) &&  element.fileName.includes(data.getState().userData.lastName)) {
+                   var nameOfMyFile = new String()
+                   var i = 0;
+                   for (; i <element.fileName.length; ++i){ 
+                    if(element.fileName.charAt(i) ==='$'){
+                        break;
+                    }
+                }
+                ++i;
+                for ( ; i < element.fileName.length; ++i){  
+                    nameOfMyFile += new String(element.fileName.charAt(i));
+                }
+                      return(
 
+                          <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                              <div style={{padding: 25, paddingTop: 10, paddingBottom: 25}}>
+                              <CardHeader
+                                  action={
+                                      <IconButton
+                                       onClick={()=>window.open(`${element.link}`)}
+                                      // aria-expanded={meetingExpand}
+                                      aria-label="download"
+                                      >
+                                          <GetAppIcon/>
+                                      </IconButton>
+                                  }
+                                  style={{backgroundColor: '#F2C894'}}
+                                  title={nameOfMyFile}
+                              />
+                              </div>
+                          </Card>
+                      )
+
+                  }})
+                  
+              }
+    <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                <CardHeader
+                    action={
+                        <form>
+                            <IconButton
+                          
+                            aria-label="add homework"
+                            onClick={(e)=>handleClick(e)}
+                            >
+                                <AddIcon/>
+                            </IconButton>
+                            <input type="file"
+                                    ref={hiddenFileInput}
+                                    style={{display:'none'}} 
+                                    onChange={(e)=>onFileChange(e)}
+                            />
+                        </form>
+                    }
+                    style={{backgroundColor: '#F2C894'}}
+                    title='Upload the homework!'
+                />
+                </div>
+                </Card> 
 
             </Collapse>
         }
