@@ -58,16 +58,24 @@ function useForceUpdate(){
   return () => setValue(value => value + 1); // update the state to force render
 }
 
-const timeConverter = (UNIX_timestamp) =>{
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var time = date + ' ' + month + ' ' + year;
-    return time;
+function addZero(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
 }
 
+const timeConverter = (UNIX_timestamp) =>{
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var h = addZero(a.getHours());
+  var m = addZero(a.getMinutes());
+  var time = date + ' '  + month + ' ' + year + ' at hour ' + h +':' + m;
+  return time;
+}
 export default function Profile(props) {
   // const forceUpdate = useForceUpdate();
   const [feed, setFeed] = useState([]);
@@ -218,7 +226,7 @@ export default function Profile(props) {
                                 <CardHeader
                                   title={
                                     <Typography style={{color: "black", textAlign: "center", fontSize: 38, backgroundColor: 'transparent'}}>
-                                      {e.title} incepe la {timeConverter(e.start)}
+                                      {e.title} start at {timeConverter(e.start)}
                                     </Typography>
                                   }
                                 />

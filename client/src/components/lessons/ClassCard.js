@@ -81,11 +81,9 @@ export default function ClassCard (props) {
                                 Subject: {props.subject}
                             </Typography>
                             <Typography style={{color: 'white', fontSize: 40, fontWeight: 600}}>
-                                Click me to go to the class!
+                               Class Code :    {data.getState().meetingsData.filter(e=>e.className===props.className)[0].code}
                             </Typography>
-                            <Typography style={{color: 'white', fontSize: 15, fontWeight: 600}}>
-                                Below you can see the students of this class
-                            </Typography>
+                          
                         </CardContent>
                     </CardActionArea>
                     </Link>
@@ -102,7 +100,7 @@ export default function ClassCard (props) {
                             </Link> */}
                             {/* <Schedule info={props}/> */}
                             <ClassCode className={props.className}/>
-                            <Students students={props.students}/>
+                          
                         </CardActions>
 
 

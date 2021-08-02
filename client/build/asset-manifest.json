@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.7de3eeb5.chunk.css",
-    "main.js": "/static/js/main.ebd317de.chunk.js",
-    "main.js.map": "/static/js/main.ebd317de.chunk.js.map",
+    "main.js": "/static/js/main.d0cd0cc3.chunk.js",
+    "main.js.map": "/static/js/main.d0cd0cc3.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.4cd3ed39.js",
     "runtime-main.js.map": "/static/js/runtime-main.4cd3ed39.js.map",
     "static/css/2.b61af87f.chunk.css": "/static/css/2.b61af87f.chunk.css",
-    "static/js/2.3a314d2e.chunk.js": "/static/js/2.3a314d2e.chunk.js",
-    "static/js/2.3a314d2e.chunk.js.map": "/static/js/2.3a314d2e.chunk.js.map",
+    "static/js/2.066d0bc3.chunk.js": "/static/js/2.066d0bc3.chunk.js",
+    "static/js/2.066d0bc3.chunk.js.map": "/static/js/2.066d0bc3.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.b61af87f.chunk.css.map": "/static/css/2.b61af87f.chunk.css.map",
     "static/css/main.7de3eeb5.chunk.css.map": "/static/css/main.7de3eeb5.chunk.css.map",
-    "static/js/2.3a314d2e.chunk.js.LICENSE.txt": "/static/js/2.3a314d2e.chunk.js.LICENSE.txt",
+    "static/js/2.066d0bc3.chunk.js.LICENSE.txt": "/static/js/2.066d0bc3.chunk.js.LICENSE.txt",
     "static/media/Documente.96abf0f5.png": "/static/media/Documente.96abf0f5.png",
     "static/media/LOGO UCLASS ALB full.9f930c61.png": "/static/media/LOGO UCLASS ALB full.9f930c61.png",
     "static/media/board.0f6c7205.png": "/static/media/board.0f6c7205.png",
@@ -32,8 +32,8 @@
   "entrypoints": [
     "static/js/runtime-main.4cd3ed39.js",
     "static/css/2.b61af87f.chunk.css",
-    "static/js/2.3a314d2e.chunk.js",
+    "static/js/2.066d0bc3.chunk.js",
     "static/css/main.7de3eeb5.chunk.css",
-    "static/js/main.ebd317de.chunk.js"
+    "static/js/main.d0cd0cc3.chunk.js"
   ]
 }

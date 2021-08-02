@@ -11,7 +11,7 @@ import SimpleRoute from './components/SimpleRoute'
 import Profile from './components/Profile';
 import Login from './components/Login';
 import UnConnectedPrivateRoute from './components/UnConnectedPrivateRoute'
-import ConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
+import ConnectedPrivateRoute from './components/ConnectedPrivateRoute';
 import TeacherConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
 import StudentConnectedPrivateRoute from './components/StudentConnectedPrivateRoute'
 import Forgot from './components/Forgot';

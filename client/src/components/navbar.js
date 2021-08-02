@@ -59,7 +59,7 @@ return(
       <div className={classes.root}>
           <AppBar position="static" style={{backgroundColor: '#2A333A', boxShadow: 'none'}}>
             <Toolbar>
-              <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu" onClick={()=>history.push('/profile')}>
+              <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu">
                 <img src={Image5}  alt="" style={{width: 100}}/>
               </IconButton>
 
