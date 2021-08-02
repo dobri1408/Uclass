@@ -60,6 +60,14 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 600,
       
     },
+    typoLeft: {
+      fontWeight: 600,
+      color: '#d99152'
+    },
+    typoRight: {
+      fontWeight: 600,
+      color: '#d99152'
+    },
     icon: {
       backgroundColor: '#345F65',
       '&:hover': {

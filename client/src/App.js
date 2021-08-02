@@ -66,12 +66,10 @@ function App() {
 {/*-------------------------------------------------------------------------------------- */}
         <StudentConnectedPrivateRoute path='/see-classrooms/:id' comp = {ClassroomStudent}>
         </StudentConnectedPrivateRoute>
-!!! doar elev !!!
 {/*-------------------------------------------------------------------------------------- */}
         <TeacherConnectedPrivateRoute path='/profile' comp = {Profile}>
        
         </TeacherConnectedPrivateRoute>
-!!! doar prof !!!
 {/*-------------------------------------------------------------------------------------- */}
         <StudentConnectedPrivateRoute path='/student-profile' comp = {ProfileStudent}>
                
@@ -95,12 +93,10 @@ function App() {
         <TeacherConnectedPrivateRoute path='/classes' comp={Class}>
          
         </TeacherConnectedPrivateRoute>
-!!! doar profesor !!!
 {/*-------------------------------------------------------------------------------------- */}
         <StudentConnectedPrivateRoute path='/student-classes' comp = {ClassesStudent}>
      
         </StudentConnectedPrivateRoute>
-!!! doar elev !!!
 {/*-------------------------------------------------------------------------------------- */}
       </Switch>
       </Router>

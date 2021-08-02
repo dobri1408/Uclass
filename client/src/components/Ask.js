@@ -7,10 +7,10 @@ function Ask()  {
     return (
         <div id='styleei'>
         <button id='esti_prof' onClick={()=>{history.push('/signprofesor')}}>
-            <h1  style={{color:"white"}}>Esti profesor?</h1>
+            <h1  style={{color:"white"}}>Teacher</h1>
         </button>
         <button id='esti_elev' onClick={()=>{history.push('/signelev')}}>
-            <h1 style={{color:"black"}}>Esti elev?</h1>
+            <h1 style={{color:"black"}}>Student</h1>
         </button>
         </div>
     )

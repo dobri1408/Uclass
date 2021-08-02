@@ -17,62 +17,6 @@ export default function StudentConnectedPrivateRoute({ comp: Component, ...rest 
   const forceUpdate = useForceUpdate();
   console.log(currentUser);
 
-// const [loading, setLoading] = useState(false)
-// useEffect(() => {
-
-//   // const timer = setTimeout(() => {
-//   //   setLoading(true);
-//   //   console.log('This will run after 1 second!')
-//   // }, 3000);
-//   // return () => clearTimeout(timer);
-
-
-//   if("userData" in data.getState()) {
-//     setLoading(true);
-//   }
-
-// }, []);
-  // if(!loading) 
-  // return (
-  //   <>
-  //     <Grid container spacing={0}>
-  //       <Grid item xs={6}>
-  //       </Grid>
-  //         <CircularProgress style={{
-  //           width: 500, 
-  //           height: 500, 
-  //           marginTop: 100, 
-  //           color: '#D99152', 
-  //           marginLeft: -250
-  //         }} onMouseMove={forceUpdate}/>
-  //       <Grid item xs={6}>
-  //       </Grid>
-  //     </Grid>
-        
-  //   </>
-  // )
-  // else
-  //   return (
-  //     <Route
-  //     {...rest}   
-  //     render={  props =>  {
-  //     if(currentUser) {
-        
-  
-  //   if( data.getState().userData.type ==='teacher')
-  
-  //     {   return( 
-  //       <Component {...props} /> )} //teacher
-  //   else 
-  //   return( <Redirect to="/student-profile" />)
-  //     }
-  //     else
-  //   ( <Redirect to="/" />)
-        
-  //   }}
-  //     ></Route>
-  //   )
-
     if("userData" in data.getState()) {
       return (
         <Route

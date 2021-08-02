@@ -16,6 +16,10 @@ import firebase from "firebase/app";
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {data, change} from '../../store/data';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import Slide from '@material-ui/core/Slide'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -40,7 +44,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value + 1); // update the state to force render
+}
+
 const NewClass = (props) => {
+  const forceUpdate = useForceUpdate();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [numbers, setNumbers] = useState([0]);
@@ -49,6 +64,7 @@ const NewClass = (props) => {
   const [students, setStudents] = useState(['']); //sent to firestore
   const [postId, setPostId] = useState('');
   const [code, setCode] = useState('');
+  const [doneOpen, setDoneOpen] = useState(false);
   const redux = useRef({});
 
   useEffect(()=>{
@@ -81,6 +97,12 @@ const NewClass = (props) => {
       meetingId: postId
     })
   }
+
+  const handleDoneClose = () => {
+    setDoneOpen(false);
+    props.setAux(props.aux+1);
+  }
+
 
   const handleDataPost = async () => {
     redux.current = data.getState();
@@ -115,8 +137,8 @@ const NewClass = (props) => {
           })
         }
         f().then(()=>{            
-          alert('The new class was added successfully!');
-          props.setAux(props.aux+1);
+          // alert('The new class was added successfully!');
+          setDoneOpen(true);
         })
     });
 
@@ -215,6 +237,37 @@ const NewClass = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
+
+
+
+      <Dialog
+            open={doneOpen}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={handleDoneClose}
+            style={{backgroundColor: 'transparent', boxShadow: 'none'}}
+        >
+          <Card style={{backgroundColor: '#2A333A', boxShadow: 'none', borderRadius: 0}}>
+            <CardContent style={{backgroundColor: '#2A333A', borderRadius: 50}}>
+              <Card style={{backgroundColor: '#d99152'}}>
+                <CardContent style={{borderRadius: 50}}>
+                
+                  <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30}}>
+                    The class was added! <span><CheckCircleIcon style={{transform: "scale(1.5)"}}/></span>
+                  </Typography>
+                    
+                </CardContent>
+              </Card>
+              <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={handleDoneClose} type='submit'>
+                <Typography style={{color: 'white', fontWeight: 600}}>
+                  GREAT!
+                </Typography>
+              </Button>
+            </CardContent>
+          </Card>
+      </Dialog>
+
+
     </div>
   );
 }

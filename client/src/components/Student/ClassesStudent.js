@@ -11,9 +11,9 @@ const ClassesStudent = () => {
     return(
         <div>
             <NavbarStudent/>
-            <Button variant="contained" onClick={()=>console.log(data.getState().meetingsData)}>
+            {/* <Button variant="contained" onClick={()=>console.log(data.getState().meetingsData)}>
                 perfectly
-            </Button>
+            </Button> */}
             <Container style={{marginTop: "auto"}}>
             <Grid container spacing={3} style={{marginTop: 25}}>
             {

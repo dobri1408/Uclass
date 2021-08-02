@@ -10,6 +10,8 @@ import { CircularProgress } from '@material-ui/core';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import IconButton from '@material-ui/core/IconButton';
 
+
+
 function useForceUpdate(){
   const [value, setValue] = useState(0); // integer state
   return () => setValue(value => value + 1); // update the state to force render
@@ -20,6 +22,8 @@ function useForceUpdate(){
 export default function Class (props)  {
   const forceUpdate = useForceUpdate();
   const [aux, setAux] = useState(0);  
+  const [open, setOpen] = useState(false);
+
 
   useEffect(()=>{
     forceUpdate();
@@ -32,12 +36,15 @@ export default function Class (props)  {
         <NavbarProf classes={{title: `Welcome, ${data.getState().userData.firstName}`}} aux={aux} setAux={setAux} />:
         <NavbarProf classes={{title: 'Welcome!'}} aux={aux} setAux={setAux} />
       }
-      <IconButton onClick={()=>forceUpdate()} style={{marginTop: 10, marginLeft: 10}}>
+      {/* <IconButton onClick={()=>forceUpdate()} style={{marginTop: 10, marginLeft: 10}}>
         <RefreshIcon style={{transform:'scale(1.5)'}}/>
       </IconButton>
+
+
       <Button variant="contained" onClick={()=>console.log(data.getState())}>
-        get state
-      </Button>
+        open data.getState() 
+      </Button> */}
+
       <Container style={{marginTop: "auto"}}>
       <Grid container spacing={3} style={{marginTop: 25}}>
 
@@ -53,6 +60,12 @@ export default function Class (props)  {
           )
         })
         }
+
+
+
+        
+
+
         </>:
         <>
         <Grid container spacing={0}>

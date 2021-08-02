@@ -434,9 +434,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import { green } from '@material-ui/core/colors';
+import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {useEffect} from 'react'
 import Grid from '@material-ui/core/Grid';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import AddIcon from '@material-ui/icons/Add';
@@ -447,7 +450,7 @@ import{data, change} from '../../store/data'
 import firebase from "firebase/app";
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import CreateIcon from '@material-ui/icons/Create';
-import {useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../contexts/AuthContext'
 import { useLocation } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -477,13 +480,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ScheduledMeeting(props) {
     const classes = useStyles();
+    const [showSave,setShowSave] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [meetingExpand, setMeetingExpand] = useState(false);
     const [documentsExpand, setDocumentsExpand] = useState(false);
     const [boardExpand, setBoardExpand] = useState(false);
+    const textRef = useRef("");
     const firstNameUser = useRef("");
     const userId = useRef("");
     const hiddenFileInput = useRef(null);
+    const homeworkLink = useRef('');
+    const redux = useRef({});
 //   auth.onAuthStateChanged((user) => {
 //     if(user) {
  
@@ -494,24 +501,39 @@ export default function ScheduledMeeting(props) {
 // })
 //     }
 // })
-
+useEffect(() => {
+    var TextField = document.getElementById('about');
+    if(TextField) {
+        console.log("intru");
+        TextField.value = "get the value from firebase redux"
+    }
+},[])
 
     const onFileChange = async (e) => {
         const file = e.target.files[0];
         const storageRef = app.storage().ref().child('homework')
         const fileRef = storageRef.child(file.name)
-        
+        redux.current = data.getState();
+
         if(props.classInfo.homework.filter(e=>e.fileName===file.name).length===0) {
-            await fileRef.put(file);
-            let url = await fileRef.getDownloadURL();
-            db.collection('meetings').doc(props.hash).update({
-                homework: firebase.firestore.FieldValue.arrayUnion({
-                    link: url,
-                    timestamp: Date.now() / 1000 | 0,
-                    fileName: file.name,
-                    title: props.info.title
+            fileRef.put(file).then(() => {
+                fileRef.getDownloadURL().then(async (e) => {
+                    homeworkLink.current = e;
+                    console.log(homeworkLink.current);
+                    db.collection('meetings').doc(props.hash).update({
+                        homework: firebase.firestore.FieldValue.arrayUnion({
+                            link: homeworkLink.current,
+                            timestamp: Date.now() / 1000 | 0,
+                            fileName: file.name,
+                            title: props.info.title
+                        })
+                    }).then(()=>{
+                        // data.change({
+
+                        // });
+                    })
                 })
-            })
+            });
             handleExpandClick();
             alert(`you uploaded ${file.name}`);
         } else {
@@ -549,6 +571,12 @@ export default function ScheduledMeeting(props) {
     var time = date + ' ' + month + ' ' + year;
     return time;
   }
+
+const handleSave = () => {
+console.log(props.hash);
+//update in firebase / redux 
+setShowSave(false);
+}
   return (
     <>  
         
@@ -592,6 +620,13 @@ export default function ScheduledMeeting(props) {
                 {/* <Navbar/> */}
                 <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
                 <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                <h2>About Lesson:</h2>
+                <TextField ref = {textRef} id="about" multiline rows={5} style={{backgroundColor:"#D99152", width:"100%"}} 
+                onChange={(e) => {setShowSave(true); textRef.current = e.target.value;}}/>
+               {
+                  showSave ? <button onClick={handleSave}>Save the content</button> :<p>Saved</p>
+                }
+                
                 <CardHeader
                     action={
                         <IconButton
@@ -694,7 +729,7 @@ export default function ScheduledMeeting(props) {
                             <CardHeader
                                 action={
                                     <IconButton
-                                 onClick={()=>window.open(`http://localhost:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                 onClick={()=>window.open(`http://167.71.75.209:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
                                 
                                     >
                                         <CreateIcon/>

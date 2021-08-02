@@ -9,6 +9,8 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from "@material-ui/core/TextField";
+import {useEffect} from 'react'
 import { green } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
@@ -74,7 +76,14 @@ export default function ScheduledMeetingStudent(props) {
     const handleDocumentsExpandClick = () => {
         setDocumentsExpand(!documentsExpand);
     }
-
+    useEffect(() => {
+        var TextField = document.getElementById('about');
+        if(TextField) {
+            console.log("intru");
+            TextField.value = "get the value from firebase redux"
+        }
+    },[])
+    
   const timeConverter = (UNIX_timestamp) =>{
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -126,6 +135,9 @@ export default function ScheduledMeetingStudent(props) {
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 {/* <Navbar/> */}
                 <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                <h2>About Lesson:</h2>
+                <TextField id="about" multiline rows={5} style={{backgroundColor:"#D99152", width:"100%"}} disabled={true}/>
+           
                 <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
                 <CardHeader
                     action={
@@ -276,7 +288,7 @@ export default function ScheduledMeetingStudent(props) {
                                 <CardHeader
                                     action={
                                         <IconButton
-                                        // onClick={()=>window.open(`${element.link}`)}
+                                       //  onClick={()=>window.open(`${element.link}`)}
                                         onClick={()=>console.log(props)}
                                         // aria-expanded={meetingExpand}
                                         aria-label="download"

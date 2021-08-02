@@ -4,6 +4,7 @@ import Navbar from '../../navbar'
 import Grid from '@material-ui/core/Grid';
 import Logo from '../../LOGO UCLASS ALB full.png'
 import Card from '@material-ui/core/Card';
+import MeetingImage from './meeting.png'
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions'; 
 import CardHeader from '@material-ui/core/CardHeader';
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: '50%',
     transform: 'translate(-50%)',
-    marginTop: 300,
+    marginTop: 100,
     '&:hover': {
       backgroundColor: '#024873',
     }
@@ -67,9 +68,7 @@ function Home() {
       <Card style={{width: '100%', backgroundColor: '#345F65', boxShadow: 'none', borderRadius: 0, height: 900}} >
         <Grid container>
           <Grid item xs={4}>
-            <Typography style={{color: 'white', fontSize: 100, fontWeight: 300, textAlign: 'center', marginTop: 250}}>
-          <img src={Logo} alt = 'Uclass' height='240px' width='350px'/>
-            </Typography>
+          <img src={Logo} alt = 'Uclass' style={{diplay: 'block', marginLeft: 'auto', marginRight: 'auto', transform: 'scale(0.8)', marginTop: 150}}/>
 
             <Link to="slide2" smooth={true} duration={600} style={{color: 'white'}}>
               <Button color="inherit" className={classes.button}>
@@ -106,25 +105,27 @@ function Home() {
         <ArrowUpwardIcon style={{color: 'white'}}/>
       </IconButton>
       </Link>
-      <CardContent style={{height: 550}}>
+      <CardContent style={{height: 550,width:"100wh",marginRight:"0px"}}>
         <Container>
 
         <Grid
           container
           direction="row"
-          justify="space-evenly"
-          alignItems="flex-start"
+          justify="center"
+          alignItems="center"
+          spacing="4"
+          style={{marginRight:"0px"}}
           >
           <Grid item xs={6} >
-            <Typography align='justify' style={{color: 'white', fontSize: 30, fontWeigth: 600, wordWrap: "break-word", width: 600, position: 'absolute'}}>
+            <Typography align='justify' style={{left:"10%",top: "130vh",color: 'white', fontSize: 26, fontWeigth: 600, wordWrap: "break-word", width: 600, position: 'absolute'}}>
               {datas[current].text}
             </Typography>
             <div style={{marginTop: 800}}>
 
             </div>
           </Grid>
-          <Grid item xs={6} >
-            <img src={datas[current].img} alt="https://ceva.com" style={{width: 600, float: 'right'}}/>
+          <Grid item xs={6}  style = {{marginTop:'20vh'}}>
+            <img src={datas[current].img} alt="uclass.ro" style={{width: 900, transform: 'scale(1.5)'}}/>
             <div style={{marginTop: 800}}>
               
             </div>
@@ -154,13 +155,13 @@ function Home() {
               variant={i !== current ? "default" : "outlined"}
               onClick={()=>setCurrent(prevCurrent => i)} 
               style={i === current ?
-                {marginTop: 370, marginLeft: 50, marginRight: 10, boxShadow: 'none', backgroundColor: '#D99152', borderColor: '#D99152', transform:'scale(2)'}:
-                {marginTop: 370, marginLeft: 50, marginRight: 10, boxShadow: 'none', backgroundColor: '#345F65', borderColor: '#F2C894', transform:'scale(2)'}
+                {marginTop: 320, marginLeft: 50, marginRight: 10, boxShadow: 'none', backgroundColor: '#D99152', borderColor: '#D99152', transform:'scale(2)'}:
+                {marginTop: 320, marginLeft: 50, marginRight: 10, boxShadow: 'none', backgroundColor: '#345F65', borderColor: '#F2C894', transform:'scale(2)'}
               }
 
             />)})
           }
-        <div style={{marginTop: 350, marginLeft: 1200}}>
+        <div style={{marginTop: 320, marginLeft: 1200}}>
           <IconButton 
             onClick={()=>current > 0 ? setCurrent(prevCurrent => prevCurrent - 1) : null} 
             disabled={current === 0}
@@ -256,16 +257,16 @@ function Home() {
                       Request a custom query suited for your business
                     </Typography>
                     <Typography style={{color: 'white', fontSize: 30, fontWeight: 600, paddingTop: 50}}>
-                      📧 You can send us an email <span className={classes.link} onClick={()=>window.open('mailto:contact@uclass.ro')}>contact@uclass.ro</span>
+                      📧 Send us an email <span className={classes.link} onClick={()=>window.open('mailto:contact@uclass.ro')}>contact@uclass.ro</span>
                     </Typography>
                     <Typography style={{color: 'white', fontSize: 30, fontWeight: 600, paddingTop: 50}}>
-                      ☎️ You can call us (9 AM-18 PM) <span className={classes.link} onClick={()=>console.log('phone')}>+40774777777</span>
+                      ☎️ Call us at +40748115911 / +40774630690
                     </Typography>
                     <Typography style={{color: 'white', fontSize: 30, fontWeight: 600, paddingTop: 50}}>
-                      📷 You can message us on instagram <span className={classes.link} onClick={()=>window.open('https://www.instagram.com/uclass.ro')}>@uclass.ro</span>
+                      📷 Message us on instagram <span className={classes.link} onClick={()=>window.open('https://www.instagram.com/uclass.ro')}>@uclass.ro</span>
                     </Typography>
                     <Typography style={{color: 'white', fontSize: 30, fontWeight: 600, paddingTop: 50}}>
-                      ☁️ You can find us on facebook <span className={classes.link} onClick={()=>window.open('https://www.facebook.com/uclass.ro')}>Uclass page</span>
+                      ☁️ Find us on facebook <span className={classes.link} onClick={()=>window.open('https://www.facebook.com/uclass.ro')}>Uclass page</span>
                     </Typography>
                   </CardContent>
                 </Card>

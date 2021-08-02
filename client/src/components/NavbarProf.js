@@ -106,7 +106,7 @@ window.addEventListener('resize',showButton);
               {
                 props.feed !== undefined &&
                 <>
-                  <NewMeeting info={{className: props.feed.title}} />
+                  <NewMeeting info={{className: props.feed.title}} aux2={props.aux2} setAux2={props.setAux2}/>
                   <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
                       title={
@@ -124,7 +124,7 @@ window.addEventListener('resize',showButton);
               {
                 props.classes !== undefined &&
                 <>
-                  <NewClass aux={props.aux} setAux={props.setAux}/>
+                  <NewClass aux={props.aux} setAux={props.setAux} />
                   <Card style={{backgroundColor: '#2A333A', flexGrow: 1, marginRight: 20, marginLeft: 20, boxShadow: 'none', borderRadius: 50}}>
                     <CardHeader
                       title={
