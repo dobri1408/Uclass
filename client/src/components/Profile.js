@@ -73,7 +73,7 @@ const timeConverter = (UNIX_timestamp) =>{
   var date = a.getDate();
   var h = addZero(a.getHours());
   var m = addZero(a.getMinutes());
-  var time = date + ' '  + month + ' ' + year + ' at hour ' + h +':' + m;
+  var time = date + ' '  + month + ' ' + year + ' at ' + h +':' + m;
   return time;
 }
 export default function Profile(props) {
@@ -129,8 +129,7 @@ export default function Profile(props) {
                       {
                         data.getState().userData.profilePhoto === "" ?
                         <img 
-                          src={"https://firebasestorage.googleapis.com/v0/b/azur-development.appspot.com/o/profile%2Fno_user.svg?alt=media&token=70c6376d-7603-4d19-8d14-363a25aef391"} 
-                          alt={""}
+                           alt={""}
                           style={{
                             borderRadius: '50%',
                             width: 300,

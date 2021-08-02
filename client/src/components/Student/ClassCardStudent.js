@@ -80,16 +80,12 @@ export default function ClassCard (props) {
                             <Typography style={{color: 'white', fontSize: 20, fontWeight: 600}}>
                                 Subject: {props.subject}
                             </Typography>
-                            <Typography style={{color: 'white', fontSize: 40, fontWeight: 600}}>
-                                Click me to go to the class!
-                            </Typography>
+                          
                         </CardContent>
                     </CardActionArea>
                     </Link>
                         <CardActions style={{backgroundColor: '#345F65'}}>
-                            <IconButton onClick={()=>alert('o sa dispar de aici!')}>
-                                <AcUnitIcon style={{color: "white"}}/>
-                            </IconButton>
+                           
                         </CardActions>
 
 

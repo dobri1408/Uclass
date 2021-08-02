@@ -1,6 +1,7 @@
 import React, {useState,forwardRef, useEffect, useRef} from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import {useHistory } from 'react-router-dom';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -79,6 +80,7 @@ export default function NewMeeting (props) {
     const currentClassHash = useRef('')
     const firebaseData = useRef([]);
     const redux = useRef({});
+    const history = useHistory();
     const changedMeetingsData = useRef([]);
     useEffect(()=>{
         const getHash = () => {
@@ -173,6 +175,7 @@ export default function NewMeeting (props) {
     const handleReadyClose = () => {
       setReadyOpen(false);
       props.setAux2(props.aux2+1);
+      history.go(0);
       // something to cause a rerender!
     }
 
@@ -183,7 +186,7 @@ export default function NewMeeting (props) {
             </IconButton> */}
             <Button color="inherit" className={classes2.button} onClick={handleClickOpen}>
                 <Typography className={classes2.typo}>
-                    new meeting
+                   new lesson
                 </Typography>
             </Button>
             <Dialog

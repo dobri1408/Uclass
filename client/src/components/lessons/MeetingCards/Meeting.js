@@ -22,7 +22,7 @@ const Message = ({info}) => {
         var min = a.getMinutes();
         var sec = a.getSeconds();
         // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        var time = date + ' ' + month + ' ' + year + ' ' + 'at ' + ':' + min + ':' + sec ;
         return time;
       }
       const timeConverter2 = (UNIX_timestamp) =>{

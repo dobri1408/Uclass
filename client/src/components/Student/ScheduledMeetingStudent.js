@@ -98,7 +98,7 @@ export default function ScheduledMeetingStudent(props) {
         redux.current = data.getState();
 
         if(props.classInfo.homework.filter(e=>e.fileName===file.name).length===0) {
-            console.log("intru");
+      
             fileRef.put(file).then(() => {
                 fileRef.getDownloadURL().then(async (e) => {
                     homeworkLink.current = e;
@@ -133,7 +133,7 @@ export default function ScheduledMeetingStudent(props) {
         var date = a.getDate();
         var h = addZero(a.getHours());
         var m = addZero(a.getMinutes());
-        var time = date + ' '  + month + ' ' + year + ' at hour ' + h +':' + m;
+        var time = date + ' '  + month + ' ' + year + ' at ' + h +':' + m;
         return time;
       }
 

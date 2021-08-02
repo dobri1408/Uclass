@@ -37,12 +37,7 @@ const ClassroomStudent = (props) => {
     return(
         <div>
             <NavbarStudent/>
-            <h1>
-                sallut
-            </h1>
-            <Button variant="contained" onClick={()=>console.log(state)}>
-                click me!
-            </Button>
+          
 
             <Grid container style={{marginTop:30}}>
                 <Grid item xs={1}>

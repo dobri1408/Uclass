@@ -96,8 +96,7 @@ export default function ProfileStudent(props) {
                       {
                         data.getState().userData.profilePhoto === "" ?
                         <img 
-                          src={"https://firebasestorage.googleapis.com/v0/b/azur-development.appspot.com/o/profile%2Fno_user.svg?alt=media&token=70c6376d-7603-4d19-8d14-363a25aef391"} 
-                          alt={""}
+                              alt={"No Photo"}
                           style={{
                             borderRadius: '50%',
                             width: 300,

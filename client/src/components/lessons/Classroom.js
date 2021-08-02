@@ -43,14 +43,16 @@ export default function Classroom (props) {
     useEffect((state, meetingsData, userData)=>{
         p();
     },[]);
+    useEffect(() => {
+        console.log("fdfdnjk");
+        forceUpdate();p();forceUpdate()
+    },[props.aux2])
 
 
     return (
         <>
             <NavbarProf feed={{title: state.name}} change={setTitles} aux2={aux2} setAux2={setAux2} />
-            <IconButton onClick={()=>{forceUpdate();p();forceUpdate()}} style={{marginTop: 10, marginLeft: 10}}>
-                <RefreshIcon style={{transform:'scale(1.5)'}}/>
-            </IconButton>
+          
             {/* <Button variant="contained" onClick={()=>console.log(data.getState())}>
                 click !
             </Button>
@@ -79,9 +81,12 @@ export default function Classroom (props) {
                                     />)
                                 }):
                                 <Grid container>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={4}>
                                     </Grid>
-                                        <CircularProgress style={{marginTop: 25, marginBottom: 25, color: '#D99152'}}/>
+                                    <div style={{diplay:'flex',alignItems: 'center', justifyContent: 'center'}}>
+                                 <h1 style ={{color: 'white'}}>There is no lesson created for this class </h1>
+                           
+                                   </div>
                                     <Grid item xs={6}>
                                     </Grid>
                                 </Grid>
