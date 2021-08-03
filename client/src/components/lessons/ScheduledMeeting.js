@@ -649,7 +649,7 @@ export default function ScheduledMeeting(props) {
                         <CardActions>
                             {
                                 props.info.start > (Date.now() / 1000 | 0) &&
-                                <IconButton onClick={()=>window.open(`https://164.90.202.151/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
+                                <IconButton onClick={()=>window.open(`https://meeting.uclass.ro/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
                             }
@@ -723,7 +723,7 @@ export default function ScheduledMeeting(props) {
                             <CardHeader
                                 action={
                                     <IconButton
-                                 onClick={()=>window.open(`http://167.71.75.209:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                 onClick={()=>window.open(`http://whiteboard.uclass.ro/whiteboard?roomId=${props.info.timestamp}$1`)}
                                 
                                     >
                                         <CreateIcon/>

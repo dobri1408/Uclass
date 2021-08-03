@@ -188,50 +188,10 @@ const NewClass = (props) => {
             type="email"
             fullWidth
           />
-          {
-            numbers.map((element, index)=>{
-              if(element !== numbers.length-1) {
-                return(
-                  <TextField
-                    id={element}
-                    margin="dense"
-                    label={`Student ${element+1}`}
-                    type="email"
-                    // value={students[index]}
-                    onChange={e => setStudents(prevStudents => [...students.slice(0,index),e.target.value,...students.slice(index+1,students.length)])}
-                    fullWidth
-                  />
-                )
-              }
-              else {
-                return(
-                  <TextField
-                    id={element}
-                    margin="dense"
-                    label={`Student ${element+1}`}
-                    type="email"
-                    onChange={e => setStudents(prevStudents => [...students.slice(0,index),e.target.value,...students.slice(index+1,students.length)])}
-                    fullWidth
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment>
-                          <IconButton onClick={()=>index !==0 ? changeOnDelete() : alert('A class must have at least a student!')}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                )
-              }
-
-            })
-          }
+         
         </DialogContent>
         <DialogActions>
-          <Button color="primary" variant="contained" onClick={()=>{setNumbers(prevNumbers=>[...prevNumbers,prevNumbers[prevNumbers.length-1]+1]); setStudents(prevStudents=>[...prevStudents,''])}}>
-            Add a new student
-          </Button>
+         
           <Button onClick={async ()=>{await handleDataPost()}} color="primary" variant="contained">
             Add
           </Button>

@@ -103,7 +103,9 @@ db.collection('meetings').onSnapshot(snapshot => {
           
     })
 })*/
+useEffect( () => {
     
+},[])    
     function addZero(i) {
         if (i < 10) {
           i = "0" + i;
@@ -229,7 +231,7 @@ db.collection('meetings').onSnapshot(snapshot => {
                         <CardActions>
                             {
                                 props.info.start > (Date.now() / 1000 | 0) &&
-                                <IconButton onClick={()=>window.open(`https://164.90.202.151/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
+                                <IconButton onClick={()=>window.open(`https://meeting.uclass.ro/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
                             }
@@ -303,7 +305,7 @@ db.collection('meetings').onSnapshot(snapshot => {
                             <CardHeader
                                 action={
                                     <IconButton
-                                    onClick={()=>window.open(`http://localhost:5000/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                    onClick={()=>window.open(`http://whiteboard.uclass.ro/whiteboard?roomId=${props.info.timestamp}$1`)}
                                     >
                                         <CreateIcon/>
                                     </IconButton>
