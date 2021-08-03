@@ -25,7 +25,7 @@ const ClassroomStudent = (props) => {
                 setTitles(element.titles); 
                 currentClassInfo.current = element;
                 currentClassHash.current = data.getState().meetingsIDs[index]
-                console.log("muie vadim" +currentClassHash.current);
+               
             }
         })
     }
