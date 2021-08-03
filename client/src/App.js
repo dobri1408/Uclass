@@ -16,6 +16,7 @@ import TeacherConnectedPrivateRoute from './components/TeacherConnectedPrivateRo
 import StudentConnectedPrivateRoute from './components/StudentConnectedPrivateRoute'
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
+import Phone from './components/Phone'
 import { Provider } from 'react-redux';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
@@ -38,10 +39,13 @@ import ClassesStudent from './components/Student/ClassesStudent.js';
 import ClassroomStudent from './components/Student/ClassroomStudent.js';
 import TimetableStudent from './components/Student/TimetableStudent.js';
 
+import {BrowserView, MobileView} from 'react-device-detect';
 
 function App() {
 
   return (
+        <>
+         <BrowserView>
 <Provider store={store}>
         <PersistGate persistor={persistor}>
       <AuthProvider>
@@ -49,6 +53,7 @@ function App() {
       <Switch>
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/' exact comp={Home} />
+   
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/signprofesor' comp={SignUpProf} />  
 {/*-------------------------------------------------------------------------------------- */}
@@ -103,6 +108,11 @@ function App() {
       </AuthProvider>
         </PersistGate>
     </Provider>
+    </BrowserView>
+    <MobileView>
+            <Phone/>
+    </MobileView>
+    </>
   );
 }
 
