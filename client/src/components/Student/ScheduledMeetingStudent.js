@@ -56,6 +56,7 @@ export default function ScheduledMeetingStudent(props) {
     const [expanded, setExpanded] = useState(false);
     const [meetingExpand, setMeetingExpand] = useState(false);
     const [documentsExpand, setDocumentsExpand] = useState(false);
+
     const [boardExpand, setBoardExpand] = useState(false);
     const firstNameUser = useRef("");
     const userId = useRef("");
@@ -82,7 +83,26 @@ export default function ScheduledMeetingStudent(props) {
     const handleDocumentsExpandClick = () => {
         setDocumentsExpand(!documentsExpand);
     }
+    console.log(props.classInfo.className);
+//Get the homework from the teacher when added without disconnected
+/*
+db.collection('meetings').onSnapshot(snapshot => {
+    let changes = snapshot.docChanges();
+    changes.forEach(change => {
+        if( change.doc.data().className=== props.classInfo.className) {
+           console.log( change.doc.data());
+           for ( var i = 0; i < change.doc.data().homework.length;++i) {
+            if(homeworks.filter(e=>e.fileName===change.doc.data().homework[i].fileName).length===0){
+                console.log(change.doc.data().homework[i].fileName)
+                setHomeworks(oldArray => [...oldArray, {title:change.doc.data().homework[i].title, fileName: change.doc.data().homework[i].fileName,link:change.doc.data().homework[i].fileName}]);
 
+      
+            }   
+        }
+        };
+          
+    })
+})*/
     
     function addZero(i) {
         if (i < 10) {
@@ -103,9 +123,7 @@ export default function ScheduledMeetingStudent(props) {
             fileRef.put(file).then(() => {
                 fileRef.getDownloadURL().then(async (e) => {
                     homeworkLink.current = e;
-                    console.log("muie" + homeworkLink.current);
-                    console.log(props.hash)
-                    db.collection('meetings').doc(props.hash).update({
+                      db.collection('meetings').doc(props.hash).update({
                         homework: firebase.firestore.FieldValue.arrayUnion({
                             link: homeworkLink.current,
                             timestamp: Date.now() / 1000 | 0,
