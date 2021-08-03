@@ -434,6 +434,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
+import { useHistory } from 'react-router-dom';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
 import { green } from '@material-ui/core/colors';
@@ -491,6 +492,8 @@ export default function ScheduledMeeting(props) {
     const hiddenFileInput = useRef(null);
     const homeworkLink = useRef('');
     const redux = useRef({});
+    const history = useHistory();
+  const [homeworks, setHomeworks] = useState(props.classInfo.homework);
 //   auth.onAuthStateChanged((user) => {
 //     if(user) {
  
@@ -523,6 +526,7 @@ export default function ScheduledMeeting(props) {
                         })
                     }).then(()=>{
                         // data.change({
+                            setHomeworks(oldArray => [...oldArray, {title:props.info.title, fileName:file.name,link:homeworkLink.current}]);
 
                         // });
                     })
@@ -771,8 +775,8 @@ export default function ScheduledMeeting(props) {
                 {
          
                 
-                    props.classInfo.homework.length !== 0 &&
-                    props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+         homeworks.length !== 0 &&
+        homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
 if(!element.fileName.includes('student&'))
                         return(
 
@@ -799,8 +803,8 @@ if(!element.fileName.includes('student&'))
                 }
                 <h1>Students's Answers</h1>
                 {
-                    props.classInfo.homework.length !== 0 &&
-                    props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+                   homeworks.length !== 0 &&
+                   homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
 if(element.fileName.includes('student')) {
     var firstNameOfStudent = new String();
     var lastNameOfStudent = new String();

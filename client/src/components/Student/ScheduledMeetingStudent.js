@@ -62,7 +62,8 @@ export default function ScheduledMeetingStudent(props) {
     const hiddenFileInput = useRef(null);
     const homeworkLink = useRef('');
     const redux = useRef({});
-
+    const [homeworks, setHomeworks] = useState(props.classInfo.homework);
+  
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -113,6 +114,7 @@ export default function ScheduledMeetingStudent(props) {
                         })
                     }).then(()=>{
                         // data.change({
+                            setHomeworks(oldArray => [...oldArray, {title:props.info.title, fileName: "student" +"&"+ data.getState().userData.firstName+ "*"+ data.getState().userData.lastName+ "$"+file.name,link:homeworkLink.current}]);
 
                         // });
                     })
@@ -321,8 +323,8 @@ export default function ScheduledMeetingStudent(props) {
                 </Card>   <h2>The homework:</h2>
                 {
                   
-                    props.classInfo.homework.length !== 0 &&
-                    props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+                  homeworks.length !== 0 &&
+                  homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
                         if(!element.fileName.includes("student"))
                         return(
 
@@ -350,8 +352,8 @@ export default function ScheduledMeetingStudent(props) {
     <h1>Solve</h1>
     {
                   
-                  props.classInfo.homework.length !== 0 &&
-                  props.classInfo.homework.filter(element => element.title === props.info.title).map((element,index)=>{
+                  homeworks.length !== 0 &&
+                  homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
                       if(element.fileName.includes("student") && element.fileName.includes(data.getState().userData.firstName) &&  element.fileName.includes(data.getState().userData.lastName)) {
                    var nameOfMyFile = new String()
                    var i = 0;
