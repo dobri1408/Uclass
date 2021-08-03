@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { OutlinedInput } from "@material-ui/core";
+import Pdf from './Terms.pdf'
 import Checkbox from '@material-ui/core/Checkbox';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -438,7 +439,7 @@ export default function SignUpProf() {
                             <Grid container>
                                 <Grid item xs={11}>
                                     <Typography style={{fontSize: 15, marginTop: 13, fontWeight: 500, color: 'white'}}>
-                                        I agree with the terms and conditions of the page
+                                        I agree with the <a href= {Pdf} target="_blank" rel="noopener noreferrer">terms and conditions</a> of the page
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={1}>
@@ -459,8 +460,8 @@ export default function SignUpProf() {
                         <CardContent style={{backgroundColor: '#D99152'}}>
                             <Grid container>
                                 <Grid item xs={11}>
-                                    <Typography style={{fontSize: 15, marginTop: 13, fontWeight: 500, color: 'white'}}>
-                                        I want a free trial of the platform
+                                    <Typography style={{fontSize: 14, marginTop: 13, fontWeight: 500, color: 'white'}}>
+                                   Do you want to be contacted by us in order to give a review of our platform?
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={1}>
