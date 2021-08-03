@@ -641,14 +641,14 @@ export default function ScheduledMeeting(props) {
                     <Card style={{border: 'none', boxShadow: 'none', borderRadius: 0}}>
                         <CardContent>
                             {
-                                props.info.start > (Date.now() / 1000 | 0) ?
+                                props.info.end > (Date.now() / 1000 | 0) ?
                                 <h2>The meeting will take place on {timeConverter(props.info.start)}. Click the button below to go to the meeting!</h2> :
-                                <h2>The meeting took place on {timeConverter(props.info.start)}.</h2>
+                                <h2>The meeting took place on {timeConverter(props.info.start)} -  {timeConverter(props.info.start)} .</h2>
                             }
                         </CardContent>
                         <CardActions>
                             {
-                                props.info.start > (Date.now() / 1000 | 0) &&
+                                props.info.end > (Date.now() / 1000 | 0) &&
                                 <IconButton onClick={()=>window.open(`https://meeting.uclass.ro/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
