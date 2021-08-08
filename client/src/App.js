@@ -38,6 +38,9 @@ import ProfileStudent from './components/Student/ProfileStudent';
 import ClassesStudent from './components/Student/ClassesStudent.js';
 import ClassroomStudent from './components/Student/ClassroomStudent.js';
 import TimetableStudent from './components/Student/TimetableStudent.js';
+import Test from './components/Animation/Test';
+import FeedbackAndBugsStudent from './components/FeedbackAndBugsStudent';
+import FeedbackAndBugs from './components/FeedbackAndBugs';
 
 import {BrowserView, MobileView} from 'react-device-detect';
 
@@ -51,9 +54,15 @@ function App() {
       <AuthProvider>
       <Router>
       <Switch>
+      <StudentConnectedPrivateRoute path= "/feedbackandbugsstudent"  comp = {FeedbackAndBugsStudent}>
+        
+        </StudentConnectedPrivateRoute>
+        <TeacherConnectedPrivateRoute path= "/feedbackandbugs"  comp = {FeedbackAndBugs}>
+        
+        </TeacherConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/' exact comp={Home} />
-   
+        <SimpleRoute path='/test' exact comp={Test} />
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/signprofesor' comp={SignUpProf} />  
 {/*-------------------------------------------------------------------------------------- */}

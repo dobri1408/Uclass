@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
-
+import {useHistory} from 'react-router-dom';
 
 
 
@@ -43,6 +43,7 @@ function useForceUpdate(){
 
 export default function ProfileStudent(props) {
   const forceUpdate = useForceUpdate();
+  const history = useHistory();
   const [feed, setFeed] = useState([]);
   const [aux, setAux] = useState(0);
   const auxFeed = useRef([]);
@@ -96,7 +97,7 @@ export default function ProfileStudent(props) {
                       {
                         data.getState().userData.profilePhoto === "" ?
                         <img 
-                              alt={"No Photo"}
+                              alt={"No Luck :("}
                           style={{
                             borderRadius: '50%',
                             width: 300,
@@ -188,7 +189,7 @@ export default function ProfileStudent(props) {
                         feed.map(e=>{return(
                           <div>
                             <Card style={{marginTop: 20, backgroundColor: '#d99152', height: 80}}>
-                              <CardActionArea onClick={()=>alert(`/classes/${e.title}`)} disableRipple> 
+                              <CardActionArea onClick={()=>history.push('/student-classes')} disableRipple> 
                                 <CardHeader
                                   title={
                                     <Typography style={{color: "black", textAlign: "center", fontSize: 38, backgroundColor: 'transparent'}}>

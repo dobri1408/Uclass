@@ -145,7 +145,11 @@ window.addEventListener('resize',showButton);
                 </Typography>
               }
                 
-              
+                <Button color="inherit" className={classes.button} onClick={()=>history.push('/feedbackandbugs')}>
+                <Typography style={{fontWeight: 600}}>
+                  Report
+                </Typography>
+              </Button>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/teachertimetable')}>
                 <Typography style={{fontWeight: 600}}>
                   Timetable

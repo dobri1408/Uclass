@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Container from '@material-ui/core/Container';
-import {history, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +81,7 @@ export default function Profile(props) {
   const [feed, setFeed] = useState([]);
   const [aux, setAux] = useState(0);
   const auxFeed = useRef([]);
-  // const history = useHistory();
+  const history = useHistory();
   const classes = useStyles();
 
   const createReadyArray = () => {
@@ -221,7 +221,7 @@ export default function Profile(props) {
                         feed.map(e=>{return(
                           <div>
                             <Card style={{marginTop: 20, backgroundColor: '#d99152', height: 80}}>
-                              <CardActionArea onClick={()=>alert(`/classes/${e.title}`)} disableRipple> 
+                              <CardActionArea onClick={()=>history.push('/classes')} disableRipple> 
                                 <CardHeader
                                   title={
                                     <Typography style={{color: "black", textAlign: "center", fontSize: 38, backgroundColor: 'transparent'}}>

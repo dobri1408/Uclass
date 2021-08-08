@@ -27,21 +27,39 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
   },
   button: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    postion: 'fixed',
+    // paddingLeft: 20,
+    // paddingRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
-    borderRadius: 50,
-    backgroundColor: '#345F65',
-    marginRight: 10,
-    marginLeft: 10,
-    '&:hover': {
-      backgroundColor: '#2A333A',
-    }
+    borderRadius: 0,
+    backgroundColor: 'black',
+    marginRight: '1%',
+    marginLeft: '1%',
+    marginTop: 25,
+    border: '7px solid #d99152',
+    width: '18%',
+    // '&:hover': {
+    //   backgroundColor: '#d99152',
+    //   border: '7px solid white',
+    //   width: '100%',
+    //   marginRight: 0,
+    //   marginLeft: 0,
+    //   position: 'fixed',
+    //   left: 0,
+    //   top: 0,
+    //   zIndex: '200',
+    //   // width: 100,
+    //   // zIndex: 100
+    // }
   },
   typo: {
     fontWeight: 600,
-    
+    fontSize: 25,
+    color: 'white',
+    // '&:hover': {
+    //   color: 'black'
+    // }
   },
   icon: {
     backgroundColor: '#345F65',
@@ -51,31 +69,32 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
 const classes = useStyles();
 const history = useHistory();
 return(
   <>
       <div className={classes.root}>
-          <AppBar position="static" style={{backgroundColor: '#2A333A', boxShadow: 'none'}}>
-            <Toolbar>
-              <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu">
-                <img src={Image5}  alt="" style={{width: 100}}/>
-              </IconButton>
-
-                <Typography variant="h6" className={classes.title}>
-                </Typography>
-
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>
-                <Typography style={{fontWeight: 600}}>
+                <Typography className={classes.typo}>
                   HOME
                 </Typography>
               </Button>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>
-                <Typography style={{fontWeight: 600}}>
+                <Typography className={classes.typo}>
                   UCLASS BUSINESS
                 </Typography>
               </Button>
+              {/* <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>
+                <Typography className={classes.typo}>
+                  LOGIN AS TEACHER
+                </Typography>
+              </Button>
+              <Button color="inherit" className={classes.button} onClick={()=>history.push('/')}>
+                <Typography className={classes.typo}>
+                  LOGIN AS STUDENT
+                </Typography>
+              </Button> */}
               <Login2/>
               <Login2Student/>
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/ask')}>
@@ -83,10 +102,19 @@ return(
                   REGISTER
                 </Typography>
               </Button>
+          {/* <AppBar position="static" style={{backgroundColor: props.color, boxShadow: 'none'}}>
+            <Toolbar style={{marginBottom: 10, marginTop: 10}}>
+              <IconButton edge="start" disableRipple style={{ backgroundColor: 'transparent' }} className={classes.menuButton} color="inherit" aria-label="menu">
+                <img src={Image5}  alt="" style={{width: 100}}/>
+              </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                </Typography>
+                
+
  
 
             </Toolbar>
-          </AppBar>
+          </AppBar> */}
         </div>
     </>
   )

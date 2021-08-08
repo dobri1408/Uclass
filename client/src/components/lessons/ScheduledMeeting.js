@@ -573,7 +573,7 @@ export default function ScheduledMeeting(props) {
         var date = a.getDate();
         var h = addZero(a.getHours());
         var m = addZero(a.getMinutes());
-        var time = date + ' '  + month + ' ' + year + ' at hour ' + h +':' + m;
+        var time = date + ' '  + month + ' ' + year + ' at ' + h +':' + m;
         return time;
       }
 
@@ -641,14 +641,14 @@ export default function ScheduledMeeting(props) {
                     <Card style={{border: 'none', boxShadow: 'none', borderRadius: 0}}>
                         <CardContent>
                             {
-                                props.info.end > (Date.now() / 1000 | 0) ?
+                                props.info.end+3600 > (Date.now() / 1000 | 0) ?
                                 <h2>The meeting will take place on {timeConverter(props.info.start)}. Click the button below to go to the meeting!</h2> :
-                                <h2>The meeting took place on {timeConverter(props.info.start)} -  {timeConverter(props.info.start)} .</h2>
+                                <h2>The meeting took place between {timeConverter(props.info.start)} and  {timeConverter(props.info.end)}.</h2>
                             }
                         </CardContent>
                         <CardActions>
                             {
-                                props.info.end > (Date.now() / 1000 | 0) &&
+                                props.info.end+3600 > (Date.now() / 1000 | 0) &&
                                 <IconButton onClick={()=>window.open(`https://meeting.uclass.ro/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
@@ -684,7 +684,8 @@ export default function ScheduledMeeting(props) {
                         <CardHeader
                             action={
                                 <IconButton
-                                onClick={()=>window.open(`/documents/${props.info.timestamp}`)}
+                                // onClick={()=>window.open(`/documents/${props.info.timestamp}`)}
+                                onClick={()=>window.open(`https://docs.uclass.ro/documents/${props.info.timestamp}`)}
                                 >
                                     <AssignmentIcon/>
                                 </IconButton>
@@ -723,7 +724,7 @@ export default function ScheduledMeeting(props) {
                             <CardHeader
                                 action={
                                     <IconButton
-                                 onClick={()=>window.open(`http://whiteboard.uclass.ro/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                 onClick={()=>window.open(`https://board.uclass.ro/whiteboard?roomId=${props.info.timestamp}`)}
                                 
                                     >
                                         <CreateIcon/>
@@ -770,14 +771,22 @@ export default function ScheduledMeeting(props) {
                     title='Add a new file as homework!'
                 />
                 </div>
+                
                 </Card> 
-               <h1>Your tasks:</h1>
+                <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                <CardHeader
+                    style={{backgroundColor: '#d99152'}}
+                    title='Homework added'
+                />
+                </div>
+                </Card> 
                 {
          
                 
          homeworks.length !== 0 &&
         homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
-if(!element.fileName.includes('student&'))
+        if(!element.fileName.includes('student&'))
                         return(
 
                             <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
@@ -801,7 +810,14 @@ if(!element.fileName.includes('student&'))
 
                     })
                 }
-                <h1>Students's Answers</h1>
+                <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                <CardHeader
+                    style={{backgroundColor: '#d99152'}}
+                    title={`Solutions uploaded by students`}
+                />
+                </div>
+                </Card> 
                 {
                    homeworks.length !== 0 &&
                    homeworks.filter(element => element.title === props.info.title).map((element,index)=>{

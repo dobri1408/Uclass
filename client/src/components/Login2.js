@@ -44,21 +44,39 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 400,
     },
     button: {
+      postion: 'fixed',
       paddingLeft: 20,
       paddingRight: 20,
       paddingTop: 10,
       paddingBottom: 10,
-      borderRadius: 50,
-      backgroundColor: '#345F65',
-      marginRight: 10,
-      marginLeft: 10,
-      '&:hover': {
-        backgroundColor: '#2A333A',
-      }
+      borderRadius: 0,
+      backgroundColor: 'black',
+      marginRight: '1%',
+      marginLeft: '1%',
+      marginTop: 25,
+      border: '7px solid #d99152',
+      width: '18%',
+      // '&:hover': {
+      //   backgroundColor: '#d99152',
+      //   border: '7px solid white',
+      //   width: '100%',
+      //   marginRight: 0,
+      //   marginLeft: 0,
+      //   position: 'fixed',
+      //   left: 0,
+      //   top: 0,
+      //   zIndex: '200',
+      //   // width: 100,
+      //   // zIndex: 100
+      // }
     },
     typo: {
       fontWeight: 600,
-      
+      fontSize: 25,
+      color: 'white',
+      // '&:hover': {
+      //   color: 'black'
+      // }
     },
     typoLeft: {
       fontWeight: 600,
@@ -181,7 +199,7 @@ export default function Login2() {
 
     return (
         <>
-        <Button color="inherit" className={classes.button} onClick={handleClickOpen}>
+        <Button className={classes.button} onClick={handleClickOpen}>
             <Typography className={classes.typo}>
                 LOGIN AS TEACHER
             </Typography>

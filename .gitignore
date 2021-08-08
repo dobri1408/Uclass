@@ -1,8 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /client/node_modules
 /fileUpload/node_modules
 /serverBoard/node_modules
 /serverDocs/node_modules
 /serverMeeting/node_modules
+# builds
+/client/build
