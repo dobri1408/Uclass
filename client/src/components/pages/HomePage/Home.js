@@ -125,7 +125,7 @@ function Home() {
             </div>
           </Grid>
           <Grid item xs={6}  style = {{marginTop:'20vh'}}>
-            <img src={datas[current].img} alt="uclass.ro" style={{width: 900, transform: 'scale(1.5)'}}/>
+            <img src={datas[current].img} alt="uclass.ro" style={{width: 900, transform: 'scale(1)'}}/>
             <div style={{marginTop: 800}}>
               
             </div>

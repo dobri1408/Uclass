@@ -30,20 +30,17 @@ const ClassesStudent = () => {
                     }
                 </>:
                 <>
-                    <Grid container spacing={0}>
-                        <Grid item xs={6}>
-                        </Grid>
-
-                        <CircularProgress style={{
-                            width: 500, 
-                            height: 500, 
-                            marginTop: 100, 
-                            color: '#D99152', 
-                            marginLeft: -250
-                        }}/>
-                        <Grid item xs={6}>
-                        </Grid>
-                    </Grid>  
+                     <Grid container>
+                                    <Grid item xs={4}>
+                                    </Grid>
+                                    <div style={{diplay:'flex',alignItems: 'center', justifyContent: 'center'}}>
+                                 <h1 style ={{color: 'white'}}>There is no lesson created for this class </h1>
+                           
+                                   </div>
+                                    <Grid item xs={6}>
+                                    </Grid>
+                                </Grid>
+               
                 </>
             }
             </Grid>

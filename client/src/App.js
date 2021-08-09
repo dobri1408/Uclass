@@ -9,7 +9,10 @@ import SignUpElev from './components/SignUpElev';
 import { AuthProvider } from './components/contexts/AuthContext';
 import SimpleRoute from './components/SimpleRoute'
 import Profile from './components/Profile';
+import CreateTest from './components/tests/CreateTest';
 import Login from './components/Login';
+        import FeedbackAndBugsStudent from './components/FeedbackAndBugsStudent';
+        import FeedbackAndBugs from './components/FeedbackAndBugs';
 import UnConnectedPrivateRoute from './components/UnConnectedPrivateRoute'
 import ConnectedPrivateRoute from './components/ConnectedPrivateRoute';
 import TeacherConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
@@ -17,6 +20,7 @@ import StudentConnectedPrivateRoute from './components/StudentConnectedPrivateRo
 import Forgot from './components/Forgot';
 import UpdateProfile from './components/UpdateProfile';
 import Phone from './components/Phone'
+import TypeOfTest from './components/tests/TypeOfTest';
 import { Provider } from 'react-redux';
 import FileUpload from './components/fileupload';
 import TextEditor from './components/texteditor';
@@ -80,9 +84,28 @@ function App() {
                
         </StudentConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
+
         <ConnectedPrivateRoute path= "/documents/:id"  comp = {TextEditor}>
         
         </ConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+
+
+<TeacherConnectedPrivateRoute path= "/feedbackandbugs"  comp = {FeedbackAndBugs}>
+        
+        </TeacherConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+/*-------------------------------------------------------------------------------------- */}
+
+
+<StudentConnectedPrivateRoute path= "/feedbackandbugsstudent"  comp = {FeedbackAndBugsStudent}>
+        
+        </StudentConnectedPrivateRoute>
+{/*-------------------------------------------------------------------------------------- */}
+<TeacherConnectedPrivateRoute path='/typeoftest' comp = {TypeOfTest}>
+       
+       </TeacherConnectedPrivateRoute>
+
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/login' comp = {Login}>
      

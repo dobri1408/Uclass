@@ -6,3 +6,4 @@
 /serverBoard/node_modules
 /serverDocs/node_modules
 /serverMeeting/node_modules
+/client/build

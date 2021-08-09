@@ -90,6 +90,11 @@ function NavbarProf(props) {
               <Typography variant="h6" className={classes.title}>
               </Typography>
                 
+              <Button color="inherit" className={classes.button} onClick={()=>history.push('/feedbackandbugsstudent')}>
+                <Typography className={classes.typo}>
+                  REPORT
+                </Typography>
+              </Button>  
               <Button color="inherit" className={classes.button} onClick={()=>history.push('/student-timetable')}>
                 <Typography className={classes.typo}>
                   Timetable
