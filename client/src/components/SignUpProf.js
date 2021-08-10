@@ -19,6 +19,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { useAuth } from '../components/contexts/AuthContext';
 import { db, storage, auth } from './firebase/firebase';
+import Test from './Animation/Test';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   typoRight: {
@@ -63,7 +66,7 @@ export default function SignUpProf() {
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [final, setFinal] = useState(false)
-    
+    const [page, setPage] = useState(1);
     // const history = useHistory()
 
 
@@ -208,286 +211,311 @@ export default function SignUpProf() {
 
     return (
         <>
-            {/* {   
-                uid.current.length !==0 ? (
-                    handleClickFinish()
-                    // history.push('/profile')
-                ) : null
-            } */}
-            <Snackbar 
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={openTick} 
-                autoHideDuration={3000} 
-                onClose={handleCloseTick}
-            >
-                <Alert onClose={handleCloseTick} severity="error">
-                    <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
-                        You must agree to our terms in order to register!
-                    </Typography>
-                </Alert>
-            </Snackbar>
-            <Snackbar 
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={openPassword} 
-                autoHideDuration={3000} 
-                onClose={handleClosePassword}
-            >
-                <Alert onClose={handleClosePassword} severity="error">
-                    <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
-                        Passwords do not match!
-                    </Typography>
-                </Alert>
-            </Snackbar>
+            <Test/>
+                <Snackbar 
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={openTick} 
+                    autoHideDuration={3000} 
+                    onClose={handleCloseTick}
+                >
+                    <Alert onClose={handleCloseTick} severity="error">
+                        <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
+                            You must agree to our terms in order to register!
+                        </Typography>
+                    </Alert>
+                </Snackbar>
+                <Snackbar 
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={openPassword} 
+                    autoHideDuration={3000} 
+                    onClose={handleClosePassword}
+                >
+                    <Alert onClose={handleClosePassword} severity="error">
+                        <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
+                            Passwords do not match!
+                        </Typography>
+                    </Alert>
+                </Snackbar>
 
-            <Snackbar 
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={openFields} 
-                autoHideDuration={3000} 
-                onClose={handleCloseFields}
-            >
-                <Alert onClose={handleCloseFields} severity="info">
-                    <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
-                        Please complete all fields!
-                    </Typography>
-                </Alert>
-            </Snackbar>
+                <Snackbar 
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={openFields} 
+                    autoHideDuration={3000} 
+                    onClose={handleCloseFields}
+                >
+                    <Alert onClose={handleCloseFields} severity="info">
+                        <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
+                            Please complete all fields!
+                        </Typography>
+                    </Alert>
+                </Snackbar>
 
-            <Snackbar 
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={openPhoto} 
-                autoHideDuration={3000} 
-                onClose={handleClosePhoto}
-            >
-                <Alert onClose={handleClosePhoto} severity="info">
-                    <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
-                        Profile photo was uploaded!
-                    </Typography>
-                </Alert>
-            </Snackbar>
+                <Snackbar 
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={openPhoto} 
+                    autoHideDuration={3000} 
+                    onClose={handleClosePhoto}
+                >
+                    <Alert onClose={handleClosePhoto} severity="info">
+                        <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
+                            Profile photo was uploaded!
+                        </Typography>
+                    </Alert>
+                </Snackbar>
 
-            <Snackbar 
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                open={openFinish} 
-                autoHideDuration={3000} 
-                onClose={handleCloseFinish}
-            >
-                <Alert onClose={handleCloseFinish} severity="success">
-                    <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
-                        Profile was created successfully! Please log in!
-                    </Typography>
-                </Alert>
-            </Snackbar>
+                <Snackbar 
+                    anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={openFinish} 
+                    autoHideDuration={3000} 
+                    onClose={handleCloseFinish}
+                >
+                    <Alert onClose={handleCloseFinish} severity="success">
+                        <Typography style={{color: 'white', fontSize: '30', fontWeight: 600}}>
+                            Profile was created successfully! Please log in!
+                        </Typography>
+                    </Alert>
+                </Snackbar>
 
 
             {
-                !final &&
+            !final &&
             <Grid container>
                 <Grid item xs={4}> 
                 </Grid>
                 <Grid item xs={4}> 
-                    <Card style={{marginTop: 20}}>
-                    <CardContent style={{backgroundColor: '#2A333A'}}>
+                    <Card style={{marginTop: 70, zIndex: 200, position: 'fixed', width: 600}}>
+                    <CardContent style={{backgroundColor: '#2A333A', height: 800}}>
                         <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30, paddingBottom: 20}}>
                         Register as a teacher
                         </Typography>
                         
 
                         <form onSubmit={handleSubmit}>
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
-                                Please provide your name
-                            </Typography>
-                        </CardContent>
-                        </Card>
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-
-                        {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
-                        <TextField id="outlined-basic" label="" variant="outlined" placeholder="FIRST NAME" style={{minWidth: '100%'}} type='email' onChange={(e)=>firstName.current = e.target.value}/>
-                        </CardContent>
-                        </Card>
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-
-                        {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
-                        <TextField id="outlined-basic" label="" variant="outlined" placeholder="LAST NAME" style={{minWidth: '100%'}} type='email' onChange={(e)=>lastName.current = e.target.value}/>
-                        </CardContent>
-                        </Card>
-
-                    
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
-                                Please provide your email
-                            </Typography>
-                        </CardContent>
-                        </Card>
-
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-
-                        {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
-                        <TextField id="outlined-basic" label="" variant="outlined" placeholder="EMAIL" style={{minWidth: '100%'}} type='email' onChange={(e)=>email.current=e.target.value}/>
-                        </CardContent>
-                        </Card>
-                        
-
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
-                                Please provide your phone number
-                            </Typography>
-                        </CardContent>
-                        </Card>
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-
-                        {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
-                        <TextField id="outlined-basic" label="" variant="outlined" placeholder="PHONE NO." style={{minWidth: '100%'}} type='number' onChange={(e)=>phone.current=e.target.value}/>
-                        </CardContent>
-                        </Card>
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
-                                Please provide your password and confirm it
-                            </Typography>
-                        </CardContent>
-                        </Card>
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-                                <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={visible ? 'text' : 'password'}
-                                    placeholder='PASSWORD'
-                                    onChange={(e)=>password.current=e.target.value}
-                                    // value={values.password}
-                                    // onChange={handleChange('password')}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        // onClick={handleClickShowPassword}
-                                        // onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                        onClick={()=>setVisible(!visible)}
-                                        >
-                                        {visible ? <VisibilityOff /> : <Visibility/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                    style={{minWidth: '100%', marginTop: 20}}
-                                />
-                        </CardContent>
-                        </Card>
-
-
-
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#608BA6'}}>
-                            <OutlinedInput
-                                    id="outlined-adornment-password"
-                                    type={visible2 ? 'text' : 'password'}
-                                    placeholder='CONFIRM PASSWORD'
-                                    onChange={(e)=>confirmPassword.current=e.target.value}
-                                    // value={values.password}
-                                    // onChange={handleChange('password')}
-                                    endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                        aria-label="toggle password visibility"
-                                        // onClick={handleClickShowPassword}
-                                        // onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                        onClick={()=>setVisible2(!visible2)}
-                                        >
-                                        {visible2 ? <VisibilityOff /> : <Visibility/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                    }
-                                    style={{minWidth: '100%', marginTop: 20}}
-                                />
-                        </CardContent>
-                        </Card>
-
-                        <form>
-
-                            <Button variant="contained" style={{minWidth: '100%', marginBottom: 20, backgroundColor: '#024873'}} onClick={(e)=>handleUploadClick(e)}>
-                                <CloudUploadIcon style={{marginRight: 20, color: 'white'}}/>
-                                <Typography style={{fontWeight: 500, textAlign: 'center', color: 'white'}}>
-                                    Upload a photo!
+                        {
+                            page === 1 &&
+                            <>
+                            <Card style={{marginBottom: 20}}>
+                            <CardContent style={{backgroundColor: '#D99152'}}>
+                                <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
+                                    Please provide your name
                                 </Typography>
-                            </Button>
-                            <input type="file"
-                                ref={hiddenFileInput}
-                                style={{display:'none'}} 
-                                onChange={(e)=>onFileChange(e)}
-                            />
-                        </form>
+                            </CardContent>
+                            </Card>
+
+                            <Card style={{marginBottom: 20}}>
+                            <CardContent style={{backgroundColor: '#608BA6'}}>
+
+                            {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
+                            <TextField id="outlined-basic" label="" variant="outlined" placeholder="FIRST NAME" style={{minWidth: '100%'}} type='email' onChange={(e)=>firstName.current = e.target.value}/>
+                            </CardContent>
+                            </Card>
+
+                            <Card style={{marginBottom: 20}}>
+                            <CardContent style={{backgroundColor: '#608BA6'}}>
+
+                            {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
+                            <TextField id="outlined-basic" label="" variant="outlined" placeholder="LAST NAME" style={{minWidth: '100%'}} type='email' onChange={(e)=>lastName.current = e.target.value}/>
+                            </CardContent>
+                            </Card>
+
+                        
+                            <Card style={{marginBottom: 20}}>
+                            <CardContent style={{backgroundColor: '#D99152'}}>
+                                <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
+                                    Please provide your email
+                                </Typography>
+                            </CardContent>
+                            </Card>
+                            <Card style={{marginBottom: 20}}>
+                            <CardContent style={{backgroundColor: '#608BA6'}}>
+
+                            {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
+                            <TextField id="outlined-basic" label="" variant="outlined" placeholder="EMAIL" style={{minWidth: '100%'}} type='email' onChange={(e)=>email.current=e.target.value}/>
+                            </CardContent>
+                            </Card>
+                            <form>
+
+                                    <Button variant="contained" style={{minWidth: '100%', marginBottom: 20, backgroundColor: '#024873'}} onClick={(e)=>handleUploadClick(e)}>
+                                        <CloudUploadIcon style={{marginRight: 20, color: 'white'}}/>
+                                        <Typography style={{fontWeight: 500, textAlign: 'center', color: 'white'}}>
+                                            Upload a photo!
+                                        </Typography>
+                                    </Button>
+                                    <input type="file"
+                                        ref={hiddenFileInput}
+                                        style={{display:'none'}} 
+                                        onChange={(e)=>onFileChange(e)}
+                                    />
+                                </form>
+                            </>
+                        }
+
 
                         
 
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Grid container>
-                                <Grid item xs={11}>
-                                    <Typography style={{fontSize: 15, marginTop: 13, fontWeight: 500, color: 'white'}}>
-                                        I agree with the <a href= {Pdf} target="_blank" rel="noopener noreferrer">terms and conditions</a> of the page
+                        {
+                            page === 2 &&
+                            <>
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#D99152'}}>
+                                    <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
+                                        Please provide your phone number
                                     </Typography>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <Checkbox
-                                        checked={checked1}
-                                        onChange={()=>setChecked1(!checked1)}
-                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                        style={{marginTop: 0, color: '#024873'}}
-                                    />
-                                </Grid>
+                                </CardContent>
+                                </Card>
 
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#608BA6'}}>
 
-                            </Grid>
-                        </CardContent>
-                        </Card>
+                                {/* <TextField id="standard-basic" label="Email" style={{minWidth: '100%'}}/> */}
+                                <TextField id="outlined-basic" label="" variant="outlined" placeholder="PHONE NO." style={{minWidth: '100%'}} type='number' onChange={(e)=>phone.current=e.target.value}/>
+                                </CardContent>
+                                </Card>
 
-                        <Card style={{marginBottom: 20}}>
-                        <CardContent style={{backgroundColor: '#D99152'}}>
-                            <Grid container>
-                                <Grid item xs={11}>
-                                    <Typography style={{fontSize: 14, marginTop: 13, fontWeight: 500, color: 'white'}}>
-                                   Do you want to be contacted by us in order to give a review of our platform?
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#D99152'}}>
+                                    <Typography style={{color: 'white', fontWeight: 500, fontSize: 20, marginLeft: 20, marginTop: 5}}>
+                                        Please provide your password and confirm it
                                     </Typography>
-                                </Grid>
-                                <Grid item xs={1}>
-                                    <Checkbox
-                                        checked={checked2}
-                                        onChange={()=>setChecked2(!checked2)}
-                                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                                        style={{marginTop: 0, color: '#024873'}}
-                                    />
-                                </Grid>
+                                </CardContent>
+                                </Card>
+
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#608BA6'}}>
+                                        <OutlinedInput
+                                            id="outlined-adornment-password"
+                                            type={visible ? 'text' : 'password'}
+                                            placeholder='PASSWORD'
+                                            onChange={(e)=>password.current=e.target.value}
+                                            // value={values.password}
+                                            // onChange={handleChange('password')}
+                                            endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                aria-label="toggle password visibility"
+                                                // onClick={handleClickShowPassword}
+                                                // onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                onClick={()=>setVisible(!visible)}
+                                                >
+                                                {visible ? <VisibilityOff /> : <Visibility/>}
+                                                </IconButton>
+                                            </InputAdornment>
+                                            }
+                                            style={{minWidth: '100%', marginTop: 20}}
+                                        />
+                                </CardContent>
+                                </Card>
 
 
-                            </Grid>
-                        </CardContent>
-                        </Card>
+
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#608BA6'}}>
+                                    <OutlinedInput
+                                            id="outlined-adornment-password"
+                                            type={visible2 ? 'text' : 'password'}
+                                            placeholder='CONFIRM PASSWORD'
+                                            onChange={(e)=>confirmPassword.current=e.target.value}
+                                            // value={values.password}
+                                            // onChange={handleChange('password')}
+                                            endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                aria-label="toggle password visibility"
+                                                // onClick={handleClickShowPassword}
+                                                // onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                                onClick={()=>setVisible2(!visible2)}
+                                                >
+                                                {visible2 ? <VisibilityOff /> : <Visibility/>}
+                                                </IconButton>
+                                            </InputAdornment>
+                                            }
+                                            style={{minWidth: '100%', marginTop: 20}}
+                                        />
+                                </CardContent>
+                                </Card>
+                                
+                            </>
+                        }
+
+                        {
+                            page === 3 &&
+                            <>
+                                
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#D99152'}}>
+                                    <Grid container>
+                                        <Grid item xs={11}>
+                                            <Typography style={{fontSize: 15, marginTop: 13, fontWeight: 500, color: 'white'}}>
+                                                I agree with the <a href= {Pdf} target="_blank" rel="noopener noreferrer">terms and conditions</a> of the page
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={1}>
+                                            <Checkbox
+                                                checked={checked1}
+                                                onChange={()=>setChecked1(!checked1)}
+                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                style={{marginTop: 0, color: '#024873'}}
+                                            />
+                                        </Grid>
+
+
+                                    </Grid>
+                                </CardContent>
+                                </Card>
+
+                                <Card style={{marginBottom: 20}}>
+                                <CardContent style={{backgroundColor: '#D99152'}}>
+                                    <Grid container>
+                                        <Grid item xs={11}>
+                                            <Typography style={{fontSize: 14, marginTop: 13, fontWeight: 500, color: 'white'}}>
+                                        Do you want to be contacted by us in order to give a review of our platform?
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={1}>
+                                            <Checkbox
+                                                checked={checked2}
+                                                onChange={()=>setChecked2(!checked2)}
+                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                                style={{marginTop: 0, color: '#024873'}}
+                                            />
+                                        </Grid>
+
+
+                                    </Grid>
+                                </CardContent>
+                                </Card>
+                                
                         
-                
-                        <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={handleSubmit} type='submit'>
-                            <Typography style={{color: 'white', fontWeight: 600}}>
-                                REGISTER
-                            </Typography>
-                        </Button>
+                                <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={handleSubmit} type='submit'>
+                                    <Typography style={{color: 'white', fontWeight: 600}}>
+                                        REGISTER
+                                    </Typography>
+                                </Button>
+                            </>
+                        }
                         </form>
+
+
+
+                    </CardContent>
+                    </Card>
+
+                    <div style={{position:'fixed', zIndex: 210, marginTop: 760, marginLeft: 20}}>
+                        <div style={{
+                            marginLeft: 450,
+                        }}>
+                            <IconButton disabled={page===1} style={{backgroundColor: '#d99152'}} disableRipple onClick={()=>setPage(prevPage => prevPage-1)}>
+                                <ArrowBackIcon style={{color: page===1?"black":"white", transform: 'scale(1.5)'}}/>
+                            </IconButton>
+                            <IconButton disabled={page===3} style={{backgroundColor: '#d99152', marginLeft: 10}} disableRipple onClick={()=>setPage(prevPage => prevPage+1)}>
+                                <ArrowForwardIcon style={{color: page===3?"black":"white", transform: 'scale(1.5)'}}/>
+                            </IconButton>
+                        </div>
                         <Grid container style={{marginTop: 20}}>
                         <Grid item xs={6}>
-                            <Link to="/login" style={{ textDecoration: 'none' }}>
+                            <Link to="/" style={{ textDecoration: 'none' }}>
                             <Typography className={classes.typoLeft}>
                                 Have an account? Login!
                             </Typography>
@@ -501,10 +529,8 @@ export default function SignUpProf() {
                             </Link>
                         </Grid>
                         </Grid>
+                    </div>
 
-
-                    </CardContent>
-                    </Card>
                 </Grid>
                 <Grid item xs={4}> 
                 </Grid>
@@ -514,16 +540,16 @@ export default function SignUpProf() {
             {
                 final &&
                 <>  
-                    <Grid container>
+                    <Grid container style={{zIndex: 200, position: 'fixed', marginTop: 300}}>
                         <Grid item xs={4}>
                         </Grid>
                         <Grid item xs={4}>
                             <Card style={{marginTop: 20}}>
                                 <CardContent style={{backgroundColor: '#2A333A'}}>
                                     <Typography style={{color: 'white', fontWeight: 600, textAlign: 'center', fontSize: 30, paddingBottom: 20}}>
-                                        Go to login page!
+                                        Registered! Please log in!
                                     </Typography>
-                                    <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={()=>history.push('/login')} >
+                                    <Button variant="contained" style={{marginTop: 20, minWidth: '100%', backgroundColor: '#024873'}} onClick={()=>history.push('/')} >
                                         <Typography style={{color: 'white', fontWeight: 600}}>
                                             GO TO LOGIN PAGE
                                         </Typography>

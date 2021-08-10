@@ -60,10 +60,20 @@ const ClassroomStudent = (props) => {
                                         currentButton={currentButton}
                                     />)
                                 }):
+                                // <Grid container>
+                                //     <Grid item xs={6}>
+                                //     </Grid>
+                                //         <CircularProgress style={{marginTop: 25, marginBottom: 25, color: '#D99152'}}/>
+                                //     <Grid item xs={6}>
+                                //     </Grid>
+                                // </Grid>
                                 <Grid container>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={4}>
                                     </Grid>
-                                        <CircularProgress style={{marginTop: 25, marginBottom: 25, color: '#D99152'}}/>
+                                    <div style={{diplay:'flex',alignItems: 'center', justifyContent: 'center'}}>
+                                 <h1 style ={{color: 'white'}}>There is no lesson created for this class </h1>
+                           
+                                   </div>
                                     <Grid item xs={6}>
                                     </Grid>
                                 </Grid>

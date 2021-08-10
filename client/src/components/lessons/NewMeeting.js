@@ -82,6 +82,13 @@ export default function NewMeeting (props) {
     const redux = useRef({});
     const history = useHistory();
     const changedMeetingsData = useRef([]);
+    ///FOR GOOGLE CALENDAR API
+    var gapi = window.gapi;
+    var CLIENT_ID = '880280176490-7bfjssi7rbcq4efcsmb1pk329ll7p9nm.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyCI87V_R0KIQOOBxv_MN1CkvW2Pjc2J1N8';
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+    ///FAR GOOGLE CALENDAR API
     useEffect(()=>{
         const getHash = () => {
             // auth.onAuthStateChanged((user)=>{
@@ -132,7 +139,78 @@ export default function NewMeeting (props) {
     };
       
     const handleSchedule = async () => {
-
+      var gapi = window.gapi;
+      var CLIENT_ID = '880280176490-7bfjssi7rbcq4efcsmb1pk329ll7p9nm.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyCI87V_R0KIQOOBxv_MN1CkvW2Pjc2J1N8';   var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+      var SCOPES = "https://www.googleapis.com/auth/calendar.events";
+      gapi.load('client:auth2', () => {
+        console.log('loaded client')
+  
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES,
+        })
+  
+        gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+        console.log("DATE :"+startDate.toISOString());
+        gapi.auth2.getAuthInstance().signIn()
+        .then(() => {
+        
+          var event = {
+            'summary': `Meeting with class: ${props.info.className}`,
+            'location': 'On uclass.ro',
+            'description': `${title}`,
+            "start": {
+              "dateTime": `${startDate.toISOString()}`,
+              "timeZone": "Europe/Bucharest"
+             },
+             "end": {
+              "dateTime": `${endDate.toISOString()}`,
+              "timeZone": "Europe/Bucharest"
+             },
+            'reminders': {
+              'useDefault': false,
+              'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 10}
+              ]
+            }
+          }
+  
+          var request = gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            'resource': event,
+          })
+  
+          request.execute(event => {
+            console.log(event)
+            window.open(event.htmlLink)
+          })
+          
+  
+          /*
+              Uncomment the following block to get events
+          */
+          /*
+          // get events
+          gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime'
+          }).then(response => {
+            const events = response.result.items
+            console.log('EVENTS: ', events)
+          })
+          */
+      
+  
+        })
+      })
         if(title !== '') {
             redux.current = data.getState();
             await db.collection('meetings').doc(currentClassHash.current).update({
@@ -212,7 +290,7 @@ export default function NewMeeting (props) {
                         label="Begin at"
                         type="datetime-local"
                         onChange={(e)=>handleStartDate(e.target.value)}
-                        defaultValue="2021-07-01T00:00"
+                        defaultValue="2021-08-01T00:00"
                         className={classes2.textField}
                         InputLabelProps={{
                         shrink: true,
@@ -225,7 +303,7 @@ export default function NewMeeting (props) {
                         label="Finish at"
                         type="datetime-local"
                         onChange={(e)=>handleEndDate(e.target.value)}
-                        defaultValue="2021-07-01T00:00"
+                        defaultValue="2021-08-01T00:00"
                         className={classes2.textField}
                         InputLabelProps={{
                         shrink: true,

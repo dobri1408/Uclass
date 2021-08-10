@@ -11,8 +11,8 @@ import SimpleRoute from './components/SimpleRoute'
 import Profile from './components/Profile';
 import CreateTest from './components/tests/CreateTest';
 import Login from './components/Login';
-        import FeedbackAndBugsStudent from './components/FeedbackAndBugsStudent';
-        import FeedbackAndBugs from './components/FeedbackAndBugs';
+ 
+
 import UnConnectedPrivateRoute from './components/UnConnectedPrivateRoute'
 import ConnectedPrivateRoute from './components/ConnectedPrivateRoute';
 import TeacherConnectedPrivateRoute from './components/TeacherConnectedPrivateRoute';
@@ -42,6 +42,9 @@ import ProfileStudent from './components/Student/ProfileStudent';
 import ClassesStudent from './components/Student/ClassesStudent.js';
 import ClassroomStudent from './components/Student/ClassroomStudent.js';
 import TimetableStudent from './components/Student/TimetableStudent.js';
+import Test from './components/Animation/Test';
+import FeedbackAndBugsStudent from './components/FeedbackAndBugsStudent';
+import FeedbackAndBugs from './components/FeedbackAndBugs';
 
 import {BrowserView, MobileView} from 'react-device-detect';
 
@@ -55,9 +58,15 @@ function App() {
       <AuthProvider>
       <Router>
       <Switch>
+      <StudentConnectedPrivateRoute path= "/feedbackandbugsstudent"  comp = {FeedbackAndBugsStudent}>
+        
+        </StudentConnectedPrivateRoute>
+        <TeacherConnectedPrivateRoute path= "/feedbackandbugs"  comp = {FeedbackAndBugs}>
+        
+        </TeacherConnectedPrivateRoute>
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/' exact comp={Home} />
-   
+        <SimpleRoute path='/test' exact comp={Test} />
 {/*-------------------------------------------------------------------------------------- */}
         <SimpleRoute path='/signprofesor' comp={SignUpProf} />  
 {/*-------------------------------------------------------------------------------------- */}

@@ -1,9 +1,11 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /client/node_modules
 /fileUpload/node_modules
 /serverBoard/node_modules
 /serverDocs/node_modules
 /serverMeeting/node_modules
+<<<<<<< HEAD
+=======
+# builds
+>>>>>>> 7f7bd3d5549cf8dd7345d46499ed80b02a9e5a33
 /client/build

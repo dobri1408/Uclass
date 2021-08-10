@@ -25,6 +25,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import {useAuth } from '../contexts/AuthContext'
 import { useLocation } from 'react-router-dom';
 import {data} from '../../store/data'
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -223,14 +224,14 @@ useEffect( () => {
                 <Card style={{border: 'none', boxShadow: 'none', borderRadius: 0}}>
                         <CardContent>
                             {
-                                props.info.end > (Date.now() / 1000 | 0) ?
+                                props.info.end+3600 > (Date.now() / 1000 | 0) ?
                                 <h2>The meeting will take place on {timeConverter(props.info.start)}. Click the button below to go to the meeting!</h2> :
-                                <h2>The meeting took place on {timeConverter(props.info.start)} -  {timeConverter(props.info.start)} .</h2>
+                                <h2>The meeting took place on {timeConverter(props.info.start)} -  {timeConverter(props.info.end)} .</h2>
                             }
                         </CardContent>
                         <CardActions>
                             {
-                                props.info.end > (Date.now() / 1000 | 0) &&
+                                props.info.end+3600 > (Date.now() / 1000 | 0) &&
                                 <IconButton onClick={()=>window.open(`https://meeting.uclass.ro/${props.info.timestamp}name${data.getState().userData.firstName}`)}>
                                     <ArrowForwardIcon/>
                                 </IconButton>
@@ -266,7 +267,8 @@ useEffect( () => {
                         <CardHeader
                             action={
                                 <IconButton
-                                onClick={()=>window.open(`/documents/${props.info.timestamp}`)}
+                                // onClick={()=>window.open(`/documents/${props.info.timestamp}`)}
+                                onClick={()=>window.open(`https://docs.uclass.ro/documents/${props.info.timestamp}`)}
                                 >
                                     <AssignmentIcon/>
                                 </IconButton>
@@ -305,7 +307,7 @@ useEffect( () => {
                             <CardHeader
                                 action={
                                     <IconButton
-                                    onClick={()=>window.open(`http://whiteboard.uclass.ro/whiteboard?roomId=${props.info.timestamp}$1`)}
+                                    onClick={()=>window.open(`https://board.uclass.ro/whiteboard?roomId=${props.info.timestamp}`)}
                                     >
                                         <CreateIcon/>
                                     </IconButton>
@@ -330,6 +332,12 @@ useEffect( () => {
             props.currentButton === 'homework' &&
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                    <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                        <CardHeader
+                            style={{backgroundColor: '#d99152'}}
+                            title='Homework added by teacher'
+                        />
+                    </div>
                     {
                         props.classInfo.homework.filter(e=>e.title===props.info.title).length === 0 &&
                         // props.classInfo.homework.length === 0 &&
@@ -340,7 +348,7 @@ useEffect( () => {
                         />
                         </div>
                     }
-                </Card>   <h2>The homework:</h2>
+                </Card>   
                 {
                   
                   homeworks.length !== 0 &&
@@ -369,8 +377,40 @@ useEffect( () => {
 
                     })
                 }
-    <h1>Solve</h1>
-    {
+        <Card style={{borderRadius: 0, boxShadow: 'none', backgroundColor: '#f2f2f2'}}>
+            <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                <CardHeader
+                    style={{backgroundColor: '#d99152'}}
+                    title='Your solution'
+                    />
+            </div>
+        </Card>   
+    {/* <h1>Solve</h1> */}
+                <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
+                    <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
+                    <CardHeader
+                        action={
+                            <form>
+                                <IconButton
+                            
+                                aria-label="add homework"
+                                onClick={(e)=>handleClick(e)}
+                                >
+                                    <AddIcon/>
+                                </IconButton>
+                                <input type="file"
+                                        ref={hiddenFileInput}
+                                        style={{display:'none'}} 
+                                        onChange={(e)=>onFileChange(e)}
+                                />
+                            </form>
+                        }
+                        style={{backgroundColor: '#F2C894'}}
+                        title='Upload the homework!'
+                    />
+                    </div>
+                </Card> 
+                {
                   
                   homeworks.length !== 0 &&
                   homeworks.filter(element => element.title === props.info.title).map((element,index)=>{
@@ -389,7 +429,7 @@ useEffect( () => {
                       return(
 
                           <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
-                              <div style={{padding: 25, paddingTop: 10, paddingBottom: 25}}>
+                              <div style={{padding: 25, paddingTop: 10, paddingBottom: 15}}>
                               <CardHeader
                                   action={
                                       <IconButton
@@ -410,30 +450,7 @@ useEffect( () => {
                   }})
                   
               }
-    <Card style={{backgroundColor: '#F2F2F2', border: 'none', boxShadow: 'none', borderRadius: 0}}>
-                <div style={{padding: 25, paddingTop: 25, paddingBottom: 10}}>
-                <CardHeader
-                    action={
-                        <form>
-                            <IconButton
-                          
-                            aria-label="add homework"
-                            onClick={(e)=>handleClick(e)}
-                            >
-                                <AddIcon/>
-                            </IconButton>
-                            <input type="file"
-                                    ref={hiddenFileInput}
-                                    style={{display:'none'}} 
-                                    onChange={(e)=>onFileChange(e)}
-                            />
-                        </form>
-                    }
-                    style={{backgroundColor: '#F2C894'}}
-                    title='Upload the homework!'
-                />
-                </div>
-                </Card> 
+                
 
             </Collapse>
         }
