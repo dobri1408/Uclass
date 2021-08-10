@@ -149,11 +149,15 @@ export default function Login2() {
             db.collection('users').doc(user.uid).get().then((snap)=>{
             if(snap.exists) {
                 db.collection('meetings').get().then((s)=>{
-                data.dispatch(change({
-                    userData: snap.data(),
-                    meetingsData: s.docs.map(e=>e.data()),
-                    meetingsIDs: s.docs.map(e=>e.id)
-                }))
+                  db.collection('students').get().then((p)=>{
+                    data.dispatch(change({
+                        userData: snap.data(),
+                        meetingsData: s.docs.map(e=>e.data()),
+                        meetingsIDs: s.docs.map(e=>e.id),
+                        studentsData: p.docs.map(e=>e.data()),
+                        studentsIDs: p.docs.map(e=>e.id)
+                    }))
+                  })
                 })
             }
             

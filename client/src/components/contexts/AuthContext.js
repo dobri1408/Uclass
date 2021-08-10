@@ -53,51 +53,49 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
   }
 
-  useEffect(async () => {
-    setLoading(true);
+  useEffect(
     
+    async () => {
+    setLoading(true);
     const unsubscribe =  auth.onAuthStateChanged(user => {
-
       setCurrentUser(user);
       if(user) {
-      const email = user.email;
-      console.log(email);
-      db.collection('type').doc(email).get().then(s=>{
-        if(s.exists){
+        const email = user.email;
+        db.collection('type').doc(email).get().then(s=>{
+          if(s.exists){
           if(s.data().type==='teacher') {
-      if (user) {
- db.collection('users').doc(user.uid).get().then((snap) => {
+          if (user) {
+        db.collection('users').doc(user.uid).get().then((snap) => {
           if (snap.exists) {
             db.collection('meetings').get().then((s) => {
-              data.dispatch(change({
-                userData: snap.data(),
-                meetingsData: s.docs.map(e => e.data()),
-                meetingsIDs: s.docs.map(e_1 => e_1.id)
-              }));
+              db.collection('students').get().then((p)=>{
+                data.dispatch(change({
+                  userData: snap.data(),
+                  meetingsData: s.docs.map(e => e.data()),
+                  meetingsIDs: s.docs.map(e => e.id),
+                  studentsIDs: p.docs.map(e=>e.id),
+                  studentsData: p.docs.map(e=> e.data())
+                }));
+              })
             });
           }
-    
         });
       }
-
     }
-  else {
+    else {
     if (user) {
-      console.log("intru");
-    db.collection("students").doc(user.uid).get().then((snap)=>{
-      if(snap.exists){
-        db.collection("meetings").get().then((s)=>{
-          data.dispatch(change({
-            userData: snap.data(),
-            meetingsData: s.docs.map(e=>e.data()),
-            meetingsIDs: s.docs.map(e=>e.id)
-          }))
-        })
-      }
+      db.collection("students").doc(user.uid).get().then((snap)=>{
+        if(snap.exists){
+          db.collection("meetings").get().then((s)=>{
+            data.dispatch(change({
+              userData: snap.data(),
+              meetingsData: s.docs.map(e=>e.data()),
+              meetingsIDs: s.docs.map(e=>e.id)
+            }))
+          })
+        }
     })
-  }
-  }
-        
+    }}
     }})
   }})
     setLoading(false)

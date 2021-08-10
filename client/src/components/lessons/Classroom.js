@@ -51,14 +51,14 @@ export default function Classroom (props) {
 
     return (
         <>
-            <NavbarProf feed={{title: state.name}} change={setTitles} aux2={aux2} setAux2={setAux2} />
-          
-            {/* <Button variant="contained" onClick={()=>console.log(data.getState())}>
-                click !
+            <NavbarProf feed={{title: state.name}} change={setTitles} aux2={aux2} setAux2={setAux2} />       
+            <Button variant="contained" onClick={()=>{
+                data.getState().studentsData
+                .filter((e,i)=>currentClassInfo.current.students.includes(data.getState().studentsIDs[i]))
+                .forEach(e=>console.log(`${e.firstName}, ${e.lastName}`))
+            }}>
+                click for students in console
             </Button>
-            <Button variant="contained" onClick={()=>console.log(currentClassInfo.current)}>
-                show hash
-            </Button> */}
             <Grid container style={{marginTop:30}}>
                 <Grid item xs={1}>
                 </Grid>

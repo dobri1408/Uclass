@@ -61,7 +61,7 @@ const NewClass = (props) => {
   const [numbers, setNumbers] = useState([0]);
   const [className, setClassName] = useState(''); //sent to firestore
   const [subject, setSubject] = useState(''); //sent to firestore
-  const [students, setStudents] = useState(['']); //sent to firestore
+  const [students, setStudents] = useState([]); //sent to firestore
   const [postId, setPostId] = useState('');
   const [code, setCode] = useState('');
   const [doneOpen, setDoneOpen] = useState(false);

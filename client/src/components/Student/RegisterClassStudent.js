@@ -34,6 +34,9 @@ export default function RegisterClassStudent() {
                 auth.onAuthStateChanged((user)=>{
                     db.collection('students').doc(user.uid).update({
                         meetings: firebase.firestore.FieldValue.arrayUnion(s.data().meetingId)
+                    });
+                    db.collection('meetings').doc(s.data().meetingId).update({
+                        students: firebase.firestore.FieldValue.arrayUnion(user.uid)
                     })
                 })
                 alert("you are now enrolled!")
